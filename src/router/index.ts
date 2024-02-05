@@ -1,19 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import flexBox from '@/views/flexbox.vue'
-import login from '@/views/login.vue';
+import { Login, Home } from '@/views';
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/flexBox',
-      name: 'flexBox',
-      component: flexBox
+      path: '/home',
+      name: 'home',
+      component: Home
     },
     {
       path: '/login',
       name: 'login',
-      component: login
+      component: Login
     }
   ]
 });
