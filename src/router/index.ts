@@ -13,6 +13,10 @@ const routes = createRouter({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path:'/',
+      redirect:"/home",
     }
   ]
 });
