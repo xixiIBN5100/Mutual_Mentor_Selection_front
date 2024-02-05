@@ -1,27 +1,158 @@
 <template>
-<div class="background">
-    <div class="contain">
-        <div class="glass">
-        </div>
-    </div>
+  <div class="background">
+    <div class="bg">
+    <div class="roud1"></div>
+    <div class="roud2"></div>
+    <div class="roud3"></div>
 </div>
+  </div>
+  <div class="contain">
+    <div class="glass">
+      <div class="text">Login</div>
+      <input type="text" class="username" placeholder="username" />
+      <input type="password" class="password" placeholder="password" />
+      <button class="loginButton">Go</button>
+    </div>
+  </div>
 </template>
 
 <style>
-.background{
-    width: 100vw;
-    height: 100vh;
-    background-color: #2fee0836 ;
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000d8;
 }
-.contain{
+.contain {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: aqua;
 }
-.glass{
-    height: 70vh;
-    width: 30vw;
+.glass {
+  height: 60vh;
+  width: 30vw;
+  background-color: #6e6e6e47;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.7),
+            inset 1px 1px 6px rgba(255,255,255,0.3);
+  animation: loginFormIn ease-out 1s 0.2s backwards;
+}
+.glass:hover{
+    backdrop-filter: blur(7px);
+    box-shadow: 4px 4px 25px rgba(0,0,0,0.9),
+            inset 1px 1px 3px rgba(255,255,255,0.6);
+}
+.username,
+.password {
+  background-color: transparent;
+  outline: none; /*去除轮廓*/
+  border: none;
+  border-bottom: 1px solid #666;
+  width: 70%;
+  font-size: 1rem;
+  height: 7vh;
+  margin-top: 4vh;
+  margin-left: 3vw;
+}
+
+.text {
+  display: inline-block;
+  font-size: 2.4rem;
+  color: #fff;
+  margin-left: 3vw;
+  margin-top: 8vh;
+}
+
+.loginButton {
+  width: 5.5vw;
+  height: 10vh;
+  background-color: #666;
+  border-radius: 50%;
+  border: none;
+  margin-left: 40%;
+  margin-top: 12%;
+  box-shadow: 0px 2px 10px #111;
+  cursor: pointer; /*hover状态变化*/
+  font-weight: bold; /*字体粗细*/
+  color: #fff;
+}
+.loginButton:hover{
+    width: 10.5vw;
+    margin-left: 31.6%;
+    border-radius: 70px;
+    box-shadow: 0px 0px 10px #999,
+    inset 0px 0px 5px #333;
+}
+.roud1 {
+  background-color: #955252;
+  width: 8vw;
+  height: 14vh;
+  border-radius: 50%;
+  position: relative;
+  left: 30vw;
+  top: 15vh;
+}
+
+.roud2 {
+  background-color: #972190;
+  width: 4vw;
+  height: 7.5vh;
+  border-radius: 50%;
+  position: relative;
+  left: 58vw;
+  top: 11vh;
+}
+
+.roud3 {
+  background-color: #258086;
+  width: 14vw;
+  height: 25vh;
+  border-radius: 50%;
+  position: relative;
+  left: 54vw;
+  top: 46vh;
+}
+
+.roud1,.roud2,.roud3{
+    box-shadow: 1px 1px 50px #000;
+}
+.roud1{
+    animation: upDown ease-in-out 3s infinite alternate;
+}
+.roud2{
+    animation: upDown ease-in-out 4s infinite alternate-reverse;
+}
+.roud3{
+    animation: upDown ease-in-out 2.5s 0.5s infinite alternate;
+}
+
+.bg{
+    animation: reverse_ ease-out 1s;
+    transform-origin: center 50vh;/*以屏幕中行缩放*/
+}
+@keyframes upDown{
+    0%{
+        transform: translateY(0%);
+    }
+    100%{
+        transform: translateY(-15%);
+    }
+}
+@keyframes reverse_{
+    0%{
+        transform: scale(0,0) rotateZ(60deg);
+    }
+    100%{
+        transform: scale(1,1) rotateZ(0);
+    }
+}
+@keyframes loginFormIn{
+    0%{
+        transform: translateY(8px); opacity:0;
+    }
+    100%{
+        transform: translateY(0); opacity: 1;
+    }
 }
 </style>
