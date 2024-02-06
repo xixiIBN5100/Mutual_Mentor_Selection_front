@@ -58,6 +58,8 @@
     cursor: pointer; /*hover状态变化*/
     font-weight: bold; /*字体粗细*/
     color: #fff;
+    position: relative;
+    top:2vh;
   }
   .loginButton:hover{
       width: 10.5vw;
@@ -113,6 +115,28 @@
       animation: reverse_ ease-out 1s;
       transform-origin: center 50vh;/*以屏幕中行缩放*/
   }
+
+  .switch1{
+    font-size: 0.8rem;
+    margin-left: 3vw;
+    display: inline-block;
+    position: relative;
+    top:-15vh;
+    color: #aeaeae;
+    cursor: pointer;
+  }
+
+  .switch2{
+    font-size: 0.8rem;
+    margin-left: 1.5vw;
+    display: inline-block;
+    position: relative;
+    top:-15vh;
+    color: #aeaeae;
+    cursor: pointer;
+  }
+
+
   @keyframes upDown{
       0%{
           transform: translateY(0%);
