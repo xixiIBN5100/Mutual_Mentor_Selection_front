@@ -1,4 +1,4 @@
-import { ElLoading } from 'element-plus';
+import { ElLoading,ElNotification } from 'element-plus';
 
 let loadingInstance:any = null;
 
@@ -10,7 +10,12 @@ const startLoading = () => {
   });
   setTimeout(() => {
     loadingInstance.close()
-    
+    ElNotification({
+      title: 'Error',
+      message: '失败,网络错误',
+      type: 'error',
+      
+    })
   }, 2000)
 };
 

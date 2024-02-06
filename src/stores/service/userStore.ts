@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia';
-import {ref , reactive} from "vue";
+import {reactive} from "vue";
 
 const useUserStore = defineStore("user",() => {
     const userSession = reactive({
@@ -16,19 +16,8 @@ const useUserStore = defineStore("user",() => {
       interest:"",
       teacher_id:-1,
     });
-    const setUserInfo = (info) : void =>{
-      userSession.name=info.name;
-      userSession.student_id=info.student_id;
-      userSession.class=info.class;
-      userSession.phone=info.phone;
-      userSession.political_status=info.political_status;
-      userSession.email=info.email;
-      userSession.address=info.address;
-      userSession.plan=info.plan;
-      userSession.experience=info.experience;
-      userSession.honor = info.honor;
-      userSession.interest=info.interest;
-      userSession.teacher_id=info.teacher_id;
+    const setUserInfo = (info:any) : void =>{
+      Object.assign(userSession,info);
     };
 
     return{
