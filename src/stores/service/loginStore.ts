@@ -1,17 +1,17 @@
-import {defineStore} from 'pinia';
-import {ref} from "vue";
+import { defineStore } from 'pinia';
+import { ref } from "vue";
 
-const loginStore = defineStore(
-  "login",
-  ()=>{
+const useLoginStore = defineStore("login", () => {
     const loginSession = ref(false);
     const setLogin = (loginNewSession:boolean)=>{
       loginSession.value = loginNewSession;
     };
+
     return{
       loginSession,
       setLogin,
     };
   }
 );
-export default loginStore;
+
+export default useLoginStore;
