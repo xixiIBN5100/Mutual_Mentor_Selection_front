@@ -1,6 +1,4 @@
 .glass {
-    height: 100%;
-    width: 100%;
     padding: 12px;
     background-color: #6e6e6e47;
     border-radius: 10px;
@@ -9,7 +7,7 @@
                 inset 1px 1px 6px rgba(255,255,255,0.3);
 
     .card-title {
-        padding: 12px 6px;
+        margin: 6px 12px;
     }
 
     .card-blod-title {

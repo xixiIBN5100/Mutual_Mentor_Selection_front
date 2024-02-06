@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "animate.css": "^4.1.1",
     "element-plus": "^2.5.5",
     "pinia": "^2.1.7",
