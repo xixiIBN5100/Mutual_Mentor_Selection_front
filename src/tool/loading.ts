@@ -1,7 +1,7 @@
 import { ElLoading,ElNotification } from 'element-plus';
 
 let loadingInstance:any = null;
-
+let isSuccse = false;
 const startLoading = () => {
   loadingInstance = ElLoading.service({
     lock: true,
@@ -10,18 +10,21 @@ const startLoading = () => {
   });
   setTimeout(() => {
     loadingInstance.close()
+    if(!isSuccse){
     ElNotification({
       title: 'Error',
       message: '失败,网络错误',
       type: 'error',
       
     })
+  }
   }, 2000)
 };
 
 const closeLoading = () => {
   if (loadingInstance) {
     loadingInstance.close();
+    isSuccse = true;
   }
 };
 
