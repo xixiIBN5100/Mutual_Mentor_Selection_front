@@ -19,13 +19,14 @@
 <script setup lang="ts">
 import "./index.scss";
 import {ref} from "vue";
+import { loading } from "@/tool/index"
+import { ElLoading } from 'element-plus'
 
 const username = ref("");
 const password = ref("");
 
 const login = async () => {
-  alert(username.value)
-  alert(password.value)
+  loading();
 };
 
 </script>

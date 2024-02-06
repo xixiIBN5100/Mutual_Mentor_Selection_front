@@ -3,5 +3,5 @@ import Home from "./home/index.vue";
 
 export { 
     Login,
-    Home
+    Home,
 };
