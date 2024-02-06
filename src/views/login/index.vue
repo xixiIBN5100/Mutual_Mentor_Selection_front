@@ -11,7 +11,6 @@
       <div class="text">Login</div>
       <input type="text" class="username" placeholder="username" v-model='username' />
       <input type="password" class="password" placeholder="password" v-model='password'/>
-      <input type='text' class='username' placeholder='type' v-model='type' />
       <button class="loginButton" v-on:click='login'>Go</button>
     </div>
   </div>
@@ -23,12 +22,10 @@ import {ref} from "vue";
 
 const username = ref("");
 const password = ref("");
-const type = ref();
 
 const login = async () => {
   alert(username.value)
   alert(password.value)
-  alert(type.value)
 };
 
 </script>
