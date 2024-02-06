@@ -1,9 +1,7 @@
 import {defineStore} from 'pinia';
 import {ref , reactive} from "vue";
 
-const userStore = defineStore(
-  "user",
-  ()=>{
+const useUserStore = defineStore("user",() => {
     const userSession = reactive({
       name:"",
       student_id:-1,
@@ -32,10 +30,12 @@ const userStore = defineStore(
       userSession.interest=info.interest;
       userSession.teacher_id=info.teacher_id;
     };
+
     return{
       userSession,
       setUserInfo,
     };
   }
 );
-export default userStore;
+
+export default useUserStore;
