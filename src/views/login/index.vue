@@ -8,7 +8,7 @@
   </div>
   <div class="contain">
     <div class="glass">
-      <div class="text">Login</div>
+      <div class="text"><el-icon><Position /></el-icon>Login</div>
       <input type="text" class="username" placeholder="username" v-model='username' />
       <input type="password" class="password" placeholder="password" v-model='password'/>
       <button class="loginButton" v-on:click='login'>Go</button>
@@ -28,11 +28,14 @@ import 'animate.css';
 
 const username = ref("");
 const password = ref("");
-const type_ = ref("");
+const type_ = ref("student");
 
 const login = async () => {
   startLoading();
   closeLoading();
+  alert(username.value);
+  alert(password.value);
+  alert(type_.value);
 };
 
 const setIdentity = (identity: string) => {
