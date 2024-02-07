@@ -11,9 +11,9 @@
     <div v-if="userStore.userIdentity === '学生'">
       <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息">
         <el-icon :class="styles['background-icon']" :size="200"><Document /></el-icon>
-        <div :class="styles['edit-button']">
-          <el-icon><Edit /></el-icon>
-        </div>
+          <div :class="styles['edit-button']" @click="() => jumpPage('/editInfo')">
+            <el-icon><Edit /></el-icon>
+          </div>
         <div :class="styles['switch-button']" @click="switchDetailInfoDisplay">
           <el-icon v-if="detailInfoDisplay"><View /></el-icon>
           <el-icon v-else><Hide /></el-icon>
@@ -83,6 +83,7 @@ import { ref } from "vue";
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
 import { useMainStore } from "@/stores";
+import router from "@/router";
 
 const userStore = useMainStore().useUserStore();
 const detailInfoDisplay = ref(false);
@@ -90,5 +91,9 @@ const detailInfoDisplay = ref(false);
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
 };
+
+const jumpPage = (url: string) => {
+  router.push(url);
+}
 
 </script>
