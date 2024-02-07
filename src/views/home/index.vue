@@ -43,16 +43,36 @@
     <div v-if="userStore.userIdentity === '教师'">
       <card :class="styles['info-card']" title="审核与管理">
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
+        <div>审批设置</div>
+        <div>请求审批</div>
+        <div>我的审批</div>
+        <div>我的学生</div>
       </card>
       <card :class="styles['info-card']" title="设置">
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+        <div>管理理由库</div>
       </card>
       <card :class="styles['info-card']" title="沟通">
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
+        <div>学生私聊</div>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '管理员'">
-      管理员界面
+      <card :class="styles['info-card']" title="审核与管理">
+        <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
+        <div>请求审批</div>
+        <div>我的审批</div>
+      </card>
+      <card :class="styles['info-card']" title="设置">
+        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+        <div>管理理由库</div>
+      </card>
+      <card :class="styles['info-card']" title="沟通">
+        <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
+        <div>意见反馈</div>
+      </card>
     </div>
   </div>
 </div>

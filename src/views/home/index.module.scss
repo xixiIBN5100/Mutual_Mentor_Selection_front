@@ -1,56 +1,56 @@
 @use "../../style/index.scss";
 
 .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: index.$color-background;
-    width: 100vw;
-    height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: index.$color-background;
+	width: 100vw;
+	height: 100vh;
 
-    color: index.$color-font;
+	color: index.$color-font;
 }
 
 .contain {
-    margin: 60px 100px;
+	margin: 60px 100px;
 
-    .title-bar {
-        margin-bottom: 15px;
-    }
+	.title-bar {
+		margin-bottom: 15px;
+	}
 
-    .info-card {
-        position: relative;
-        overflow: hidden;
-        margin: 15px;
-        display: inline-flex;
-        flex-direction: column;
-        width: 300px;
+	.info-card {
+		position: relative;
+		overflow: hidden;
+		margin: 15px;
+		display: inline-flex;
+		flex-direction: column;
+		width: 300px;
 
-        .background-icon {
-            position: absolute;
-            right: -50px;
-            bottom: -50px;
-            opacity: 30%;
-        }
-    }
+		.background-icon {
+			position: absolute;
+			right: -50px;
+			bottom: -50px;
+			opacity: 30%;
+		}
+	}
 
-    .detail-info {
-        margin-left: 0;
+	.detail-info {
+		margin-left: 0;
 
-        .edit-button {
-            position: absolute;
-            top: 20px;
-            right: 46px;
-        }
+		.edit-button {
+			position: absolute;
+			top: 20px;
+			right: 46px;
+		}
 
-        .switch-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
+		.switch-button {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
 
-        div span {
-            float: right;
-        }
-    }
+		div span {
+			float: right;
+		}
+	}
 }
