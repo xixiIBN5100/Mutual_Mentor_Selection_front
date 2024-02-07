@@ -7,20 +7,13 @@ settings:
 dependencies:
   '@element-plus/icons-vue':
     specifier: ^2.3.1
-<<<<<<< HEAD
     version: 2.3.1(vue@3.4.15)
   animate.css:
     specifier: ^4.1.1
     version: 4.1.1
-=======
-    version: registry.npmmirror.com/@element-plus/icons-vue@2.3.1(vue@3.4.15)
-  animate.css:
-    specifier: ^4.1.1
-    version: registry.npmmirror.com/animate.css@4.1.1
   axios:
     specifier: ^1.6.7
     version: registry.npmmirror.com/axios@1.6.7
->>>>>>> 0cc4715b609a7328dec4bc89f91e01697171871e
   element-plus:
     specifier: ^2.5.5
     version: 2.5.5(vue@3.4.15)
@@ -88,8 +81,6 @@ devDependencies:
     version: 1.8.27(typescript@5.3.3)
 
 packages:
-
-<<<<<<< HEAD
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
@@ -105,31 +96,6 @@ packages:
 
   /@babel/parser@7.23.9:
     resolution: {integrity: sha512-9tcKgqKbs3xGJ+NtKF2ndOBBLVwPjl1SHxPQkd36r3Dlirw3xWUeGaTbqr7uGZcTaxkVNwc+03SVP7aCdWrTlA==}
-=======
-  registry.npmmirror.com/@aashutoshrathi/word-wrap@1.2.6:
-    resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz}
-    name: '@aashutoshrathi/word-wrap'
-    version: 1.2.6
-    engines: {node: '>=0.10.0'}
-    dev: true
-
-  registry.npmmirror.com/@babel/helper-string-parser@7.23.4:
-    resolution: {integrity: sha512-803gmbQdqwdf4olxrX4AJyFBV/RTr3rSmOj0rKwesmzlfhYNDEs+/iOcznzpNWlJlIlTJC2QfPFcHB6DlzdVLQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@babel/helper-string-parser/-/helper-string-parser-7.23.4.tgz}
-    name: '@babel/helper-string-parser'
-    version: 7.23.4
-    engines: {node: '>=6.9.0'}
-
-  registry.npmmirror.com/@babel/helper-validator-identifier@7.22.20:
-    resolution: {integrity: sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.22.20.tgz}
-    name: '@babel/helper-validator-identifier'
-    version: 7.22.20
-    engines: {node: '>=6.9.0'}
-
-  registry.npmmirror.com/@babel/parser@7.23.9:
-    resolution: {integrity: sha512-9tcKgqKbs3xGJ+NtKF2ndOBBLVwPjl1SHxPQkd36r3Dlirw3xWUeGaTbqr7uGZcTaxkVNwc+03SVP7aCdWrTlA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@babel/parser/-/parser-7.23.9.tgz}
-    name: '@babel/parser'
-    version: 7.23.9
->>>>>>> 0cc4715b609a7328dec4bc89f91e01697171871e
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
@@ -3048,9 +3014,12 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 =======
+=======
+>>>>>>> 0cc4715b609a7328dec4bc89f91e01697171871e
   registry.npmmirror.com/mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mime-db/-/mime-db-1.52.0.tgz}
     name: mime-db
@@ -3461,6 +3430,7 @@ packages:
     dev: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -3473,6 +3443,8 @@ packages:
   /read-package-json-fast@3.0.2:
     resolution: {integrity: sha512-0J+Msgym3vrLOUB3hzQCuZHII0xkNGCtz/HJH9xZshwv9DbDwkw1KaE3gx/e2J5rpEY5rtOy6cyhKOPrkP7FZw==}
 =======
+=======
+>>>>>>> 0cc4715b609a7328dec4bc89f91e01697171871e
   registry.npmmirror.com/proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz}
     name: proxy-from-env
