@@ -1,74 +1,94 @@
 <template>
 <div :class="styles.background">
-    <div :class="styles.contain">
-        <card
-        :title="userStore.userIdentity + ' - 个人主页'"
-        :bold-title="true"
-        :class="styles['title-bar']"
-        >
-            <div>欢迎 {{ userStore.userSession.name }} 使用德育导师双向选择系统</div>
-        </card>
-        <div v-if="userStore.userIdentity === '学生'">
-            <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息">
-                <el-icon :class="styles['background-icon']" :size="200"><Document /></el-icon>
-                <div :class="styles['edit-button']">
-                    <el-icon><Edit /></el-icon>
-                </div>
-                <div :class="styles['switch-button']" @click="switchDetailInfoDisplay">
-                    <el-icon v-if="detailInfoDisplay"><View /></el-icon>
-                    <el-icon v-else><Hide /></el-icon>
-                </div>
-                <div>姓名: <span v-if="detailInfoDisplay">{{ userStore.userSession.name }}</span> <span v-else>***</span></div>
-                <div>学号: <span v-if="detailInfoDisplay">{{ userStore.userSession.student_id }}</span> <span v-else>***</span></div>
-                <div>专业班级: <span v-if="detailInfoDisplay">{{ userStore.userSession.class }}</span> <span v-else>***</span></div>
-                <div>联系方式: <span v-if="detailInfoDisplay">{{ userStore.userSession.phone }}</span> <span v-else>***</span></div>
-                <div>政治面貌: <span v-if="detailInfoDisplay">{{ userStore.userSession.political_status }}</span> <span v-else>***</span></div>
-                <div>邮箱: <span v-if="detailInfoDisplay">{{ userStore.userSession.email }}</span> <span v-else>***</span></div>
-                <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
-                <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
-            </card>
-            <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯">
-                <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
-                <div>教师列表</div>
-                <div>实施条例</div>
-            </card>
-            <card :class="[styles.communication, styles['info-card']]" title="选择与沟通">
-                <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-                <div>第一轮选择</div>
-                <div>第二轮选择</div>
-                <div>导师私聊</div>
-                <div>意见提交</div>
-            </card>
+  <div :class="styles.contain">
+    <card
+    :title="userStore.userIdentity + ' - 个人主页'"
+    :bold-title="true"
+    :class="styles['title-bar']"
+    >
+      <div>欢迎 {{ userStore.userSession.name }} 使用德育导师双向选择系统</div>
+    </card>
+    <div v-if="userStore.userIdentity === '学生'">
+      <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息">
+        <el-icon :class="styles['background-icon']" :size="200"><Document /></el-icon>
+        <div :class="styles['edit-button']">
+          <el-icon><Edit /></el-icon>
         </div>
-        <div v-if="userStore.userIdentity === '教师'">
-            <card :class="styles['info-card']" title="审核与管理">
-                <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
-            </card>
-            <card :class="styles['info-card']" title="设置">
-                <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
-            </card>
-            <card :class="styles['info-card']" title="沟通">
-                <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-            </card>
+        <div :class="styles['switch-button']" @click="switchDetailInfoDisplay">
+          <el-icon v-if="detailInfoDisplay"><View /></el-icon>
+          <el-icon v-else><Hide /></el-icon>
         </div>
-        <div v-if="userStore.userIdentity === '管理员'">
-            管理员界面
-        </div>
+        <div>姓名: <span v-if="detailInfoDisplay">{{ userStore.userSession.name }}</span> <span v-else>***</span></div>
+        <div>学号: <span v-if="detailInfoDisplay">{{ userStore.userSession.student_id }}</span> <span v-else>***</span></div>
+        <div>专业班级: <span v-if="detailInfoDisplay">{{ userStore.userSession.class }}</span> <span v-else>***</span></div>
+        <div>联系方式: <span v-if="detailInfoDisplay">{{ userStore.userSession.phone }}</span> <span v-else>***</span></div>
+        <div>政治面貌: <span v-if="detailInfoDisplay">{{ userStore.userSession.political_status }}</span> <span v-else>***</span></div>
+        <div>邮箱: <span v-if="detailInfoDisplay">{{ userStore.userSession.email }}</span> <span v-else>***</span></div>
+        <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
+        <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
+      </card>
+      <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯">
+        <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
+        <div>教师列表</div>
+        <div>实施条例</div>
+      </card>
+      <card :class="[styles.communication, styles['info-card']]" title="选择与沟通">
+        <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
+        <div>第一轮选择</div>
+        <div>第二轮选择</div>
+        <div>导师私聊</div>
+        <div>意见提交</div>
+      </card>
     </div>
+    <div v-if="userStore.userIdentity === '教师'">
+      <card :class="styles['info-card']" title="审核与管理">
+        <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
+        <div>审批设置</div>
+        <div>请求审批</div>
+        <div>我的审批</div>
+        <div>我的学生</div>
+      </card>
+      <card :class="styles['info-card']" title="设置">
+        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+        <div>管理理由库</div>
+      </card>
+      <card :class="styles['info-card']" title="沟通">
+        <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
+        <div>学生私聊</div>
+      </card>
+    </div>
+    <div v-if="userStore.userIdentity === '管理员'">
+      <card :class="styles['info-card']" title="审核与管理">
+        <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
+        <div>请求审批</div>
+        <div>我的审批</div>
+      </card>
+      <card :class="styles['info-card']" title="设置">
+        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+        <div>管理理由库</div>
+      </card>
+      <card :class="styles['info-card']" title="沟通">
+        <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
+        <div>意见反馈</div>
+      </card>
+    </div>
+  </div>
 </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import styles from "./index.module.scss";
-import { Card } from '@/components/index';
+import { Card } from "@/components/index";
 import { useMainStore } from "@/stores";
 
 const userStore = useMainStore().useUserStore();
 const detailInfoDisplay = ref(false);
 
 const switchDetailInfoDisplay = () => {
-    detailInfoDisplay.value = !detailInfoDisplay.value;
-}
+  detailInfoDisplay.value = !detailInfoDisplay.value;
+};
 
 </script>
