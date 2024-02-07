@@ -27,12 +27,8 @@ import { startLoading, closeLoading } from "@/tool/index";
 
 const username = ref("");
 const password = ref("");
-<<<<<<< HEAD
-const type_ = ref("student");
-=======
 const type_ = ref("");
 const isFadingOut = ref(false);
->>>>>>> 428008a4db6907ca160818b1ca1361ad112908a0
 
 const login = async () => {
   startLoading();
