@@ -1,0 +1,63 @@
+@use "../../style/index.scss";
+
+.dark-button-large {
+  width: 140px;
+  height: 50px;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 48px;
+}
+
+.dark-button-middle {
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 38px;
+}
+
+.dark-button-small {
+  width: 80px;
+  height: 30px;
+  border-radius: 8px;
+  text-align: center;
+  line-height: 28px;
+  font-size: small;
+}
+
+.dark-button-primary {
+  color: index.$color-font;
+  border: solid 2px index.$dp-8;
+  background-color: index.$dp-4;
+}
+
+.dark-button-green {
+  color: index.$green-dark-600;
+  border: solid 2px index.$green-dark-700;
+  background-color: index.$green-dark-500;
+}
+
+.dark-button-blue {
+  color: index.$blue-dark-600;
+  border: solid 2px index.$blue-dark-700;
+  background-color: index.$blue-dark-500;
+}
+
+.dark-button-yellow {
+  color: index.$yellow-dark-600;
+  border: solid 2px index.$yellow-dark-700;
+  background-color: index.$yellow-dark-500;
+}
+
+.dark-button-red {
+  color: index.$red-dark-600;
+  border: solid 2px index.$red-dark-700;
+  background-color: index.$red-dark-500;
+}
+
+.dark-button-pink {
+  color: index.$pink-dark-600;
+  border: solid 2px index.$pink-dark-700;
+  background-color: index.$pink-dark-500;
+}
+

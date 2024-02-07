@@ -5,7 +5,9 @@ interface requestConfigType{
   data : object;
   method:string;
   url:string;
-  headers: object;
+  headers: {
+    Authorization: string
+  };
 
   /** 是否手动发起请求 */
   manual?:boolean;
@@ -20,16 +22,16 @@ interface requestConfigType{
   onSuccess?:(response:any) =>void;
 
   /** 请求失败 hook */
-  onError?:(error:Error | {errMsy:string}) => string | void;
+  onError?:(error:Error | {errMsg:string}) => string | void;
 
   /** 请求结束后 hook */
   onFinally?: () => void;
 }
 
-const useRequest = (config:requestConfigType) =>{
+const useRequest = (config:requestConfigType) => {
   const loading = ref(false)
   const data = ref<object>();
-  const error = ref<Error | { errorMsg:string }>();
+  const error = ref<Error | { errMsg:string }>();
 
 
   const request = () => {
@@ -55,7 +57,7 @@ const useRequest = (config:requestConfigType) =>{
       config?.onSuccess?.(response);
       data.value = response.data;
     }).catch((e:Error | { errMsg:string}) => {
-      const errMsy = config?.onError?.(e);
+      const errMsg = config?.onError?.(e);
       error.value = e;
     }).finally(() => {
       config?.onFinally?.();
