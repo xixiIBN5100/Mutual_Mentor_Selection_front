@@ -33,6 +33,9 @@ const isFadingOut = ref(false);
 const login = async () => {
   startLoading();
   closeLoading();
+  alert(username.value);
+  alert(password.value);
+  alert(type_.value);
 };
 
 const setIdentity = (identity: string) => {
