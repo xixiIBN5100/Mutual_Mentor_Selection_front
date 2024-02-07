@@ -136,7 +136,14 @@
     cursor: pointer;
   }
 
+  .fadeOutAndIn{
+    animation: fadeOutAndIn ease 1s 0.2s backwards;
+  }
 
+  .fadeOutAndInRound{
+    animation: fadeOutAndInRound ease 0.5s 0.2s;
+    transform-origin: center 50vh;/*以屏幕中行缩放*/
+  }
   @keyframes upDown{
       0%{
           transform: translateY(0%);
@@ -160,4 +167,19 @@
       100%{
           transform: translateY(0); opacity: 1;
       }
+  }
+  @keyframes fadeOutAndIn{
+    0%{
+      transform: translateY(0); opacity: 1;
+  }
+  100%{
+      transform: translateY(8px); opacity:0;
+  }
+  }
+  @keyframes fadeOutAndInRound{
+    0%{transform: scale(1,1) rotateZ(0);
+  }
+  100%{
+    transform: scale(0,0) rotateZ(60deg);
+  }
   }
