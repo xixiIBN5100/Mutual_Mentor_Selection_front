@@ -2,11 +2,11 @@ import axios from "axios";
 import {ref , onMounted} from "vue";
 
 interface requestConfigType{
-  data : object;
+  data: object;
   method:string;
   url:string;
   headers: {
-    Authorization: string
+    Authorization: string | undefined
   };
 
   /** 是否手动发起请求 */

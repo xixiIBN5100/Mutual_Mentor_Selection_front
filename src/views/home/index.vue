@@ -28,6 +28,10 @@
         <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
         <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
       </card>
+      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
+        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+      </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
         <div>教师列表</div>
