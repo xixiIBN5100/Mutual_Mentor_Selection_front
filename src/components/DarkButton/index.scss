@@ -1,5 +1,9 @@
 @use "../../style/index.scss";
 
+* {
+  transition: 0.2s;
+}
+
 .dark-button-large {
   width: 140px;
   height: 50px;
@@ -31,33 +35,68 @@
   background-color: index.$dp-4;
 }
 
+.dark-button-primary:hover {
+  color: index.$color-font;
+  border: solid 2px index.$dp-8;
+  background-color: index.$dp-8;
+}
+
 .dark-button-green {
   color: index.$green-dark-600;
   border: solid 2px index.$green-dark-700;
   background-color: index.$green-dark-500;
 }
 
+.dark-button-green:hover {
+  color: index.$green-dark-500;
+  border: solid 2px index.$green-dark-700;
+  background-color: index.$green-dark-700;
+}
+
 .dark-button-blue {
-  color: index.$blue-dark-600;
-  border: solid 2px index.$blue-dark-700;
+  color: index.$blue-dark-700;
+  border: solid 2px index.$blue-dark-600;
   background-color: index.$blue-dark-500;
 }
 
+.dark-button-blue:hover {
+  color: index.$blue-dark-500;
+  border: solid 2px index.$blue-dark-600;
+  background-color: index.$blue-dark-600;
+}
+
 .dark-button-yellow {
-  color: index.$yellow-dark-600;
-  border: solid 2px index.$yellow-dark-700;
+  color: index.$yellow-dark-700;
+  border: solid 2px index.$yellow-dark-600;
   background-color: index.$yellow-dark-500;
 }
 
+.dark-button-yellow:hover {
+  color: index.$yellow-dark-500;
+  border: solid 2px index.$yellow-dark-600;
+  background-color: index.$yellow-dark-600;
+}
+
 .dark-button-red {
-  color: index.$red-dark-600;
-  border: solid 2px index.$red-dark-700;
+  color: index.$red-dark-700;
+  border: solid 2px index.$red-dark-600;
   background-color: index.$red-dark-500;
 }
 
+.dark-button-red:hover {
+  color: index.$red-dark-500;
+  border: solid 2px index.$red-dark-600;
+  background-color: index.$red-dark-600;
+}
+
 .dark-button-pink {
-  color: index.$pink-dark-600;
-  border: solid 2px index.$pink-dark-700;
+  color: index.$pink-dark-700;
+  border: solid 2px index.$pink-dark-600;
   background-color: index.$pink-dark-500;
 }
 
+.dark-button-pink:hover {
+  color: index.$pink-dark-500;
+  border: solid 2px index.$pink-dark-600;
+  background-color: index.$pink-dark-600;
+}
