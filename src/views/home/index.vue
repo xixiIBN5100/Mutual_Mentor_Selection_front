@@ -30,7 +30,7 @@
       </card>
       <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
-        <div>修改密码</div>
+        <div @click="() => jumpPage('/password')">修改密码</div>
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>

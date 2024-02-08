@@ -1,6 +1,6 @@
 @use "./index.scss";
 
-input {
+.Input {
 	border-radius: 5px;
 	border: solid 2px index.$dp-3;
 	outline: 0;
@@ -8,15 +8,15 @@ input {
 	color: index.$color-font;
 }
 
-input:hover {
+.Input:hover {
 	border: solid 2px index.$dp-1;
 }
 
-input:focus {
+.Input:focus {
 	border: solid 2px index.$blue-dark-600;
 }
 
-textarea {
+.Textarea {
 	border-radius: 5px;
 	border: solid 2px index.$dp-3;
 	outline: 0;
@@ -24,10 +24,10 @@ textarea {
 	color: index.$color-font;
 }
 
-textarea:hover {
+.Textarea:hover {
 	border: solid 2px index.$dp-1;
 }
 
-textarea:focus {
+.Textarea:focus {
 	border: solid 2px index.$blue-dark-600;
 }
