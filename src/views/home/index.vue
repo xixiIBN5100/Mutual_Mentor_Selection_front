@@ -83,21 +83,14 @@
 import { ref } from "vue";
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
+import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
-import router from "@/router";
 
+isFadingOut.value = false;
 const userStore = useMainStore().useUserStore();
 const detailInfoDisplay = ref(false);
-const isFadingOut = ref(false);
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
 };
-
-const jumpPage = (url: string) => {
-  isFadingOut.value = true;
-  setTimeout(() => {
-  router.push(url);
-  },1000);
-}
 
 </script>

@@ -1,6 +1,9 @@
-import { startLoading,closeLoading } from './loading';
+import { startLoading,closeLoading } from "./loading";
+import { isFadingOut, jumpPage } from "./pageJump";
 
 export {
   startLoading,
-  closeLoading
+  closeLoading,
+  isFadingOut,
+  jumpPage
 };
