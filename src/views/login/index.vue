@@ -24,6 +24,7 @@
 import "./index.scss";
 import { ref , computed } from "vue";
 import { startLoading, closeLoading } from "@/tool/index";
+import styles from './index.module.scss'
 
 const username = ref("");
 const password = ref("");
@@ -40,7 +41,6 @@ const login = async () => {
 
 const setIdentity = (identity: string) => {
   if (identity === type_.value) {
-    
     isFadingOut.value = true;
     setTimeout(() => {
       type_.value = '';
