@@ -22,6 +22,23 @@
     box-shadow: 4px 4px 25px rgba(0,0,0,0.9),
     inset 1px 1px 3px rgba(255,255,255,0.6);
 }
+.fadeOut{
+    padding: 12px;
+    background-color: #6e6e6e47;
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.7),
+                inset 1px 1px 6px rgba(255,255,255,0.3);
+    animation: fadeOut ease 1s 0.2s backwards;
+    .card-title {
+        margin: 6px 12px;
+    }
+
+    .card-blod-title {
+        font-size: large;
+        font-weight: bold;
+    }
+  }
 @keyframes in{
     0%{
         transform: translateY(8px); opacity:0;
@@ -29,4 +46,12 @@
     100%{
         transform: translateY(0); opacity: 1;
     }
+}
+@keyframes fadeOut{
+    0%{
+      transform: translateY(0); opacity: 1;
+  }
+  100%{
+      transform: translateY(8px); opacity:0;
+  }
 }

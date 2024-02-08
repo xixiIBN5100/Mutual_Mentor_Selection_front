@@ -1,5 +1,5 @@
 <template>
-    <div :class="styles.glass">
+    <div :class="[ isFadingOut ? styles.fadeOut : styles.glass]">
       <div :class="[styles['card-title'], boldTitle ? styles['card-blod-title'] : undefined]">{{ title }}</div>
       <slot></slot>
     </div>
@@ -7,12 +7,12 @@
 
 <script setup lang="ts">
 import styles from "./index.module.scss";
-
+import {ref , onBeforeUnmount} from 'vue';
 const props = withDefaults(defineProps<{
   title?: string,
   boldTitle?: boolean
+  isFadingOut?: boolean
 }>(), {
   boldTitle: false
-})
-
+});
 </script>

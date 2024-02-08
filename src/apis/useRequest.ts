@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {ref , onMounted} from "vue";
 
 interface requestConfigType{
@@ -19,7 +19,7 @@ interface requestConfigType{
   onBefore?:()=> void;
 
   /** 成功接收到响应 hook */
-  onSuccess?:(response:any) =>void;
+  onSuccess?:(response:unknown) =>void;
 
   /** 请求失败 hook */
   onError?:(error:Error | {errMsg:string}) => string | void;
@@ -29,7 +29,7 @@ interface requestConfigType{
 }
 
 const useRequest = (config:requestConfigType) => {
-  const loading = ref(false)
+  const loading = ref(false);
   const data = ref<object>();
   const error = ref<Error | { errMsg:string }>();
 
@@ -45,12 +45,12 @@ const useRequest = (config:requestConfigType) => {
     const instance = axios.create({
       baseURL:"",
       timeout:1000,
-    })
+    });
 
     /** 添加token */
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if(token){
-      config.headers['Authorization'] = `Bearer ${token}`
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
 
     instance(config).then((response)=>{
@@ -70,14 +70,14 @@ const useRequest = (config:requestConfigType) => {
     if(!config?.manual){
       request();
     }
-  })
+  });
 
   return{
     loading,
     data,
     error,
     run : request,
-  }
+  };
 };
 
 export default useRequest;
