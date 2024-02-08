@@ -5,11 +5,12 @@
     :title="userStore.userIdentity + ' - 个人主页'"
     :bold-title="true"
     :class="styles['title-bar']"
+    :is-fading-out=isFadingOut
     >
       <div>欢迎 {{ userStore.userSession.name }} 使用德育导师双向选择系统</div>
     </card>
     <div v-if="userStore.userIdentity === '学生'">
-      <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息">
+      <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Document /></el-icon>
           <div :class="styles['edit-button']" @click="() => jumpPage('/editInfo')">
             <el-icon><Edit /></el-icon>
@@ -27,12 +28,16 @@
         <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
         <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
       </card>
-      <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯">
+      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
+        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <div>修改密码</div>
+      </card>
+      <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
         <div>教师列表</div>
         <div>实施条例</div>
       </card>
-      <card :class="[styles.communication, styles['info-card']]" title="选择与沟通">
+      <card :class="[styles.communication, styles['info-card']]" title="选择与沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <div>第一轮选择</div>
         <div>第二轮选择</div>
@@ -41,35 +46,35 @@
       </card>
     </div>
     <div v-if="userStore.userIdentity === '教师'">
-      <card :class="styles['info-card']" title="审核与管理">
+      <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <div>审批设置</div>
         <div>请求审批</div>
         <div>我的审批</div>
         <div>我的学生</div>
       </card>
-      <card :class="styles['info-card']" title="设置">
+      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <div>修改密码</div>
         <div>管理理由库</div>
       </card>
-      <card :class="styles['info-card']" title="沟通">
+      <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <div>学生私聊</div>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '管理员'">
-      <card :class="styles['info-card']" title="审核与管理">
+      <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <div>请求审批</div>
         <div>我的审批</div>
       </card>
-      <card :class="styles['info-card']" title="设置">
+      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <div>修改密码</div>
         <div>管理理由库</div>
       </card>
-      <card :class="styles['info-card']" title="沟通">
+      <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <div>意见反馈</div>
       </card>
@@ -82,18 +87,14 @@
 import { ref } from "vue";
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
+import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
-import router from "@/router";
 
+isFadingOut.value = false;
 const userStore = useMainStore().useUserStore();
 const detailInfoDisplay = ref(false);
-
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
 };
-
-const jumpPage = (url: string) => {
-  router.push(url);
-}
 
 </script>

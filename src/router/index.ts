@@ -22,7 +22,7 @@ const routes = createRouter({
     },
     {
       path: "/",
-      redirect: "/home",
+      redirect: "/login",
     },
     {
       path: "/editInfo",

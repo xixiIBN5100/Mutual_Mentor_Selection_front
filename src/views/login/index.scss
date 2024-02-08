@@ -25,7 +25,11 @@
               inset 1px 1px 3px rgba(255,255,255,0.6);
   }
   .username,
-  .password {
+  .password,
+  .username:hover,
+  .password:hover, 
+  .username:focus,
+  .password:focus{
     background-color: transparent;
     outline: none; /*去除轮廓*/
     border: none;
@@ -36,7 +40,10 @@
     margin-top: 4vh;
     margin-left: 3vw;
     color: #fff;
+    border-radius: 0%;
   }
+
+
   
   .text {
     display: inline-block;
