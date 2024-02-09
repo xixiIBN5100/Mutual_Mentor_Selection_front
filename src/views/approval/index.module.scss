@@ -9,19 +9,44 @@
     height: 100vh;
     color: index.$color-font;
 }
-.contain {
+
+.title {
     margin: 60px 100px;
 }
+
 .waitApproval{
     display: inline-block;
-    margin-top: 10vh;
-    width: 40%;
+    width: 35%;
     height: 60vh;
 }
+
 .finishApproval{
     display: inline-block;
-    margin-top: 10vh;
-    width: 40%;
+    width: 35%;
     height: 60vh;
-    margin-right: 10%;
+}
+
+.approvalContain {
+    display: flex;
+    margin-top: 10vh;
+    justify-content: space-around;
+    width: 100%;
+    margin-right: 60px;
+}
+
+.student{
+    height: 10vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #444;
+    margin-top: 2vh;
+    width: 33vw;
+    border-radius: 15px;
+}
+
+.waitStudentBox{
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
 }
