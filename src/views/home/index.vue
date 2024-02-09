@@ -28,9 +28,9 @@
         <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
         <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
       </card>
-      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
-        <div @click="() => jumpPage('/password')">修改密码</div>
+        <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import styles from "./index.module.scss";
-import { Card } from "@/components/index";
+import { Card, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
 
