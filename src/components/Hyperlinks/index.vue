@@ -1,5 +1,5 @@
 <template>
-  <div :class="styles['Hyperlinks-div-'+color]">
+  <div :class="styles['Hyperlinks-div-'+color]" style="cursor: pointer;">
     <slot></slot>
   </div>
 </template>

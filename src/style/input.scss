@@ -1,6 +1,6 @@
 @use "./index.scss";
 
-$liColor: "red", "blue", "yellow", "green";
+$liColor: "red", "blue", "yellow", "green", "pink";
 
 @each $c in $liColor {
 	.Input-#{$c} {
@@ -43,6 +43,23 @@ $liColor: "red", "blue", "yellow", "green";
 	border: solid 2px index.$green-dark-600;
 }
 
+.Input-pink:focus {
+	border: solid 2px index.$pink-dark-600;
+}
+
+@each $c in $liColor {
+	.Textarea-#{$c} {
+		border-radius: 5px;
+		border: solid 2px index.$dp-3;
+		outline: 0;
+		background-color: index.$dp-8;
+		color: index.$color-font;
+	}
+	.Textarea-#{$c}:hover {
+		border: solid 2px index.$dp-1;
+	}
+}
+
 .Textarea {
 	border-radius: 5px;
 	border: solid 2px index.$dp-3;
@@ -57,4 +74,24 @@ $liColor: "red", "blue", "yellow", "green";
 
 .Textarea:focus {
 	border: solid 2px index.$blue-dark-600;
+}
+
+.Textarea-red:focus {
+	border: solid 2px index.$red-dark-600;
+}
+
+.Textarea-blue:focus {
+	border: solid 2px index.$blue-dark-600;
+}
+
+.Textarea-yellow:focus {
+	border: solid 2px index.$yellow-dark-600;
+}
+
+.Textarea-green:focus {
+	border: solid 2px index.$green-dark-600;
+}
+
+.Textarea-pink:focus {
+	border: solid 2px index.$pink-dark-600;
 }
