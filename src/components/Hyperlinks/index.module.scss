@@ -1,0 +1,88 @@
+@use "../../style/index.scss";
+
+$liColor: "red", "blue", "yellow", "green";
+
+@each $c in $liColor {
+  .Hyperlinks-div-#{$c} {
+    position: relative;
+    border: 0;
+    padding: 3px;
+    margin: 2px;
+  
+    &::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      transition: 0.3s;
+    }
+  
+    &:hover::before {
+        width: calc(100% + 9px);
+        height: 0;
+    }
+  }
+}
+
+.Hyperlinks-div- {
+  position: relative;
+  border: 0;
+  padding: 3px;
+  margin: 2px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    transition: 0.3s;
+  }
+
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$blue-dark-600;
+    border-left: 2px solid index.$blue-dark-600;
+  }
+
+  &:hover::before {
+      width: calc(100% + 9px);
+      height: 0;
+  }
+}
+
+.Hyperlinks-div-red {
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$red-dark-600;
+    border-left: 2px solid index.$red-dark-600;
+  }
+}
+
+.Hyperlinks-div-blue {
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$blue-dark-600;
+    border-left: 2px solid index.$blue-dark-600;
+  }
+}
+
+.Hyperlinks-div-yellow {
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$yellow-dark-600;
+    border-left: 2px solid index.$yellow-dark-600;
+  }
+}
+
+.Hyperlinks-div-green {
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$green-dark-600;
+    border-left: 2px solid index.$green-dark-600;
+  }
+}
