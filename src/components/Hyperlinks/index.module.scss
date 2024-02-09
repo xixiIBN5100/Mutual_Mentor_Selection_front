@@ -1,6 +1,6 @@
 @use "../../style/index.scss";
 
-$liColor: "red", "blue", "yellow", "green";
+$liColor: "red", "blue", "yellow", "green", "pink";
 
 @each $c in $liColor {
   .Hyperlinks-div-#{$c} {
@@ -84,5 +84,14 @@ $liColor: "red", "blue", "yellow", "green";
     left: -2px;
     border-bottom: 2px solid index.$green-dark-600;
     border-left: 2px solid index.$green-dark-600;
+  }
+}
+
+.Hyperlinks-div-pink {
+  &::before {
+    bottom: -2px;
+    left: -2px;
+    border-bottom: 2px solid index.$pink-dark-600;
+    border-left: 2px solid index.$pink-dark-600;
   }
 }

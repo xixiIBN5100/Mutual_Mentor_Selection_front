@@ -34,15 +34,15 @@
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
-        <div>教师列表</div>
-        <div>实施条例</div>
+        <hyperlinks @click="() => jumpPage('/password')" color="green">教师列表</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/password')" color="green">实施条例</hyperlinks>
       </card>
       <card :class="[styles.communication, styles['info-card']]" title="选择与沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-        <div>第一轮选择</div>
-        <div>第二轮选择</div>
-        <div>导师私聊</div>
-        <div>意见提交</div>
+        <hyperlinks @click="() => jumpPage('/password')" color="pink">第一轮选择</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/password')" color="pink">第二轮选择</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/password')" color="pink">导师私聊</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '教师'">
@@ -55,7 +55,7 @@
       </card>
       <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
-        <div>修改密码</div>
+        <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
         <div>管理理由库</div>
       </card>
       <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
@@ -71,7 +71,7 @@
       </card>
       <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
-        <div>修改密码</div>
+        <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
         <div>管理理由库</div>
       </card>
       <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>

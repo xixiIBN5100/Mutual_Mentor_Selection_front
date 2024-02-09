@@ -5,7 +5,7 @@
             <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut>
-        <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
+        <el-icon :class="styles['background-icon']" :size="200" color="#dfbf67"><Setting /></el-icon>
         <div :class="styles['input-div']">原始密码:     <input :class="styles['Input-yellow']" v-model="prePassword"/></div>
         <div :class="styles['input-div']">新密码:     <input :class="styles['Input-yellow']" v-model="renPassword"/></div>
         <div :class="styles['input-div']">确认密码:     <input :class="styles['Input-yellow']" v-model="conPassword"/></div>

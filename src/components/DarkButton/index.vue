@@ -1,5 +1,5 @@
 <template>
-  <div :class="['dark-button-'+color, 'dark-button-'+size]">
+  <div :class="['dark-button-'+color, 'dark-button-'+size]" style="cursor: pointer;">
     {{ inner }}
   </div>
 </template>
