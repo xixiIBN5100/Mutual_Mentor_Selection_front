@@ -1,0 +1,54 @@
+@use "../../style/index.scss";
+@use "../../style/input.scss";
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: index.$color-background;
+	width: 100vw;
+	height: 100vh;
+	color: index.$color-font;
+}
+
+.contain {
+	margin: 60px 100px;
+
+	.background-icon {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		opacity: 30%;
+	}
+
+  .title-bar {
+    position: relative;
+		margin-bottom: 15px;
+
+    .back-button {
+      position: absolute;
+			top: 17px;
+			right: 20px;
+    }
+	}
+
+	.info-editer {
+		overflow: hidden;
+		padding: 30px;
+
+		.input-div {
+			position: relative;
+			margin: 12px;
+
+			input {
+				position: absolute;
+				left: 120px;
+			}
+		}
+	}
+
+	.save-button {
+		display: flex;
+		justify-content: center;
+	}
+}

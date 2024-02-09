@@ -20,6 +20,7 @@
       "vuefix"
     ],
     "rules": {
+      "vue/comment-directive": "off",
       "indent": [
         "error",
         2

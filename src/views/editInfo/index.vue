@@ -5,21 +5,21 @@
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
       <card :class="styles['info-editer']" title="信息编辑" :is-fading-out=isFadingOut>
-        <el-icon :class="styles['background-icon']" :size="200"><EditPen /></el-icon>
+        <el-icon :class="styles['background-icon']" :size="200" color="#a0cddf"><EditPen /></el-icon>
         <div :class="styles['info-editer-contain']">
           <div :class="styles['input-div']">
-            <div>姓名:     <input v-model="name"/></div>
-            <div>专业班级: <input v-model="className"/></div>
-            <div>联系方式: <input v-model="phone"/></div>
-            <div>政治面貌: <input v-model="political_status"/></div>
-            <div>邮箱:     <input v-model="email"/></div>
-            <div>家庭住址: <input v-model="address"/></div>
-            <div>职业方向: <input v-model="plan"/></div>
+            <div>姓名:     <input :class="styles.Input" v-model="name"/></div>
+            <div>专业班级: <input :class="styles.Input" v-model="className"/></div>
+            <div>联系方式: <input :class="styles.Input" v-model="phone"/></div>
+            <div>政治面貌: <input :class="styles.Input" v-model="political_status"/></div>
+            <div>邮箱:     <input :class="styles.Input" v-model="email"/></div>
+            <div>家庭住址: <input :class="styles.Input" v-model="address"/></div>
+            <div>职业方向: <input :class="styles.Input" v-model="plan"/></div>
           </div>
           <div :class="styles['textarea-div']">
-            <div><span>项目实践经历:        </span><br/><textarea v-model="experience"></textarea></div>
-            <div><span>个人荣誉:            </span><br/><textarea v-model="honor"></textarea></div>
-            <div><span>个人专业研究兴趣方向: </span><br/><textarea v-model="interest"></textarea></div>
+            <div><span>项目实践经历:        </span><br/><textarea :class="styles.Textarea" v-model="experience"></textarea></div>
+            <div><span>个人荣誉:            </span><br/><textarea :class="styles.Textarea" v-model="honor"></textarea></div>
+            <div><span>个人专业研究兴趣方向: </span><br/><textarea :class="styles.Textarea" v-model="interest"></textarea></div>
           </div>
         </div>
         <div :class="styles['save-button']">

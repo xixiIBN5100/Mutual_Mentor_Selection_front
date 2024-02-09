@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo } from "@/views";
+import { Login, Home, Approval, EditInfo, passwordChange } from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +27,11 @@ const routes = createRouter({
       path: "/editInfo",
       name: "edit-info",
       component: EditInfo
+    },
+    {
+      path: "/password",
+      name: "passwordChange",
+      component: passwordChange
     }
   ]
 });

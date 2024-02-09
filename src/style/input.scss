@@ -1,6 +1,21 @@
 @use "./index.scss";
 
-input {
+$liColor: "red", "blue", "yellow", "green";
+
+@each $c in $liColor {
+	.Input-#{$c} {
+		border-radius: 5px;
+		border: solid 2px index.$dp-3;
+		outline: 0;
+		background-color: index.$dp-8;
+		color: index.$color-font;
+	}
+	.Input-#{$c}:hover {
+		border: solid 2px index.$dp-1;
+	}
+}
+
+.Input {
 	border-radius: 5px;
 	border: solid 2px index.$dp-3;
 	outline: 0;
@@ -8,15 +23,27 @@ input {
 	color: index.$color-font;
 }
 
-input:hover {
+.Input:hover {
 	border: solid 2px index.$dp-1;
 }
 
-input:focus {
+.Input:focus {
 	border: solid 2px index.$blue-dark-600;
 }
 
-textarea {
+.Input-red:focus {
+	border: solid 2px index.$red-dark-600;
+}
+
+.Input-yellow:focus {
+	border: solid 2px index.$yellow-dark-600;
+}
+
+.Input-green:focus {
+	border: solid 2px index.$green-dark-600;
+}
+
+.Textarea {
 	border-radius: 5px;
 	border: solid 2px index.$dp-3;
 	outline: 0;
@@ -24,10 +51,10 @@ textarea {
 	color: index.$color-font;
 }
 
-textarea:hover {
+.Textarea:hover {
 	border: solid 2px index.$dp-1;
 }
 
-textarea:focus {
+.Textarea:focus {
 	border: solid 2px index.$blue-dark-600;
 }
