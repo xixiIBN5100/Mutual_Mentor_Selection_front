@@ -1,6 +1,5 @@
-import firstCho from "../views/First_cho/index.vue";
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo } from "@/views";
+import { Login, Home, Approval, EditInfo, TeacherList, FirstCho} from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +27,16 @@ const routes = createRouter({
       path: "/editInfo",
       name: "edit-info",
       component: EditInfo
+    },
+    {
+      path:"/teacherList",
+      name:"teacharlist",
+      component: TeacherList,
+    },
+    {
+      path:"/firstCho",
+      name:"firstCho",
+      component: FirstCho,
     }
   ]
 });
