@@ -34,8 +34,6 @@
 	}
 
 	.detail-info {
-		// margin-left: 0;
-
 		.edit-button {
 			position: absolute;
 			top: 20px;
@@ -51,5 +49,21 @@
 		div span {
 			float: right;
 		}
+	}
+
+	.detail-info:hover {
+		background-color: index.$blue-dark-500;
+	}
+
+	.setting:hover {
+		background-color: index.$yellow-dark-500;
+	}
+
+	.related-info:hover {
+		background-color: index.$green-dark-500;
+	}
+
+	.communication:hover {
+		background-color: index.$pink-dark-500;
 	}
 }
