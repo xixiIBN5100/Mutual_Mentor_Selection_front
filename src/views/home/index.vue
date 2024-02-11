@@ -49,14 +49,13 @@
       <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <div>审批设置</div>
-        <div>请求审批</div>
-        <div>我的审批</div>
+        <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
         <div>我的学生</div>
       </card>
-      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
-        <div>管理理由库</div>
+        <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
       </card>
       <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>

@@ -1,0 +1,86 @@
+@use "../../style/index.scss";
+@use "../../style/input.scss";
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: index.$color-background;
+	width: 100vw;
+	height: 100vh;
+	color: index.$color-font;
+	overflow: scroll;
+}
+
+.contain {
+	margin: 60px 100px;
+
+	.background-icon {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		opacity: 30%;
+		z-index: -1;
+	}
+
+  .title-bar {
+    position: relative;
+		margin-bottom: 15px;
+
+    .back-button {
+      position: absolute;
+			top: 17px;
+			right: 20px;
+    }
+	}
+
+	.reason-creater {
+		padding: 30px;
+		margin-bottom: 15px;
+
+		.top-bar {
+			div {
+				display: inline-block;
+				margin-right: 30px;
+				color: index.$color-font;
+			}
+			div:nth-child(1) { width: 100px; }
+			div:nth-child(2) { width: 45vw; }
+		}
+	}
+
+	.info-editer {
+		overflow: hidden;
+		padding: 30px;
+
+		.top-bar {
+			div {
+				display: inline-block;
+				margin-right: 30px;
+				color: index.$color-font;
+			}
+			div:nth-child(1) { width: 100px; }
+			div:nth-child(2) { width: 45vw; }
+		}
+
+		.reasons {
+			.reason-text:nth-child(2) {
+				width: 100px;
+				margin-right: 30px;
+				color: index.$color-font;
+			}
+
+			.reason-text:nth-child(3) {
+				width: 35vw;
+				margin-right: 30px;
+				color: index.$color-font;
+			}
+
+			.DarkButton {
+				margin: 10px 20px;
+				display: inline-block;
+				// float: right;
+			}
+		}
+	}
+}

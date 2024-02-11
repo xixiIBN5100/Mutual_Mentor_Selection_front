@@ -7,6 +7,7 @@ import FirstCho from './firstCho/index.vue';
 import passwordChange from "./passwordChange/index.vue";
 import suggestionSubmit from "./suggestionSubmit/index.vue";
 import studentInfo from "./studentInfo/index.vue";
+import reasonBase from "./reasonBase/index.vue";
 
 export {
   Login,
@@ -18,4 +19,5 @@ export {
   passwordChange,
   suggestionSubmit,
   studentInfo,
+  reasonBase
 };
