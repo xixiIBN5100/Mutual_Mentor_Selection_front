@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit, studentInfo, reasonBase } from "@/views";
+import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase } from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +29,15 @@ const routes = createRouter({
       component: EditInfo
     },
     {
+      path:"/teacherList",
+      name:"teacharlist",
+      component: TeacherList,
+    },
+    {
+      path:"/firstCho",
+      name:"firstCho",
+      component: FirstCho,
+    },{
       path: "/password",
       name: "passwordChange",
       component: passwordChange
