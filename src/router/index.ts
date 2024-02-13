@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase } from "@/views";
+import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback } from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +56,11 @@ const routes = createRouter({
       path: "/reasonBase",
       name: "reasonBase",
       component: reasonBase
+    },
+    {
+      path: "/suggestionFeedback",
+      name: "suggestionFeedback",
+      component: suggestionFeedback
     }
   ]
 });
