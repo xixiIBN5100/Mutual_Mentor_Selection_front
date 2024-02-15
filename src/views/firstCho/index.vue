@@ -26,9 +26,17 @@ import axios from 'axios'
 
 let file = null;
 const loading = ref(false)
-
+//http://47.115.209.120:8080/static/selection_table.docx
 const download = () => {
+  let link = document.createElement('a')
+  link.download="selection_table.docx";
+  link.href = "http://47.115.209.120:8080/static/selection_table.docx";
+  link.target = "_blank";
+  link.style.display = "none";
 
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 const fileChange = (e) => {

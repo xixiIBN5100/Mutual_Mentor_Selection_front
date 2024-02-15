@@ -26,6 +26,7 @@ const useUserStore = defineStore("user",() => {
 
   /* --- 测试用数据 --- */
   const userIdentity = ref<string>("学生");
+
   // userSession.student_id = 114514;
   const userSession = reactive<userSessionType>({
     name:"Rosyr",

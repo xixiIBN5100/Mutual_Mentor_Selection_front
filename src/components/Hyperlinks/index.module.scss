@@ -8,15 +8,17 @@ $liColor: "red", "blue", "yellow", "green", "pink";
     border: 0;
     padding: 3px;
     margin: 2px;
-  
+
     &::before {
       content: "";
       position: absolute;
       width: 10px;
       height: 10px;
+      bottom: -2px;
+      left: -2px;
       transition: 0.3s;
     }
-  
+
     &:hover::before {
         width: calc(100% + 9px);
         height: 0;

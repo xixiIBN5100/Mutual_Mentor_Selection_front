@@ -51,14 +51,14 @@ const total = ref<number>();
 
 /** 挂载完组件，请求一次 */
 onMounted(async ()=>{
-  const res = await getTeacherInfo.getInfo([currentPage.value,pageSize.value]);
+  const res = await getTeacherInfo.getInfo({page_num:currentPage.value ,page_size:pageSize.value});
   datas.value = res.data.data.data;
   total.value = res.data.data.total_page_num;
 })
 
 const handleCurrentChange = async (val) => {
   currentPage.value = val;
-  const res = await getTeacherInfo.getInfo([currentPage.value,pageSize.value]);
+  const res = await getTeacherInfo.getInfo({page_num:currentPage.value ,page_size:pageSize.value});
   datas.value = res.data.data.data;
   alert(currentPage.value)
 }
