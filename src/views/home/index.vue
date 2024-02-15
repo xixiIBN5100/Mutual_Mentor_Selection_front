@@ -68,14 +68,14 @@
         <div>请求审批</div>
         <div>我的审批</div>
       </card>
-      <card :class="styles['info-card']" title="设置" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
-        <div>管理理由库</div>
+        <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
       </card>
-      <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.communication]" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-        <div>意见反馈</div>
+        <hyperlinks @click="() => jumpPage('/suggestionFeedback')" color="pink">意见反馈</hyperlinks>
       </card>
     </div>
   </div>
