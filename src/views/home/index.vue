@@ -34,12 +34,12 @@
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
-        <hyperlinks @click="() => jumpPage('/password')" color="green">教师列表</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/teacherList')" color="green">教师列表</hyperlinks>
         <hyperlinks @click="() => jumpPage('/password')" color="green">实施条例</hyperlinks>
       </card>
       <card :class="[styles.communication, styles['info-card']]" title="选择与沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-        <hyperlinks @click="() => jumpPage('/password')" color="pink">第一轮选择</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/firstCho')" color="pink">第一轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/password')" color="pink">第二轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/password')" color="pink">导师私聊</hyperlinks>
         <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
