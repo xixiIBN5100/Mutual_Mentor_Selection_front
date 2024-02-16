@@ -20,7 +20,7 @@
           <el-icon v-else><Hide /></el-icon>
         </div>
         <div>姓名: <span v-if="detailInfoDisplay">{{ userStore.userSession.name }}</span> <span v-else>***</span></div>
-        <div>学号: <span v-if="detailInfoDisplay">{{ userStore.userSession.student_id }}</span> <span v-else>***</span></div>
+        <div>学号: <span v-if="detailInfoDisplay">{{ userStore.userSession.studentID }}</span> <span v-else>***</span></div>
         <div>专业班级: <span v-if="detailInfoDisplay">{{ userStore.userSession.class }}</span> <span v-else>***</span></div>
         <div>联系方式: <span v-if="detailInfoDisplay">{{ userStore.userSession.phone }}</span> <span v-else>***</span></div>
         <div>政治面貌: <span v-if="detailInfoDisplay">{{ userStore.userSession.political_status }}</span> <span v-else>***</span></div>
@@ -40,7 +40,7 @@
       <card :class="[styles.communication, styles['info-card']]" title="选择与沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <hyperlinks @click="() => jumpPage('/firstCho')" color="pink">第一轮选择</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/password')" color="pink">第二轮选择</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/secondCho')" color="pink">第二轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/password')" color="pink">导师私聊</hyperlinks>
         <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
       </card>

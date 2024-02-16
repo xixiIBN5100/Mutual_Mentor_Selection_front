@@ -5,15 +5,18 @@
       <el-icon class='back' :size='30' @click='back'><Back /></el-icon>
     </Card>
     <Card :class='styles["set-info"]' :isFadingOut='isFadingOut'>
-      <span style='margin-top: 20px'>截至时间</span>&nbsp;&nbsp;
+      <span>管理员设置的一轮截至时间为：{{adminTime}}</span>
+      <span>设置的时间需早于管理员设置的时间</span>
+      <span style='margin-top: 20px'>截止时间</span>&nbsp;&nbsp;
       <el-date-picker
         v-model="value1"
         type="datetime"
-        placeholder="Select date and time"
+        placeholder="选择一轮的截止时间"
       />
       <div class='button'>
         <el-button type="info" @click='submit'>提交</el-button>
       </div>
+      <span>目前已设置的时间：{{beforeSet}}</span>
     </Card>
   </div>
 </div>
@@ -23,53 +26,96 @@
 import routes from '@/router'
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
-import { ref } from "vue";
+import { ref, onMounted, reactive} from "vue";
 import teacherSetTime from '@/apis/Server/teacherSetTime';
 import { ElNotification } from 'element-plus';
 
-const value1 = ref('')
-const isFadingOut = ref<boolean>(false);
+const adminTime = ref<string>("未设置");
+const beforeSet = ref<string>("未设置");
 
-const submit = async () => {
-  const year = String(value1.value.getFullYear());
-  const mon = value1.value.getMonth()+1;
-  const month = ref<string>("")
-  if(mon<10){
-    month.value = "0" + String(mon);
-  }else{
-    month.value = String(mon);
-  }
-  const da = String(value1.value.getDate());
-  const day = ref<number>(0);
-  if(da<10){
-    day.value = "0" + String(da);
-  }else{
-    day.value = String(da);
-  }
-  const oth = value1.value.toString().slice(16,24);
-  const data = ref({time_by_teacher:year+"-"+month.value+"-"+day.value+"T"+oth+"Z"});
-  // console.log(data.value)
-  await teacherSetTime.setTime(data.value).then((res)=>{
-    if(res.data.code == 200){
-      ElNotification({
-        title: 'Success',
-        message: '设置成功',
-        type: 'success',
-      })
+onMounted(()=>{
+  teacherSetTime.getAdminTime().then((res)=>{
+    if(res.data.code === 200){
+      adminTime.value = res.data.data.time_by_admin_1;
     }else{
       ElNotification({
-        title: 'Error',
-        message: '设置失败',
-        type: 'error',
+        title: 'Warning',
+        message: '获取数据失败',
+        type: 'warning',
       })
     }
-  }).catch((e: Error | {errMsg:string})=>{
+  }).catch((e:Error|{errMsg:string})=>{
     ElNotification({
       title: 'Error',
       message: e,
       type: 'error',
     })
-  });
+  })
+
+  teacherSetTime.get
+})
+
+const value1 = ref('')
+const isFadingOut = ref<boolean>(false);
+
+const submit = async () => {
+  if(value1.value == ""){
+    ElNotification({
+      title: 'Warning',
+      message: '还没有设置截止时间！',
+      type: 'warning',
+    })
+  }else{
+    const year = String(value1.value.getFullYear());
+    const mon = value1.value.getMonth()+1;
+    const month = ref<string>("")
+    if(mon<10){
+      month.value = "0" + String(mon);
+    }else{
+      month.value = String(mon);
+    }
+    const da = String(value1.value.getDate());
+    const day = ref<number>(0);
+    if(da<10){
+      day.value = "0" + String(da);
+    }else{
+      day.value = String(da);
+    }
+    const oth = value1.value.toString().slice(16,24);
+    const data = ref({time_by_teacher:year+"-"+month.value+"-"+day.value+"T"+oth+"Z"});
+    if(data.value.time_by_teacher > adminTime.value){
+      // console.log(data.value.time_by_teacher);
+      // console.log(adminTime.value);
+      ElNotification({
+        title: 'Warning',
+        message: '设置的截止时间需早于管理员！！！',
+        type: 'warning',
+      })
+    }else{
+      // console.log(data.value)
+      await teacherSetTime.setTime(data.value).then((res)=>{
+        if(res.data.code == 200){
+          ElNotification({
+            title: 'Success',
+            message: '设置成功',
+            type: 'success',
+          })
+        }else{
+          ElNotification({
+            title: 'Error',
+            message: '设置失败',
+            type: 'error',
+          })
+        }
+      }).catch((e: Error | {errMsg:string})=>{
+        ElNotification({
+          title: 'Error',
+          message: e,
+          type: 'error',
+        })
+      });
+    }
+  }
 }
 const back = () =>{
   isFadingOut.value = true;
@@ -85,9 +131,12 @@ const back = () =>{
   float: right;
 }
 .back{
-  width: 70px;
   position: absolute;
   top: 17px;
   right:20px;
+}
+span{
+  display:block;
+  margin:10px;
 }
 </style>

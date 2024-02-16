@@ -3,8 +3,7 @@ import {reactive, ref} from "vue";
 
 export interface userSessionType {
   name?: string,
-
-  student_id?: number,
+  studentID?: number,
   class?: string,
   phone?: number,
   political_status?: string,
@@ -14,9 +13,11 @@ export interface userSessionType {
   experience?: string,
   honor?: string,
   interest?: string,
-
+  teacher_name?: string,
+  target_name?: string,
   teacher_id?: number,
-
+  target_agree?: number,
+  admin_agree?: number,
   admin_id?: number,
 }
 
@@ -31,7 +32,7 @@ const useUserStore = defineStore("user",() => {
   const userSession = reactive<userSessionType>({
     name:"Rosyr",
 
-    student_id: 114514,
+    studentID: 114514,
     class: "1班",
     phone: 13711451419,
     political_status: "群众",
@@ -41,7 +42,7 @@ const useUserStore = defineStore("user",() => {
     experience: "",
     honor: "1",
     interest: "出国",
-
+    target_name:"",
     teacher_id: -1,
     admin_id: -1,
   });
