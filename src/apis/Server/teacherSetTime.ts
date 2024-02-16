@@ -13,5 +13,21 @@ export default class teacherSetTime{
       data:data,
     });
   }
+
+  static async getAdminTime(){
+    return request({
+      headers:{"Content-Type":"application/json"},
+      method:"get",
+      url:"/api/user/admin/time",
+    })
+  }
+
+  static async getBeforeTime(){
+    return request({
+      headers:{"Content-Type":"application/json"},
+      method:"get",
+      url:"/api/user/teacher/time",
+    })
+  }
 }
 
