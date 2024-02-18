@@ -9,8 +9,8 @@
   <div class="contain">
     <div :class="{ 'glass': true, 'fadeOutAndIn': isFadingOut }">
       <div class="text">Login</div>
-      <input type="text" class="username" placeholder="username" v-model='username' />
-      <input type="password" class="password" placeholder="password" v-model='password'/>
+      <input type="text" class="username" placeholder="username" v-model='form.username' />
+      <input type="password" class="password" placeholder="password" v-model='form.password'/>
       <button class="loginButton" v-on:click='login'>Go</button>
       <div class="switchBox">
         <div class="switch1" @click="setIdentity('teacher')">我是{{ type_ === 'teacher' ? '学生' : '老师' }}</div>
@@ -22,22 +22,52 @@
 
 <script setup lang="ts">
 import "./index.scss";
-import { ref , computed } from "vue";
+import { ref , computed , watch} from "vue";
 import { startLoading, closeLoading } from "@/tool/index";
-import styles from './index.module.scss'
-
-const username = ref("");
-const password = ref("");
+import useRequest from "@/apis/useRequest";
+import { loginAPI } from "@/apis/index";
+import { ElNotification } from 'element-plus'
 const type_ = ref("");
 const isFadingOut = ref(false);
+const type = computed(() => {
+  switch (type_.value) {
+    case 'teacher':
+      return 2;
+    case 'administrator':
+      return 3;
+    default:
+      return 1;
+  }
+});
+
+const form = ref({
+  username: "",
+  password: "",
+  type: 1
+});
+
+watch(type, (newValue) => {
+  form.value.type = newValue;
+});
 
 const login = async () => {
   startLoading();
-  closeLoading();
-  alert(username.value);
-  alert(password.value);
-  alert(type_.value);
+  try {
+    const res = await loginAPI(form.value);
+    if (res.data.code === 200 && res.data.msg === "ok") {
+      const token = res.data.token; // 令牌存储在响应数据的 token 字段中
+      localStorage.setItem('token', token); // 将令牌存储在本地存储中
+      ElNotification("登陆成功")
+    } else {
+      throw new Error(res.data.msg);
+    }
+  } catch (e: any) {
+    ElNotification(`获取失败, ${e?.message || "未知错误"}`);
+  } finally {
+    closeLoading();
+  }
 };
+
 
 const setIdentity = (identity: string) => {
   if (identity === type_.value) {
@@ -56,16 +86,7 @@ const setIdentity = (identity: string) => {
   console.log(type.value)
 };
 
-const type = computed(() => {
-  switch (type_.value) {
-    case 'teacher':
-      return '2';
-    case 'administrator':
-      return '3';
-    default:
-      return '1';
-  }
-});
+
 </script>
 
 
