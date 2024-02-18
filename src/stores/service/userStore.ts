@@ -31,7 +31,6 @@ const useUserStore = defineStore("user",() => {
   // userSession.student_id = 114514;
   const userSession = reactive<userSessionType>({
     name:"Rosyr",
-
     studentID: 114514,
     class: "1班",
     phone: 13711451419,
@@ -42,7 +41,10 @@ const useUserStore = defineStore("user",() => {
     experience: "",
     honor: "1",
     interest: "出国",
-    target_name:"",
+    target_name: "",
+    target_agree: 1,
+    admin_agree: 1,
+    teacher_name: "",
     teacher_id: -1,
     admin_id: -1,
   });
@@ -54,6 +56,7 @@ const useUserStore = defineStore("user",() => {
 
   const setUserInfo = (info: userSessionType) : void =>{
     Object.assign(userSession,info);
+    userSession.target_name = info.target_name;
   };
 
   return{

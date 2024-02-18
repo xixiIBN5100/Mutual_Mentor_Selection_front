@@ -8,15 +8,31 @@
       >
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
       </Card>
-      <Card v-if='is_not_cho' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
+      <Card v-show='!targetInfo.target_name' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
         <el-input v-model="input" placeholder="请输入想选择的教师的ID" />
         <div style='margin: 10px'>
           <el-button type="info" @click='choice'>选择</el-button>
         </div>
       </Card>
-      <Card v-else :class='styles["info-card"]' title='你选择的老师：' :isFadingOut='isFadingOut'>
-        <span v-if='userStore.userSession.target_name' class='target_name'>{{userStore.userSession.target_name}}</span>
-        <span v-else class='target_name'>已选择，等待老师审批</span>
+      <Card v-show='targetInfo.target_name' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
+        <span>你选择的老师：{{targetInfo.target_name}}</span>
+        <span>老师的状态：</span>
+        <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
+        <div v-else-if='targetInfo.target_agree === 2'>
+          <span class='choInfo'>老师同意了</span><br />
+          <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
+          <div v-else>
+            <span>管理员状态：</span><br />
+            <span v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
+            <span v-else-if='targetInfo.admin_agree === 2' class='choInfo'>同意了</span>
+            <span v-else class='choInfo'>批驳了</span>
+          </div>
+          <span></span>
+        </div>
+        <div v-else class='choInfo'>
+          <span>老师拒绝了您的选择</span>
+          <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
+        </div>
       </Card>
       <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
         <span>请先下载附件，填写完表格后上传</span>
@@ -36,7 +52,7 @@ import styles from "./index.module.scss";
 import { useMainStore } from "@/stores";
 import { ElNotification, ElMessageBox } from 'element-plus';
 import firstCho from '@/apis/Server/firstCho';
-import { ref, h} from "vue";
+import { ref, h, reactive, onMounted, onBeforeMount} from "vue";
 import axios from 'axios';
 import routes from '@/router';
 
@@ -45,15 +61,48 @@ let file = null;
 const loading = ref(false)
 const input = ref<number>();
 const userStore = useMainStore().useUserStore();
-const is_not_cho = ref<boolean>(true);
-
-if(userStore.userSession.target_name != ""){
-  is_not_cho.value = false;
-}
+const targetInfo = reactive({
+  target_name: userStore.userSession.target_name,
+  target_agree: userStore.userSession.target_agree,
+  teacher_name: userStore.userSession.teacher_name,
+  admin_agree: userStore.userSession.admin_agree,
+});
 
 // console.log(is_cho.value);
-
 //http://47.115.209.120:8080/static/selection_table.docx
+
+//加载页面时，请求一次信息
+onBeforeMount(()=>{
+  loading.value = true;
+  firstCho.getStuInfo().then((res)=>{
+    if(res.data.code === 200){
+      userStore.setUserInfo(res.data.data);
+      targetInfo.target_name = userStore.userSession.target_name;
+      targetInfo.target_agree = userStore.userSession.target_agree;
+      targetInfo.teacher_name = userStore.userSession.teacher_name;
+      targetInfo.admin_agree = userStore.userSession.admin_agree;
+    }else{
+      ElNotification({
+        title: 'Warning',
+        message: '获取数据失败！',
+        type: 'warning',
+      })
+    }
+  }).catch((e:Error)=>{
+    ElNotification({
+      title: 'Error',
+      message: e,
+      type: 'error',
+    })
+  }).finally(()=>{
+    loading.value = false;
+  })
+})
+
+const reCho = () => {
+  targetInfo.target_name = "";
+}
+
 const choice = ()=>{
   if(input.value == undefined){
     ElNotification({
@@ -62,16 +111,42 @@ const choice = ()=>{
       type: 'warning',
     })
   }else{
-    const data = ref({teacher_id:Number(input.value)});
-    firstCho.choice(data.value).then((res)=>{
-      if(res.data.code === 200){
-        is_not_cho.value = false;
-        ElMessageBox.alert('提交成功，等待教师审核','Success', {
-          // if you want to disable its autofocus
-          // autofocus: false,
-          confirmButtonText: 'OK',})
+    let flag = true;
+    for(let i in input.value){
+      if(!(input.value[i]>="0" && input.value[i]<="9")){
+        flag = false;
+        break;
       }
-    })
+    }
+    if(!flag){
+      input.value = null;
+      ElNotification({
+        title: 'Warning',
+        message: '请输入正确的格式！',
+        type: 'warning',
+      })
+    }else{
+      const data = ref({teacher_id:Number(input.value)});
+      firstCho.choice(data.value).then((res)=>{
+        if(res.data.code === 200){
+          // is_not_cho.value = false;
+          ElMessageBox.alert('提交成功，等待教师审核','Success', {
+            // if you want to disable its autofocus
+            // autofocus: false,
+            confirmButtonText: 'OK',})
+          firstCho.getStuInfo().then((res)=>{
+            // console.log(res.data.data.target_name);
+            targetInfo.target_name = res.data.data.target_name;
+          }).catch((e:Error|{errMsg:string})=>{
+            ElNotification({
+              title: 'Error',
+              message: e,
+              type: 'error',
+            })
+          })
+        }
+      })
+    }
   }
 }
 
@@ -117,6 +192,7 @@ const submit = async () => {
           message: '提交成功',
           type: 'success',
         })
+        targetInfo.admin_agree = 1;
       }else{
         ElNotification({
           title: 'Error',
@@ -160,8 +236,8 @@ body {
   right: 20px;
   top: 17px;
 }
-.target_name{
+.choInfo{
   position: relative;
-  right: -120px;
+  right: -80px;
 }
 </style>
