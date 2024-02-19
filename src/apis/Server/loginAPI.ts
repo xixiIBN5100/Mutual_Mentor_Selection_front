@@ -5,7 +5,6 @@ const loginAPI = (data: { username: string; password: string; type: number }) =>
     method: "POST",
     url: "/api/login",
     data: data,
-    withCredentials: true
   });
 };
 
