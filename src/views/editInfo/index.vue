@@ -36,9 +36,27 @@ import { Card, DarkButton } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import { useMainStore } from "@/stores";
+import useRequest from "@/apis/useRequest";
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
+const loginStore = useMainStore().useLoginStore();
+
+const { run: getStudentInfo } = useRequest({
+  data: {},
+  method: "GET",
+  url: "/api/user/reset",
+  headers: { Authorization: loginStore.token },
+  manual: false,
+  onSuccess(response) {
+      alert("修改成功");
+  },
+  onError(error) {
+      alert(error);
+  },
+});
+getStudentInfo;
+
 const name = ref<string|undefined>(userStore.userSession.name);
 const className = ref<string|undefined>(userStore.userSession.class);
 const phone = ref<number|undefined>(userStore.userSession.phone);
@@ -51,7 +69,6 @@ const experience = ref<string|undefined>(userStore.userSession.experience);
 const interest = ref<string|undefined>(userStore.userSession.interest);
 
 const saveData = () => {
-  alert("存储数据成功 *数据仅存储在本地");
   userStore.userSession = {
       "name": name.value,
       "student_id": userStore.userSession.student_id,
@@ -65,7 +82,30 @@ const saveData = () => {
       "honor": honor.value,
       "interest": interest.value,
   }
-  jumpPage("/home");
+  const {data: resData} = useRequest({
+    data: {
+      "name": name.value,
+      "student_id": userStore.userSession.student_id,
+      "class": className.value,
+      "phone": phone.value,
+      "political_status": political_status.value,
+      "email": email.value,
+      "address": address.value,
+      "plan": plan.value,
+      "experience": experience.value,
+      "honor": honor.value,
+      "interest": interest.value,
+    },
+    method: "PUT",
+    url: "/api/user/reset",
+    headers: { Authorization: loginStore.token },
+  });
+  if("code" in resData && resData.code == 200){
+    alert("个人信息提交成功");
+    jumpPage("/home");
+  } else {
+    alert("个人信息提交失败");
+  }
 }
 
 </script>
