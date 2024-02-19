@@ -1,13 +1,13 @@
 <template>
-<div :class="styles.background">
+<div :class="styles.background" v-loading='loading'>
   <div :class="styles.contain">
-    <card
-      title='老师信息列表'
-      :boldTitle = "true"
-    ></card>
+    <card title='老师信息列表' :boldTitle = "true" :isFadingOut='isFadingOut_t'>
+      <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
+    </card>
     <div class='flex'>
       <div v-for='(data,index) in datas' :class='[styles["info-card"],styles["detail-info"]]'>
-        <card>
+        <card :isFadingOut='isFadingOut'>
+          <div>老师ID<span>{{data.teacher_id}}</span></div>
           <div>老师姓名<span>{{data.teacherName}}</span></div>
           <div>部门<span>{{data.section}}</span></div>
           <div>办公室<span>{{data.office}}</span></div>
@@ -16,7 +16,7 @@
     <!-- 分页组件 -->
         </card>
       </div>
-      <card class='pagin'>
+      <card class='pagin' :isFadingOut='isFadingOut_pagin'>
         <div class='pagination'>
           <el-pagination
             v-model:current-page="currentPage"
@@ -39,28 +39,63 @@
 
 <script setup lang='ts'>
 import styles from "./index.module.scss";
-import {Card} from '@/components'
-import getTeacherInfo from '@/apis/Server/getTeacherInfo'
-import {ref , reactive , onMounted} from "vue";
-import number = CSS.number
+import {Card} from '@/components';
+import getTeacherInfo from '@/apis/Server/getTeacherInfo';
+import routes from '@/router';
+import {ref , reactive , onBeforeMount} from "vue";
+import { ElNotification } from 'element-plus';
 
 const currentPage = ref<number>(1);
 const pageSize = ref<number>(8);
 const datas = ref();
 const total = ref<number>();
+const isFadingOut = ref<boolean>(false);
+const loading = ref<boolean>(false);
+const isFadingOut_t = ref<boolean>(false);
+const isFadingOut_pagin = ref<boolean>(false);
 
 /** 挂载完组件，请求一次 */
-onMounted(async ()=>{
-  const res = await getTeacherInfo.getInfo([currentPage.value,pageSize.value]);
-  datas.value = res.data.data.data;
-  total.value = res.data.data.total_page_num;
-})
+onBeforeMount(()=>{
+  handleCurrentChange(1);
+});
 
 const handleCurrentChange = async (val) => {
   currentPage.value = val;
-  const res = await getTeacherInfo.getInfo([currentPage.value,pageSize.value]);
-  datas.value = res.data.data.data;
-  alert(currentPage.value)
+  isFadingOut.value = true;
+  setTimeout(async ()=>{
+    loading.value = true;
+    isFadingOut.value = false;
+    await getTeacherInfo.getInfo({page_num:currentPage.value ,page_size:pageSize.value}).then((res)=>{
+      if(res.data.code === 200){
+        datas.value = res.data.data.data;
+        total.value = res.data.data.total_page_num;
+        loading.value = false;
+      }else{
+        ElNotification({
+          title: 'Warning',
+          message: '数据请求出错！',
+          type: 'warning',
+        })
+      }
+    }).catch((e:Error|{errMsg:string})=>{
+      ElNotification({
+        title: 'Error',
+        message: e,
+        type: 'error',
+      })
+    }).finally(()=>{
+      loading.value = false;
+    });
+  },1000)
+}
+
+const back = () => {
+  isFadingOut.value = true;
+  isFadingOut_t.value = true;
+  isFadingOut_pagin.value = true;
+  setTimeout(()=>{
+    routes.push('/home');
+  },1000)
 }
 </script>
 
@@ -74,5 +109,10 @@ const handleCurrentChange = async (val) => {
   position: fixed;
   right: 35vw;
   bottom: 5vh;
+}
+.back{
+  position: absolute;
+  right: 20px;
+  top: 17px;
 }
 </style>

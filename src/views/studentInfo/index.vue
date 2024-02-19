@@ -4,7 +4,10 @@
       <card :class="styles['title-bar']" title="学生信息" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/approval')"><Back /></el-icon>
       </card>
-      <card :class="styles.info"></card>
+      <div style="display: flex;justify-content: center;">
+      <card :class="styles.info" :is-fading-out=isFadingOut style="width: 80%;"> 
+      </card>
+    </div>
     </div>
  </div>
 </template>

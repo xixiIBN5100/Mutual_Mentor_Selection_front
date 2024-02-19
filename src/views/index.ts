@@ -9,6 +9,9 @@ import suggestionSubmit from "./suggestionSubmit/index.vue";
 import studentInfo from "./studentInfo/index.vue";
 import reasonBase from "./reasonBase/index.vue";
 import suggestionFeedback from "./suggestionFeedback/index.vue";
+import teacherSetTime from "./teacherSetTime/index.vue";
+import adminSetTime from "./adminSetTime/index.vue";
+import secondCho from "./secondCho/index.vue";
 
 export {
   Login,
@@ -21,5 +24,8 @@ export {
   suggestionSubmit,
   studentInfo,
   reasonBase,
-  suggestionFeedback
+  suggestionFeedback,
+  teacherSetTime,
+  adminSetTime,
+  secondCho,
 };

@@ -13,6 +13,6 @@ const props = withDefaults(defineProps<{
   boldTitle?: boolean
   isFadingOut?: boolean
 }>(), {
-  boldTitle: false
+  boldTitle: false,
 });
 </script>
