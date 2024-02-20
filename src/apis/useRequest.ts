@@ -43,7 +43,7 @@ const useRequest = (config:requestConfigType) => {
     },config?.loadingDelay || 0);
 
     const instance = axios.create({
-      baseURL:"http://47.115.209.120:8080",
+      baseURL:"https://phlin.love",
       timeout:1000,
     });
 
