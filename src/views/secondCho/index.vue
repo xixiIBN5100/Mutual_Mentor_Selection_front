@@ -4,17 +4,41 @@
     <Card title='第二轮选择' :boldTitle='true' :isFadingOut='isFadingOut'>
       <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
     </Card>
-    <Card title='学校为您分配的老师：' :class='[styles["info-card"]]' :isFadingOut='isFadingOut'>
-      <span class='teacherName'>{{userStore.userSession.target_name}}</span>
-    </Card>
-    <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
-      <span>请联系分配到的老师，完成表格后上传</span>
-      <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
-    </Card>
-    <Card :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
-      <input type='file' name='file' @change='fileChange' />
-      <el-button type="info" class='button' @click='submit'>提交</el-button>
-    </Card>
+    <div v-if='targetInfo.teacher_name'>
+      <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
+        <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
+      </Card>
+    </div>
+    <div v-else>
+      <Card title='学校为您分配的老师：' :class='[styles["info-card"]]' :isFadingOut='isFadingOut'>
+        <span class='teacherName'>{{userStore.userSession.target_name}}</span>
+        <span>老师的状态：</span>
+        <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
+        <div v-else-if='targetInfo.target_agree === 2'>
+          <span class='choInfo'>老师同意了</span><br />
+          <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
+          <div v-else>
+            <span>管理员状态：</span><br />
+            <span v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
+            <span v-else-if='targetInfo.admin_agree === 2' class='choInfo'>同意了</span>
+            <span v-else class='choInfo'>批驳了</span>
+          </div>
+          <span></span>
+        </div>
+        <div v-else class='choInfo'>
+          <span>老师拒绝了您的选择</span>
+          <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
+        </div>
+      </Card>
+      <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
+        <span>请联系分配到的老师，完成表格后上传</span>
+        <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
+      </Card>
+      <Card title='提交文件' :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
+        <input type='file' name='file' @change='fileChange' />
+        <el-button type="info" class='button' @click='submit'>提交</el-button>
+      </Card>
+    </div>
   </div>
 </div>
 </template>
@@ -22,16 +46,50 @@
 <script setup lang='ts'>
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
-import { ref } from "vue";
+import { reactive, ref, onBeforeMount,} from 'vue'
 import routes from '@/router';
 import { useMainStore } from "@/stores";
 import { ElNotification } from 'element-plus'
 import axios from 'axios'
+import firstCho from '@/apis/Server/firstCho'
 
 const isFadingOut = ref<boolean>(false);
-const userStore = useMainStore().useUserStore();
 let file = null;
 const loading = ref<boolean>(false);
+const userStore = useMainStore().useUserStore();
+const targetInfo = reactive({
+  target_name: userStore.userSession.target_name,
+  target_agree: userStore.userSession.target_agree,
+  teacher_name: userStore.userSession.teacher_name,
+  admin_agree: userStore.userSession.admin_agree,
+});
+
+onBeforeMount(()=>{
+  loading.value = true;
+  firstCho.getStuInfo().then((res)=>{
+    if(res.data.code === 200){
+      userStore.setUserInfo(res.data.data);
+      targetInfo.target_name = userStore.userSession.target_name;
+      targetInfo.target_agree = userStore.userSession.target_agree;
+      targetInfo.teacher_name = userStore.userSession.teacher_name;
+      targetInfo.admin_agree = userStore.userSession.admin_agree;
+    }else{
+      ElNotification({
+        title: 'Warning',
+        message: '获取数据失败！',
+        type: 'warning',
+      })
+    }
+  }).catch((e:Error)=>{
+    ElNotification({
+      title: 'Error',
+      message: e,
+      type: 'error',
+    })
+  }).finally(()=>{
+    loading.value = false;
+  })
+})
 
 const back = ()=>{
   isFadingOut.value = true;
@@ -83,6 +141,7 @@ const submit = async () => {
           message: '提交成功',
           type: 'success',
         })
+        targetInfo.admin_agree = 1;
       }else{
         ElNotification({
           title: 'Error',
@@ -116,5 +175,14 @@ const submit = async () => {
 .button{
   margin: 10px;
   width: 100px;
+}
+.choInfo{
+  position: relative;
+  right: -80px;
+}
+.finalTeacher{
+  margin: 10px;
+  width: 300px;
+  position: relative;
 }
 </style>

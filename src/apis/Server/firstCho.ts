@@ -13,4 +13,11 @@ export default class firstCho{
       data:data
     })
   }
+  static async getStuInfo(){
+    return request({
+      headers: {"Content-Type":"application/json",'Authorization':`Bearer ${token}`},
+      method: "get",
+      url: "/api/student/info",
+    })
+  }
 }
