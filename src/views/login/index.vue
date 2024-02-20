@@ -23,10 +23,12 @@
 <script setup lang="ts">
 import "./index.scss";
 import { ref , computed , watch} from "vue";
-import { startLoading, closeLoading } from "@/tool/index";
+import { startLoading, closeLoading, jumpPage } from "@/tool/index";
 import useRequest from "@/apis/useRequest";
 import { loginAPI } from "@/apis/index";
 import { ElNotification } from 'element-plus'
+import { useMainStore } from "@/stores";
+const loginStore = useMainStore().useLoginStore();
 const type_ = ref("");
 const isFadingOut = ref(false);
 const type = computed(() => {
@@ -54,15 +56,17 @@ const login = async () => {
   startLoading();
   try {
     const res = await loginAPI(form.value);
+    console.log(res.data)
     if (res.data.code === 200 && res.data.msg === "ok") {
       const token = res.data.token; // 令牌存储在响应数据的 token 字段中
-      localStorage.setItem('token', token); // 将令牌存储在本地存储中
+      loginStore.setToken(token);
       ElNotification("登陆成功")
+      jumpPage("/home")
     } else {
       throw new Error(res.data.msg);
     }
   } catch (e: any) {
-    ElNotification(`获取失败, ${e?.message || "未知错误"}`);
+    ElNotification(`登录失败, ${e?.message || "未知错误"}`);
   } finally {
     closeLoading();
   }

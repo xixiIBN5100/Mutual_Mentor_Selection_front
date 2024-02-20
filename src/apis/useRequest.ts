@@ -43,7 +43,7 @@ const useRequest = (config:requestConfigType) => {
     },config?.loadingDelay || 0);
 
     const instance = axios.create({
-      baseURL:"http://127.0.0.1:4523/m1/3977327-0-default",
+      baseURL:"https://phlin.love",
       timeout:1000,
     });
 
@@ -58,6 +58,7 @@ const useRequest = (config:requestConfigType) => {
       data.value = response.data;
     }).catch((e:Error | { errMsg:string}) => {
       const errMsg = config?.onError?.(e);
+      console.log(errMsg);
       error.value = e;
     }).finally(() => {
       config?.onFinally?.();

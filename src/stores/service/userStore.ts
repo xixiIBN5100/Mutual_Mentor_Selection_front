@@ -23,10 +23,12 @@ export interface userSessionType {
 
 const useUserStore = defineStore("user",() => {
   // const userIdentity = ref<string>();
-  // const userSession = reactive<userSessionType>({});
 
   /* --- 测试用数据 --- */
   const userIdentity = ref<string>("学生");
+  // userSession.studentID = 114514;
+  // const userSession = reactive<userSessionType>({
+  //   name:"Rosyr",
 
   // userSession.student_id = 114514;
   const userSession = reactive<userSessionType>({
@@ -42,8 +44,8 @@ const useUserStore = defineStore("user",() => {
     honor: "1",
     interest: "出国",
     target_name: "",
-    target_agree: 1,
-    admin_agree: 1,
+    target_agree: 2,
+    admin_agree: 0,
     teacher_name: "",
     teacher_id: -1,
     admin_id: -1,

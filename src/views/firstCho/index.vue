@@ -8,40 +8,46 @@
       >
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
       </Card>
-      <Card v-show='!targetInfo.target_name' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
-        <el-input v-model="input" placeholder="请输入想选择的教师的ID" />
-        <div style='margin: 10px'>
-          <el-button type="info" @click='choice'>选择</el-button>
-        </div>
-      </Card>
-      <Card v-show='targetInfo.target_name' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
-        <span>你选择的老师：{{targetInfo.target_name}}</span>
-        <span>老师的状态：</span>
-        <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
-        <div v-else-if='targetInfo.target_agree === 2'>
-          <span class='choInfo'>老师同意了</span><br />
-          <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
-          <div v-else>
-            <span>管理员状态：</span><br />
-            <span v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
-            <span v-else-if='targetInfo.admin_agree === 2' class='choInfo'>同意了</span>
-            <span v-else class='choInfo'>批驳了</span>
+      <div v-if='targetInfo.teacher_name'>
+        <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
+          <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
+        </Card>
+      </div>
+      <div v-else>
+        <Card v-show='!targetInfo.target_name' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
+          <el-input v-model="input" placeholder="请输入想选择的教师的ID" />
+          <div style='margin: 10px'>
+            <el-button type="info" @click='choice'>选择</el-button>
           </div>
-          <span></span>
-        </div>
-        <div v-else class='choInfo'>
-          <span>老师拒绝了您的选择</span>
-          <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
-        </div>
-      </Card>
-      <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
-        <span>请先下载附件，填写完表格后上传</span>
-        <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
-      </Card>
-      <Card :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
-        <input type='file' name='file' @change='fileChange' />
-        <el-button type="info" class='button' @click='submit'>提交</el-button>
-      </Card>
+        </Card>
+        <Card v-show='targetInfo.target_name' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
+          <span>你选择的老师：{{targetInfo.target_name}}</span>
+          <span>老师的状态：</span>
+          <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
+          <div v-else-if='targetInfo.target_agree === 2'>
+            <span class='choInfo'>老师同意了</span><br />
+            <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
+            <div v-else>
+              <span>管理员状态：</span><br />
+              <span v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
+              <span v-else-if='targetInfo.admin_agree === 2' class='choInfo'>同意了</span>
+              <span v-else class='choInfo'>批驳了</span>
+            </div>
+          </div>
+          <div v-else class='choInfo'>
+            <span>老师拒绝了您的选择</span>
+            <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
+          </div>
+        </Card>
+        <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
+          <span>请先下载附件，填写完表格后上传</span>
+          <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
+        </Card>
+        <Card title='提交文件' :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
+          <input type='file' name='file' @change='fileChange' />
+          <el-button type="info" class='button' @click='submit'>提交</el-button>
+        </Card>
+      </div>
     </div>
   </div>
 </template>
@@ -239,5 +245,10 @@ body {
 .choInfo{
   position: relative;
   right: -80px;
+}
+.finalTeacher{
+  margin: 10px;
+  width: 300px;
+  position: relative;
 }
 </style>
