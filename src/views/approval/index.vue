@@ -45,7 +45,15 @@
 import styles from './index.module.scss'
 import { Card, DarkButton } from '@/components/index'
 import { jumpPage, isFadingOut } from '@/tool'
-import { ref } from 'vue'
-
+import { onMounted, ref } from 'vue'
+import { getStudentListAPI } from "@/apis/index"
+import { useMainStore } from '@/stores'
+const loginStore = useMainStore().useLoginStore()
 isFadingOut.value = false
+const token = loginStore.token
+console.log(token)
+onMounted(() => {
+  getStudentListAPI(1,token);
+  getStudentListAPI(2,token);
+})
 </script>
