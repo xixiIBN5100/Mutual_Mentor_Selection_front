@@ -7,7 +7,7 @@
       <Card title='姓名学号' :boldTitle='true' :class='[styles["info-card"],"info"]' :isFadingOut='isFadingOut'>
         <div v-for='person in stuInfo'>{{person.name}}<span>{{person.student_id}}</span></div>
         <span v-if='stuNum'>一共{{stuNum}}个学生</span>
-        <span v-else>目前还没有学生</span>
+        <span v-else>目前还没有成功双向选择的学生</span>
       </Card>
     </div>
   </div>
