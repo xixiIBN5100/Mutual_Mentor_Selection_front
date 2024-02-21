@@ -12,6 +12,7 @@ import suggestionFeedback from "./suggestionFeedback/index.vue";
 import teacherSetTime from "./teacherSetTime/index.vue";
 import adminSetTime from "./adminSetTime/index.vue";
 import secondCho from "./secondCho/index.vue";
+import finalStu from "./finalStu/index.vue";
 
 export {
   Login,
@@ -28,4 +29,5 @@ export {
   teacherSetTime,
   adminSetTime,
   secondCho,
+  finalStu,
 };

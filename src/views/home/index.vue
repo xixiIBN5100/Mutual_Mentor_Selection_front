@@ -51,6 +51,7 @@
         <div>审批设置</div>
         <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
         <div>我的学生</div>
+        <hyperlinks @click="()=> jumpPage('/finalStu')">最终学生</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
