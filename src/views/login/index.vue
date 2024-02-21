@@ -58,8 +58,10 @@ const login = async () => {
     const res = await loginAPI(form.value);
     console.log(res.data)
     if (res.data.code === 200 && res.data.msg === "ok") {
-      const token = res.data.token; // 令牌存储在响应数据的 token 字段中
+      const token = res.data.data.token; // 令牌存储在响应数据的 token 字段中
       loginStore.setToken(token);
+      console.log(token)
+      console.log(loginStore.token)
       ElNotification("登陆成功")
       jumpPage("/home")
     } else {
