@@ -7,27 +7,26 @@
     <div class='flex'>
       <div v-for='(data,index) in datas' :class='[styles["info-card"],styles["detail-info"]]'>
         <card :isFadingOut='isFadingOut'>
-          <div>老师ID<span>{{data.teacher_id}}</span></div>
-          <div>老师姓名<span>{{data.teacherName}}</span></div>
+          <div>教师编号<span>{{data.teacher_id}}</span></div>
+          <div>教师姓名<span>{{data.teacherName}}</span></div>
           <div>部门<span>{{data.section}}</span></div>
           <div>办公室<span>{{data.office}}</span></div>
           <div>电话号码<span>{{data.phone}}</span></div>
           <div>电子邮件<span>{{data.email}}</span></div>
+          <div>已有的学生数量<span>{{data.students_num}}</span></div>
+          <div>设置的截止时间<span>{{data.teacher_ddl}}</span></div>
     <!-- 分页组件 -->
         </card>
       </div>
-      <card class='pagin' :isFadingOut='isFadingOut_pagin'>
+      <card class='Pagin' :isFadingOut='isFadingOut_pagin'>
         <div class='pagination'>
           <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
-            :small="small"
-            :disabled="disabled"
+            :disabled="false"
             layout="total, prev, pager, next, jumper"
             :total="total*8"
             :size='8'
-            :background="background"
-            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
           />
         </div>
@@ -44,6 +43,7 @@ import getTeacherInfo from '@/apis/Server/getTeacherInfo';
 import routes from '@/router';
 import {ref , reactive , onBeforeMount} from "vue";
 import { ElNotification } from 'element-plus';
+import { useMainStore} from '@/stores'
 
 const currentPage = ref<number>(1);
 const pageSize = ref<number>(8);
@@ -53,11 +53,15 @@ const isFadingOut = ref<boolean>(false);
 const loading = ref<boolean>(false);
 const isFadingOut_t = ref<boolean>(false);
 const isFadingOut_pagin = ref<boolean>(false);
+const userStore = useMainStore().useUserStore();
+const loginStore = useMainStore().useLoginStore();
 
 /** 挂载完组件，请求一次 */
 onBeforeMount(()=>{
   handleCurrentChange(1);
 });
+
+// console.log(localStorage.getItem("token"));
 
 const handleCurrentChange = async (val) => {
   currentPage.value = val;
@@ -65,15 +69,19 @@ const handleCurrentChange = async (val) => {
   setTimeout(async ()=>{
     loading.value = true;
     isFadingOut.value = false;
-    await getTeacherInfo.getInfo({page_num:currentPage.value ,page_size:pageSize.value}).then((res)=>{
+    await getTeacherInfo.getInfo({page_num:currentPage.value ,page_size:pageSize.value},loginStore.token).then((res)=>{
       if(res.data.code === 200){
         datas.value = res.data.data.data;
         total.value = res.data.data.total_page_num;
+        for(let i in datas.value){
+          datas.value[i].teacher_ddl = datas.value[i].teacher_ddl.substring(0,4)+"年"+datas.value[i].teacher_ddl.substring(5,7)+"月"+datas.value[i].teacher_ddl.substring(8,10)+"日"+datas.value[i].teacher_ddl.substring(11,19);
+          // console.log(datas.value[i]);
+        }
         loading.value = false;
       }else{
         ElNotification({
           title: 'Warning',
-          message: '数据请求出错！',
+          message: res.data.msg,
           type: 'warning',
         })
       }
@@ -105,7 +113,7 @@ const back = () => {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 
 }
-.pagin{
+.Pagin{
   position: fixed;
   right: 35vw;
   bottom: 5vh;

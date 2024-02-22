@@ -1,11 +1,9 @@
 import request from '@/apis/request'
 
-const token = localStorage.getItem('token');
-
 export default class teacherSetTime{
   static async setTime(data:{
     time_by_teacher:string;
-  }){
+  },token:string){
     return request({
       headers:{"Content-Type":"application/json",'Authorization':`Bearer ${token}`},
       method:"post",
@@ -14,9 +12,9 @@ export default class teacherSetTime{
     });
   }
 
-  static async getAdminTime(){
+  static async getAdminTime(token:string){
     return request({
-      headers:{"Content-Type":"application/json"},
+      headers:{"Content-Type":"application/json",'Authorization': `Bearer ${token}`,},
       method:"get",
       url:"/api/user/admin/time",
     })

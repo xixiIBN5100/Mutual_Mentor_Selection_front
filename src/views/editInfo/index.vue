@@ -85,7 +85,7 @@ const saveData = () => {
   useRequest({
     data: userInfo,
     method: "PUT",
-    url: "/api/user/reset",
+    url: "/api/student/info",
     headers: { Authorization: loginStore.token },
     onSuccess() {
       ElNotification("信息更改成功");

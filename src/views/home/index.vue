@@ -28,6 +28,7 @@
         <div>邮箱: <span v-if="detailInfoDisplay">{{ userStore.userSession.email }}</span> <span v-else>***</span></div>
         <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
         <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
+        <div>最终导师：<span v-if="detailInfoDisplay">{{ userStore.userSession.teacher_name}}</span> <span v-else>***</span></div>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
@@ -52,11 +53,13 @@
         <div>审批设置</div>
         <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
         <div>我的学生</div>
+        <hyperlinks @click="()=> jumpPage('/finalStu')">最终学生</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
         <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
+        <hyperlinks @click='() => jumpPage("/teacherSetTime")' color='yellow'>设置一轮截止时间</hyperlinks>
       </card>
       <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
@@ -73,6 +76,7 @@
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
         <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/adminSetTime')" color='yellow'>设置两轮选择的截止时间</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.communication]" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>

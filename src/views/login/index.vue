@@ -29,6 +29,7 @@ import { loginAPI } from "@/apis/index";
 import { ElNotification } from 'element-plus'
 import { useMainStore } from "@/stores";
 
+
 const userStore = useMainStore().useUserStore();
 const loginStore = useMainStore().useLoginStore();
 const type_ = ref("");
@@ -60,6 +61,11 @@ const login = async () => {
     const res = await loginAPI(form.value);
     console.log(res.data)
     if (res.data.code === 200 && res.data.msg === "ok") {
+      if(res.data.data.msg.length>3){
+        userStore.setUserIdentity(res.data.data.msg.slice(-2));
+      }else{
+        userStore.setUserIdentity(res.data.data.msg);
+      }
       const token = res.data.data.token; // 令牌存储在响应数据的 token 字段中
       loginStore.setToken(token);
       ElNotification("登陆成功");
