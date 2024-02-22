@@ -17,7 +17,6 @@ const useLoginStore = defineStore("login", () => {
     setLogin,
     setToken
   };
-}
-);
+},{ persist: true });
 
 export default useLoginStore;
