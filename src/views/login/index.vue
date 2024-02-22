@@ -29,8 +29,9 @@ import { loginAPI } from "@/apis/index";
 import { ElNotification } from 'element-plus'
 import { useMainStore } from "@/stores";
 
-const loginStore = useMainStore().useLoginStore();
+
 const userStore = useMainStore().useUserStore();
+const loginStore = useMainStore().useLoginStore();
 const type_ = ref("");
 const isFadingOut = ref(false);
 const type = computed(() => {
@@ -67,10 +68,24 @@ const login = async () => {
       }
       const token = res.data.data.token; // 令牌存储在响应数据的 token 字段中
       loginStore.setToken(token);
-      localStorage.setItem("token",token);
-      // console.log(token)
-      // console.log(loginStore.token)
-      ElNotification("登陆成功")
+      ElNotification("登陆成功");
+      loginStore.setLogin(true);
+      userStore.setUserIdentity(form.value.type === 1 ? "学生" : (form.value.type === 2 ? "教师" : "管理员"));
+      if(form.value.type === 1) {
+        useRequest({
+          params: {},
+          method: "GET",
+          url: "/api/student/info",
+          headers: { Authorization: token},
+          onSuccess(response) {
+            userStore.setUserInfo(response.data.data);
+          },
+          onError(error) {
+            ElNotification("学生信息获取失败");
+            console.log(error);
+          },
+        })
+      }
       jumpPage("/home")
     } else {
       throw new Error(res.data.msg);
@@ -81,7 +96,6 @@ const login = async () => {
     closeLoading();
   }
 };
-
 
 const setIdentity = (identity: string) => {
   if (identity === type_.value) {
@@ -99,7 +113,6 @@ const setIdentity = (identity: string) => {
   }
   console.log(type.value)
 };
-
 
 </script>
 

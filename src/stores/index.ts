@@ -7,4 +7,4 @@ export const useMainStore = defineStore("main", () => {
     useLoginStore,
     useUserStore
   };
-});
+},{ persist: true });

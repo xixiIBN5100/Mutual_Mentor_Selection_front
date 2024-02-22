@@ -15,41 +15,44 @@ export interface userSessionType {
   interest?: string,
   teacher_name?: string,
   target_name?: string,
-  teacher_id?: number,
   target_agree?: number,
   admin_agree?: number,
+
+  teacher_id?: number,
+
   admin_id?: number,
 }
 
 const useUserStore = defineStore("user",() => {
-  // const userIdentity = ref<string>();
+  const userIdentity = ref<string>();
+  const userSession = reactive<userSessionType>({});
 
   /* --- 测试用数据 --- */
-  const userIdentity = ref<string>("");
+  // const userIdentity = ref<string>("学生");
   // userSession.studentID = 114514;
   // const userSession = reactive<userSessionType>({
   //   name:"Rosyr",
 
   // userSession.student_id = 114514;
-  const userSession = reactive<userSessionType>({
-    name:"Rosyr",
-    studentID: 114514,
-    class: "1班",
-    phone: 13711451419,
-    political_status: "群众",
-    email: "syr050301@qq.com",
-    address:"xx区x-x-x0x",
-    plan: "",
-    experience: "",
-    honor: "1",
-    interest: "出国",
-    target_name: "",
-    target_agree: 2,
-    admin_agree: 0,
-    teacher_name: "",
-    teacher_id: -1,
-    admin_id: -1,
-  });
+  // const userSession = reactive<userSessionType>({
+  //   name:"Rosyr",
+  //   studentID: 114514,
+  //   class: "1班",
+  //   phone: 13711451419,
+  //   political_status: "群众",
+  //   email: "syr050301@qq.com",
+  //   address:"xx区x-x-x0x",
+  //   plan: "",
+  //   experience: "",
+  //   honor: "1",
+  //   interest: "出国",
+  //   target_name: "",
+  //   target_agree: 2,
+  //   admin_agree: 0,
+  //   teacher_name: "",
+  //   teacher_id: -1,
+  //   admin_id: -1,
+  // });
   /* --- 测试用数据 --- */
 
   const setUserIdentity = (identity: string) => {
@@ -67,10 +70,6 @@ const useUserStore = defineStore("user",() => {
     setUserInfo,
     setUserIdentity
   };
-},
-  {
-    persist : true,
-  },
-);
+},{ persist: true });
 
 export default useUserStore;

@@ -36,26 +36,25 @@ import { Card, DarkButton } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import { useMainStore } from "@/stores";
+import { ElNotification } from "element-plus";
 import useRequest from "@/apis/useRequest";
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
 const loginStore = useMainStore().useLoginStore();
 
-const { run: getStudentInfo } = useRequest({
-  data: {},
+useRequest({
+  params: {},
   method: "GET",
   url: "/api/student/info",
   headers: { Authorization: loginStore.token },
-  manual: false,
   onSuccess(response) {
-      alert("修改成功");
+    userStore.setUserInfo(response.data.data);
   },
   onError(error) {
-      alert(error);
+    console.log(error);
   },
 });
-getStudentInfo;
 
 const name = ref<string|undefined>(userStore.userSession.name);
 const className = ref<string|undefined>(userStore.userSession.class);
@@ -69,9 +68,9 @@ const experience = ref<string|undefined>(userStore.userSession.experience);
 const interest = ref<string|undefined>(userStore.userSession.interest);
 
 const saveData = () => {
-  userStore.userSession = {
+  const userInfo = {
       "name": name.value,
-      "student_id": userStore.userSession.student_id,
+      "studentID": userStore.userSession.studentID,
       "class": className.value,
       "phone": phone.value,
       "political_status": political_status.value,
@@ -81,31 +80,22 @@ const saveData = () => {
       "experience": experience.value,
       "honor": honor.value,
       "interest": interest.value,
-  }
-  const {data: resData} = useRequest({
-    data: {
-      "name": name.value,
-      "student_id": userStore.userSession.student_id,
-      "class": className.value,
-      "phone": phone.value,
-      "political_status": political_status.value,
-      "email": email.value,
-      "address": address.value,
-      "plan": plan.value,
-      "experience": experience.value,
-      "honor": honor.value,
-      "interest": interest.value,
-    },
+  };
+  userStore.setUserInfo(userInfo);
+  useRequest({
+    data: userInfo,
     method: "PUT",
     url: "/api/student/info",
     headers: { Authorization: loginStore.token },
+    onSuccess() {
+      ElNotification("信息更改成功");
+      jumpPage("/home");
+    },
+    onError(error) {
+        console.log(error);
+        ElNotification("信息更改失败");
+    },
   });
-  if("code" in resData && resData.code == 200){
-    alert("个人信息提交成功");
-    jumpPage("/home");
-  } else {
-    alert("个人信息提交失败");
-  }
 }
 
 </script>

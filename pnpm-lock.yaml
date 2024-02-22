@@ -26,6 +26,9 @@ dependencies:
   pinia-plugin-persistedstate:
     specifier: ^3.2.1
     version: registry.npmmirror.com/pinia-plugin-persistedstate@3.2.1(pinia@2.1.7)
+  pnpm:
+    specifier: ^8.15.3
+    version: registry.npmmirror.com/pnpm@8.15.3
   vue:
     specifier: ^3.4.15
     version: 3.4.15(typescript@5.3.3)
@@ -2222,4 +2225,12 @@ packages:
       pinia: ^2.0.0
     dependencies:
       pinia: 2.1.7(typescript@5.3.3)(vue@3.4.15)
+    dev: false
+
+  registry.npmmirror.com/pnpm@8.15.3:
+    resolution: {integrity: sha512-3YXNbspkF8b3PbMroetHZ/+0y6T1vwcnhGciyStrnlaizCGLEThbvCsh8YoWpn2nes6um2Gg9WoWQ7JeH7amBQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pnpm/-/pnpm-8.15.3.tgz}
+    name: pnpm
+    version: 8.15.3
+    engines: {node: '>=16.14'}
+    hasBin: true
     dev: false

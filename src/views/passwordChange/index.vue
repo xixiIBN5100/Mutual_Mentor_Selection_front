@@ -25,6 +25,7 @@ import { Card, DarkButton } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import useRequest from "@/apis/useRequest";
+import { ElNotification } from 'element-plus'
 import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
@@ -34,7 +35,7 @@ const renPassword = ref<string>();
 const conPassword = ref<string>();
 
 const updatePassword = () => {
-  const { data: resData } = useRequest({
+  useRequest({
     data: {
       old_password: prePassword.value,
       new_password: renPassword.value
@@ -42,13 +43,16 @@ const updatePassword = () => {
     method: "PUT",
     url: "/api/user/reset",
     headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      ElNotification("密码修改成功");
+    },
+    onError(error) {
+      console.log(error);
+      ElNotification("密码修改失败");
+    },
   });
-  if("code" in resData && resData.code == 200){
-    alert("密码更换成功");
-    jumpPage("/home");
-  } else {
-    alert("密码更换失败");
-  }
 };
 
 </script>

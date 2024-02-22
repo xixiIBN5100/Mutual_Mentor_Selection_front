@@ -31,32 +31,31 @@ import styles from "./index.module.scss";
 import { Card } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import useRequest from "@/apis/useRequest";
+import { ElNotification } from "element-plus";
 import { useMainStore } from "@/stores";
 import { ref } from "vue";
 isFadingOut.value = false;
 
 const loginStore = useMainStore().useLoginStore();
 const sugData = ref();
-// const sugData = ref([
-//     {
-//         "name": undefined,
-//         "advice": "string",
-//         "created_time": "string"
-//     }
-// ]);
+sugData.value = [];
 
-const { data: resData } = useRequest({
-  data: {},
+useRequest({
+  params: {
+    page_num: 1,
+    page_size: 30,
+  },
   method: "GET",
-  url: "/api/admin/suggest",
+  url: "/api/admin/advice",
   headers: { Authorization: loginStore.token },
+  onSuccess(response) {
+    console.log(response);
+    sugData.value = ("data" in response && "data" in response.data) ? response.data.data : [];
+  },
+  onError(error) {
+    console.log(error);
+    ElNotification("暂无数据 或 信息获取失败");
+  },
 });
-
-if("code" in resData && resData.code === 200){
-  sugData.value = "data" in resData ? resData.data : [];
-} else {
-  alert("信息获取失败");
-  sugData.value = [];
-}
 
 </script>
