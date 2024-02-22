@@ -15,6 +15,17 @@
 
 	.title-bar {
 		margin-bottom: 15px;
+		position: relative;
+
+		.logout {
+			position: absolute;
+			bottom: 10px;
+			right: 30px;
+
+			span {
+				padding: 0 8px 6px 8px;
+			}
+		}
 	}
 
 	.info-card {

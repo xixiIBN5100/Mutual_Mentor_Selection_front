@@ -24,7 +24,7 @@ export interface userSessionType {
 }
 
 const useUserStore = defineStore("user",() => {
-  const userIdentity = ref<string>();
+  const userIdentity = ref<string|undefined>();
   const userSession = reactive<userSessionType>({});
 
   /* --- 测试用数据 --- */
@@ -55,7 +55,7 @@ const useUserStore = defineStore("user",() => {
   // });
   /* --- 测试用数据 --- */
 
-  const setUserIdentity = (identity: string) => {
+  const setUserIdentity = (identity: string|undefined) => {
     userIdentity.value = identity;
   };
 
