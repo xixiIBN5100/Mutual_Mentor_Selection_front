@@ -83,13 +83,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import styles from "./index.module.scss";
 import { Card, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
-import getStudentListAPI from "@/apis/Server/getStudentList";
 isFadingOut.value = false;
+
 const userStore = useMainStore().useUserStore();
 const detailInfoDisplay = ref(false);
 const switchDetailInfoDisplay = () => {

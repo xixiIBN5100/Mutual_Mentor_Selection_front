@@ -19,6 +19,7 @@
     "element-plus": "^2.5.5",
     "eslint-plugin-vuefix": "^0.2.1",
     "pinia": "^2.1.7",
+    "pnpm": "^8.15.3",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
