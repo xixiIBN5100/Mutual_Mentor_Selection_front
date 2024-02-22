@@ -1,4 +1,6 @@
 @use "../../style/index.scss";
+@use "../../style/input.scss";
+
 .background {
 	position: absolute;
 	top: 0;
@@ -22,9 +24,46 @@
 			right: 20px;
     }
 	}
-}
 
-.info{
-    margin-top: 10vh;
-    height: 60vh;
+	.background-icon {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		opacity: 30%;
+	}
+
+	.info-editer {
+		overflow: hidden;
+
+		.info-editer-contain {
+			display: flex;
+
+			.input-div {
+				margin-right: 300px;
+			}
+
+			.input-div div {
+				position: relative;
+				margin: 12px;
+	
+				span {
+					padding: 20px;
+				}
+	
+				input {
+					position: absolute;
+					left: 120px;
+				}
+			}
+	
+			.textarea-div div {
+				margin: 12px;
+			}
+		}
+		
+		.save-button {
+			display: flex;
+			justify-content: center;
+		}
+	}
 }

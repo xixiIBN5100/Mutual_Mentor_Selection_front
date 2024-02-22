@@ -19,8 +19,13 @@
           :is-fading-out="isFadingOut"
         >
           <el-scrollbar height="50vh" :class="styles.waitStudentBox">
-            <p v-for="item in 20" :key="item" :class="styles.student">
-              我是一个学生 <dark-button @click="() => jumpPage('/studentInfo')" inner="查看信息" size="small" color="blue" ></dark-button>
+            <p v-for="item in waitApproval" :key="item" :class="styles.student">
+              {{ item.name }}
+              <div style="display: flex;width: 20vw;justify-content: space-between;"> <dark-button @click="information(item)" inner="查看" size="small" color="blue" ></dark-button>
+                <dark-button @click="() => approval(item)" inner="同意" size="small" color="green" ></dark-button>
+                <dark-button @click="() => reject(item)" inner="驳回" size="small" color="red" ></dark-button>
+                
+              </div>
             </p>
           </el-scrollbar>
         </card>
@@ -31,8 +36,8 @@
           :is-fading-out="isFadingOut"
         >
           <el-scrollbar height="50vh" :class="styles.waitStudentBox">
-            <p v-for="item in 20" :key="item" :class="styles.student">
-              我是一个学生 <dark-button inner="撤销" size="small" color="red"></dark-button>
+            <p v-for="item in finishApproval" :key="item" :class="styles.student">
+              {{ item.name }} <dark-button @click="Undo(item)" inner="撤销" size="small" color="red" ></dark-button>
             </p>
           </el-scrollbar>
         </card>
@@ -48,12 +53,145 @@ import { jumpPage, isFadingOut } from '@/tool'
 import { onMounted, ref } from 'vue'
 import { getStudentListAPI } from "@/apis/index"
 import { useMainStore } from '@/stores'
-const loginStore = useMainStore().useLoginStore()
+import useRequest from '@/apis/useRequest'
+import { ElNotification } from 'element-plus'
+
 isFadingOut.value = false
-const token = loginStore.token
-console.log(token)
-onMounted(() => {
-  getStudentListAPI(1,token);
-  getStudentListAPI(2,token);
-})
+
+const waitApproval = ref();
+const finishApproval = ref();
+const loginStore = useMainStore().useLoginStore()
+  useRequest({
+    params: {check:1},
+    method: "GET",
+    url: "/api/teacher/student",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      waitApproval.value = data.data.data;
+      console.log(waitApproval.value);
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+
+  useRequest({
+    params: {check:2},
+    method: "GET",
+    url: "/api/teacher/student",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      finishApproval.value = data.data.data
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+  const updataList = () => {
+    setTimeout(() => {
+  useRequest({
+    params: {check: 1},
+    method: "GET",
+    url: "/api/teacher/student",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      waitApproval.value = data.data.data;
+      console.log(waitApproval.value);
+    },
+    onError(error) {
+      console.log(error);
+    },
+  });
+
+  useRequest({
+    params: {check: 2},
+    method: "GET",
+    url: "/api/teacher/student",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      finishApproval.value = data.data.data
+    },
+    onError(error) {
+      console.log(error);
+    },
+ });
+}, 500);
+
+  }
+
+const Undo = (item:any) => {
+  console.log(item)
+  useRequest({
+    data:{
+      students_id: [item.student_id]
+    },
+    method: "PUT",
+    url: "/api/teacher/student/post",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      ElNotification("撤销成功")
+    },
+    onError(error) {
+      console.log(error);
+    },
+  })
+  updataList();
+}
+
+const approval  = (item: { student_id: any }) => {
+   useRequest({
+    data:{
+      students_id: [item.student_id],
+      check:1
+    },
+    method: "POST",
+    url: "/api/teacher/student/post",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      ElNotification("审批成功")
+    },
+    onError(error) {
+      console.log(error);
+    },
+  })
+  updataList();
+}
+
+const reject  = (item: { student_id: any }) => {
+   useRequest({
+    data:{
+      students_id: [item.student_id],
+      check:2
+    },
+    method: "POST",
+    url: "/api/teacher/student/post",
+    headers: { Authorization: loginStore.token },
+    manual: false,
+    onSuccess(data) {
+      console.log(data);
+      ElNotification("驳回成功")
+    },
+    onError(error) {
+      console.log(error);
+    },
+  })
+  updataList();
+}
+const information = (item: { student_id: string }) => {
+  localStorage.removeItem('student_id')
+  localStorage.setItem('student_id', item.student_id)
+ jumpPage('/studentInfo');
+}
 </script>

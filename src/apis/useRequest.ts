@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 interface requestConfigType{
   data?: object;
-  params?: object;
+  params?: object | number;
   method:string;
   url:string;
   headers: {
