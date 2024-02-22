@@ -8,6 +8,7 @@
     :is-fading-out=isFadingOut
     >
       <div>欢迎 {{ userStore.userSession.name }} 使用德育导师双向选择系统</div>
+      <div :class="styles.logout" @click="logout"><el-icon><Upload /></el-icon><span>登出</span></div>
     </card>
     <div v-if="userStore.userIdentity === '学生'">
       <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息" :is-fading-out=isFadingOut>
@@ -95,13 +96,19 @@ import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
-console.log(userStore.userIdentity);
-console.log(userStore.userSession);
+const loginStore = useMainStore().useLoginStore();
 const detailInfoDisplay = ref(false);
+
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
 };
 
-console.log(userStore.userIdentity);
+const logout = () => {
+  jumpPage("/login");
+  userStore.setUserIdentity(undefined);
+  userStore.setUserInfo({});
+  loginStore.setLogin(false);
+  loginStore.setToken(undefined);
+}
 
 </script>
