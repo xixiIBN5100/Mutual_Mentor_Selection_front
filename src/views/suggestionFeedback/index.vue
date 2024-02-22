@@ -41,9 +41,12 @@ const sugData = ref();
 sugData.value = [];
 
 useRequest({
-  data: {},
+  params: {
+    page_num: 1,
+    page_size: 30,
+  },
   method: "GET",
-  url: "/api/admin/suggest",
+  url: "/api/admin/advice",
   headers: { Authorization: loginStore.token },
   onSuccess(response) {
     console.log(response);

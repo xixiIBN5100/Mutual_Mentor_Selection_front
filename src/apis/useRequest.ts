@@ -2,7 +2,8 @@ import axios from "axios";
 import { ref } from "vue";
 
 interface requestConfigType{
-  data: object;
+  data?: object;
+  params?: object;
   method:string;
   url:string;
   headers: {
