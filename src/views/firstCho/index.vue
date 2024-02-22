@@ -8,19 +8,19 @@
       >
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
       </Card>
-      <div v-if='targetInfo.teacher_name'>
+      <div v-if='targetInfo.teacher_name!=="无"'>
         <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
           <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
         </Card>
       </div>
       <div v-else>
-        <Card v-show='!targetInfo.target_name' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
+        <Card v-show='targetInfo.target_name==="无"' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
           <el-input v-model="input" placeholder="请输入想选择的教师的ID" />
           <div style='margin: 10px'>
             <el-button type="info" @click='choice'>选择</el-button>
           </div>
         </Card>
-        <Card v-show='targetInfo.target_name' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
+        <Card v-show='targetInfo.target_name !=="无"' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
           <span>你选择的老师：{{targetInfo.target_name}}</span>
           <span>老师的状态：</span>
           <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
@@ -143,6 +143,7 @@ const choice = ()=>{
           firstCho.getStuInfo().then((res)=>{
             // console.log(res.data.data.target_name);
             targetInfo.target_name = res.data.data.target_name;
+            targetInfo.target_agree = res.data.data.target_agree;
           }).catch((e:Error|{errMsg:string})=>{
             ElNotification({
               title: 'Error',

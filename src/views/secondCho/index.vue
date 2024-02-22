@@ -4,7 +4,7 @@
     <Card title='第二轮选择' :boldTitle='true' :isFadingOut='isFadingOut'>
       <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
     </Card>
-    <div v-if='targetInfo.teacher_name'>
+    <div v-if='targetInfo.teacher_name !== "无"'>
       <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
         <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
       </Card>
@@ -25,7 +25,7 @@
           </div>
           <span></span>
         </div>
-        <div v-else class='choInfo'>
+        <div v-else-if='targetInfo.admin_agree === 3' class='choInfo'>
           <span>老师拒绝了您的选择</span>
           <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
         </div>

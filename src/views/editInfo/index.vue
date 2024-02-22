@@ -45,7 +45,7 @@ const loginStore = useMainStore().useLoginStore();
 const { run: getStudentInfo } = useRequest({
   data: {},
   method: "GET",
-  url: "/api/user/reset",
+  url: "/api/student/info",
   headers: { Authorization: loginStore.token },
   manual: false,
   onSuccess(response) {
@@ -97,7 +97,7 @@ const saveData = () => {
       "interest": interest.value,
     },
     method: "PUT",
-    url: "/api/user/reset",
+    url: "/api/student/info",
     headers: { Authorization: loginStore.token },
   });
   if("code" in resData && resData.code == 200){

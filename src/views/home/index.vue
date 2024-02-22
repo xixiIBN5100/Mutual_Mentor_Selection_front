@@ -27,6 +27,7 @@
         <div>邮箱: <span v-if="detailInfoDisplay">{{ userStore.userSession.email }}</span> <span v-else>***</span></div>
         <div>家庭住址: <span v-if="detailInfoDisplay">{{ userStore.userSession.address }}</span> <span v-else>***</span></div>
         <div>职业方向: <span v-if="detailInfoDisplay">{{ userStore.userSession.interest }}</span> <span v-else>***</span></div>
+        <div>最终导师：<span v-if="detailInfoDisplay">{{ userStore.userSession.teacher_name}}</span> <span v-else>***</span></div>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
@@ -96,5 +97,7 @@ const detailInfoDisplay = ref(false);
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
 };
+
+console.log(userStore.userIdentity);
 
 </script>

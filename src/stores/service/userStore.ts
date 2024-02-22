@@ -25,7 +25,7 @@ const useUserStore = defineStore("user",() => {
   // const userIdentity = ref<string>();
 
   /* --- 测试用数据 --- */
-  const userIdentity = ref<string>("教师");
+  const userIdentity = ref<string>("");
   // userSession.studentID = 114514;
   // const userSession = reactive<userSessionType>({
   //   name:"Rosyr",
@@ -67,7 +67,10 @@ const useUserStore = defineStore("user",() => {
     setUserInfo,
     setUserIdentity
   };
-}
+},
+  {
+    persist : true,
+  },
 );
 
 export default useUserStore;
