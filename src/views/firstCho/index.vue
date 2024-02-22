@@ -7,6 +7,7 @@
         :isFadingOut = "isFadingOut"
       >
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
+        <span>总截止时间：{{adminTime}}</span>
       </Card>
       <div v-if='targetInfo.teacher_name!=="无"'>
         <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
@@ -73,20 +74,29 @@ const targetInfo = reactive({
   teacher_name: userStore.userSession.teacher_name,
   admin_agree: userStore.userSession.admin_agree,
 });
-
+const loginStore = useMainStore().useLoginStore();
+const token = loginStore.token;
+const adminTime = ref<string>("");
 // console.log(is_cho.value);
 //http://47.115.209.120:8080/static/selection_table.docx
 
 //加载页面时，请求一次信息
 onBeforeMount(()=>{
   loading.value = true;
-  firstCho.getStuInfo().then((res)=>{
+  firstCho.getAdminTime(token).then((res)=>{
+    if(res.data.code === 200){
+      adminTime.value = res.data.data.first_time_by_admin;
+      adminTime.value = adminTime.value.substring(0,4)+"年"+adminTime.value.substring(5,7)+"月"+adminTime.value.substring(8,10)+"日"+adminTime.value.substring(11,19);
+    }
+  })
+  firstCho.getStuInfo(token).then((res)=>{
     if(res.data.code === 200){
       userStore.setUserInfo(res.data.data);
       targetInfo.target_name = userStore.userSession.target_name;
       targetInfo.target_agree = userStore.userSession.target_agree;
       targetInfo.teacher_name = userStore.userSession.teacher_name;
       targetInfo.admin_agree = userStore.userSession.admin_agree;
+      console.log(targetInfo.admin_agree);
     }else{
       ElNotification({
         title: 'Warning',
@@ -133,14 +143,14 @@ const choice = ()=>{
       })
     }else{
       const data = ref({teacher_id:Number(input.value)});
-      firstCho.choice(data.value).then((res)=>{
+      firstCho.choice(data.value,token).then((res)=>{
         if(res.data.code === 200){
           // is_not_cho.value = false;
           ElMessageBox.alert('提交成功，等待教师审核','Success', {
             // if you want to disable its autofocus
             // autofocus: false,
             confirmButtonText: 'OK',})
-          firstCho.getStuInfo().then((res)=>{
+          firstCho.getStuInfo(token).then((res)=>{
             // console.log(res.data.data.target_name);
             targetInfo.target_name = res.data.data.target_name;
             targetInfo.target_agree = res.data.data.target_agree;
@@ -150,6 +160,12 @@ const choice = ()=>{
               message: e,
               type: 'error',
             })
+          })
+        }else{
+          ElNotification({
+            title: 'Warning',
+            message: res.data.msg,
+            type: 'warning',
           })
         }
       })
@@ -189,10 +205,10 @@ const submit = async () => {
       type: 'warning',
     })
   }else{
-    let _formData = new FormData();
+    const _formData = new FormData();
     _formData.append("file",file);
 
-    await axios.post("http://127.0.0.1:4523/m1/3977327-0-default/api/student/post",_formData).then((res)=>{
+    await axios.post("https://phlin.love/api/student/post",_formData,{headers:{"Content-Type":"application/x-www-form-urlencoded",'Authorization':`Bearer ${token}`}}).then((res)=>{
       if(res.data.code == 200){
         ElNotification({
           title: 'Success',
@@ -203,7 +219,7 @@ const submit = async () => {
       }else{
         ElNotification({
           title: 'Error',
-          message: '提交失败',
+          message: res.data.msg,
           type: 'error',
         })
       }

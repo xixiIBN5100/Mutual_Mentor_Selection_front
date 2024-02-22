@@ -20,15 +20,18 @@ import { ref, onMounted, reactive } from "vue";
 import finalStu from '@/apis/Server/finalStu';
 import { ElNotification } from 'element-plus';
 import routes from '@/router';
+import { useMainStore } from '@/stores'
 
 const loading = ref<boolean>(false);
 const isFadingOut = ref<boolean>(false);
 const stuInfo = ref<any>();
 const stuNum = ref<number>(0);
+const loginStore = useMainStore().useLoginStore();
+const token = loginStore.token;
 
 onMounted(()=>{
   loading.value = true;
-  finalStu.getFinalStu().then((res)=>{
+  finalStu.getFinalStu(token).then((res)=>{
     // console.log(res.data);
     if(res.data.code == 200){
       stuInfo.value = res.data.data.data;

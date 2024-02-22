@@ -3,6 +3,7 @@
   <div :class='styles.contain'>
     <Card title='第二轮选择' :boldTitle='true' :isFadingOut='isFadingOut'>
       <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
+      <span>截止时间：{{adminTime}}</span>
     </Card>
     <div v-if='targetInfo.teacher_name !== "无"'>
       <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
@@ -53,6 +54,8 @@ import { ElNotification } from 'element-plus'
 import axios from 'axios'
 import firstCho from '@/apis/Server/firstCho'
 
+const loginStore = useMainStore().useLoginStore();
+const token = loginStore.token;
 const isFadingOut = ref<boolean>(false);
 let file = null;
 const loading = ref<boolean>(false);
@@ -63,10 +66,17 @@ const targetInfo = reactive({
   teacher_name: userStore.userSession.teacher_name,
   admin_agree: userStore.userSession.admin_agree,
 });
+const adminTime = ref<string>("");
 
 onBeforeMount(()=>{
   loading.value = true;
-  firstCho.getStuInfo().then((res)=>{
+  firstCho.getAdminTime(token).then((res)=>{
+    if(res.data.code===200){
+      adminTime.value = res.data.data.second_time_by_admin;
+      adminTime.value = adminTime.value.substring(0,4)+"年"+adminTime.value.substring(5,7)+"月"+adminTime.value.substring(8,10)+"日"+adminTime.value.substring(11,19);
+    }
+  })
+  firstCho.getStuInfo(token).then((res)=>{
     if(res.data.code === 200){
       userStore.setUserInfo(res.data.data);
       targetInfo.target_name = userStore.userSession.target_name;
@@ -76,7 +86,7 @@ onBeforeMount(()=>{
     }else{
       ElNotification({
         title: 'Warning',
-        message: '获取数据失败！',
+        message: res.data.msg,
         type: 'warning',
       })
     }
@@ -134,7 +144,7 @@ const submit = async () => {
     let _formData = new FormData();
     _formData.append("file",file);
 
-    await axios.post("http://127.0.0.1:4523/m1/3977327-0-default/api/student/post",_formData).then((res)=>{
+    await axios.post("http://127.0.0.1:4523/m1/3977327-0-default/api/student/post",_formData,{headers:{"Content-Type":"application/x-www-form-urlencoded",'Authorization':`Bearer ${token}`}}).then((res)=>{
       if(res.data.code == 200){
         ElNotification({
           title: 'Success',
@@ -145,7 +155,7 @@ const submit = async () => {
       }else{
         ElNotification({
           title: 'Error',
-          message: '提交失败',
+          message: res.data.msg,
           type: 'error',
         })
       }

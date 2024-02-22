@@ -1,9 +1,7 @@
 import request from '@/apis/request'
 
-const token = localStorage.getItem("token");
-
 export default class finalStu{
-  static async getFinalStu(){
+  static async getFinalStu(token:string){
     return request({
       headers:{
         "Content-Type":"application/json",

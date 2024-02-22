@@ -68,8 +68,8 @@ const login = async () => {
       const token = res.data.data.token; // 令牌存储在响应数据的 token 字段中
       loginStore.setToken(token);
       localStorage.setItem("token",token);
-      console.log(token)
-      console.log(loginStore.token)
+      // console.log(token)
+      // console.log(loginStore.token)
       ElNotification("登陆成功")
       jumpPage("/home")
     } else {

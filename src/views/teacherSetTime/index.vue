@@ -29,18 +29,23 @@ import { Card } from "@/components/index";
 import { ref, onMounted, reactive} from "vue";
 import teacherSetTime from '@/apis/Server/teacherSetTime';
 import { ElNotification } from 'element-plus';
+import { useMainStore } from '@/stores';
 
+const loginStore = useMainStore().useLoginStore();
+const token = loginStore.token;
 const adminTime = ref<string>("未设置");
 const beforeSet = ref<string>("未设置");
 
 onMounted(()=>{
-  teacherSetTime.getAdminTime().then((res)=>{
+  teacherSetTime.getAdminTime(token).then((res)=>{
     if(res.data.code === 200){
-      adminTime.value = res.data.data.time_by_admin_1;
+      // console.log(res.data.data);
+      adminTime.value = res.data.data.first_time_by_admin;
+      adminTime.value = adminTime.value.substring(0,4)+"年"+adminTime.value.substring(5,7)+"月"+adminTime.value.substring(8,10)+"日"+adminTime.value.substring(11,19);
     }else{
       ElNotification({
         title: 'Warning',
-        message: '获取数据失败',
+        message: res.data.msg,
         type: 'warning',
       })
     }
@@ -51,8 +56,6 @@ onMounted(()=>{
       type: 'error',
     })
   })
-
-  teacherSetTime.get
 })
 
 const value1 = ref('')
@@ -93,7 +96,7 @@ const submit = async () => {
       })
     }else{
       // console.log(data.value)
-      await teacherSetTime.setTime(data.value).then((res)=>{
+      await teacherSetTime.setTime(data.value,token).then((res)=>{
         if(res.data.code == 200){
           ElNotification({
             title: 'Success',
@@ -103,7 +106,7 @@ const submit = async () => {
         }else{
           ElNotification({
             title: 'Error',
-            message: '设置失败',
+            message: res.data.msg,
             type: 'error',
           })
         }

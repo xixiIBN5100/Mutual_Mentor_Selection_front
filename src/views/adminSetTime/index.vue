@@ -41,7 +41,9 @@ import adminSetTime from '@/apis/Server/adminSetTime';
 import { ElNotification } from 'element-plus';
 import { ref,onMounted, reactive } from "vue";
 import routes from '@/router';
+import { useMainStore} from '@/stores';
 
+const loginStore = useMainStore().useLoginStore();
 const isFadingOut = ref<boolean>(false);
 const value1 = ref("");
 const value2 = ref("");
@@ -50,17 +52,24 @@ const before_date = reactive({
   first:"未设置",
   second:"未设置",
 })
+const token = loginStore.token;
+console.log(token);
+
+console.log(before_date.first);
 
 onMounted(()=>{
-  adminSetTime.getBefore().then((res)=>{
+  adminSetTime.getBefore(token).then((res)=>{
     // console.log(res.data.code)
     if(res.data.code === 200){
-      before_date.first = res.data.data.time_by_admin_1;
-      before_date.second = res.data.data.time_by_admin_2;
+      console.log(res.data.data);
+      before_date.first = res.data.data.first_time_by_admin;
+      before_date.second = res.data.data.second_time_by_admin;
+      before_date.first = before_date.first.substring(0,4)+"年"+before_date.first.substring(5,7)+"月"+before_date.first.substring(8,10)+"日"+before_date.first.substring(11,19);
+      before_date.second = before_date.second.substring(0,4)+"年"+before_date.second.substring(5,7)+"月"+before_date.second.substring(8,10)+"日"+before_date.second.substring(11,19);
     }else{
       ElNotification({
         title: 'Warning',
-        message: '获取数据失败',
+        message: res.data.msg,
         type: 'warning',
       })
     }
@@ -100,7 +109,7 @@ const submit = async (type:number) =>{
       time_by_admin:year+"-"+month+"-"+day+"T"+oth+"Z",
       type:type,
     })
-    await adminSetTime.setTime(data.value).then((res)=>{
+    await adminSetTime.setTime(data.value,token).then((res)=>{
       // console.log(res.data.code)
       if(res.data.code === 200){
         loading.value = false;
@@ -108,6 +117,12 @@ const submit = async (type:number) =>{
           title: 'Success',
           message: '设置成功',
           type: 'success',
+        })
+      }else{
+        ElNotification({
+          title: 'Warning',
+          message: res.data.msg,
+          type: 'warning',
         })
       }
     }).catch((e:Error|{errMsg:String})=>{

@@ -1,12 +1,10 @@
 import request from '@/apis/request'
 
-const token = localStorage.getItem("token")
-
 export default class adminSetTime{
   static async setTime(data:{
     time_by_admin:string,
     type:number,
-  }){
+  },token:string){
     return request({
       headers:{"Content-Type":"application/json",'Authorization':`Bearer ${token}`},
       method:"post",
@@ -15,7 +13,7 @@ export default class adminSetTime{
     });
   }
 
-  static async getBefore() {
+  static async getBefore(token:string) {
     return request({
       headers:{"Content-Type":"application/json",'Authorization':`Bearer ${token}`},
       method:"get",
