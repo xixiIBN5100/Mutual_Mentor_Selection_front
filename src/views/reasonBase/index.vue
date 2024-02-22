@@ -10,7 +10,7 @@
           <div>理由内容</div>
         </div>
         <hr>
-        <editReason :reason-id="-1"></editReason>
+        <editReason :reason-id="-1" @update-list="updataReasonList"></editReason>
       </card>
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut v-if="!noReason">
         <el-icon :class="styles['background-icon']" :size="200" color="#dfbf67"><Setting /></el-icon>
@@ -20,8 +20,8 @@
         </div>
         <div :class="styles.reasons" v-for="li in reasonList_" :key="li.id">
           <hr/>
-          <el-text :class="styles['reason-text']" truncated>{{ li.reason }}</el-text>
-          <el-text :class="styles['reason-text']" truncated>{{ li.advice }}</el-text>
+          <el-text :class="styles['reason-text']" truncated>{{ li.reason_name }}</el-text>
+          <el-text :class="styles['reason-text']" truncated>{{ li.reason_content }}</el-text>
           <dark-button :class="styles.DarkButton" size="small" color="yellow" inner="编辑理由" @click="() => reasonEdit(li.id)" />
           <dark-button v-if="!li.deleteReasonComponent" :class="styles.DarkButton" size="small" color="pink" inner="删除理由" @click="() => reasonDelete(li.id)" />
           <dark-button v-if="li.deleteReasonComponent" :class="styles.DarkButton" size="small" color="blue" inner="取消删除" @click="() => denyDelete(li.id)" />
@@ -41,48 +41,44 @@ import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import useRequest from "@/apis/useRequest";
 import { useMainStore } from "@/stores";
+import { ElNotification } from "element-plus";
 isFadingOut.value = false;
 
 const loginStore = useMainStore().useLoginStore();
-const noReason = ref<boolean>(false);
+const noReason = ref<boolean>(true);
 const reasonList = ref();
 
-const { data: resData } = useRequest({
-  data: {},
+useRequest({
+  params: {},
   url: "/api/user/reason",
   method: "GET",
-  headers: { Authorization: loginStore.token }
+  headers: { Authorization: loginStore.token },
+  onSuccess(response) {
+    reasonList.value = response.data.data;
+    updataReasonList();
+    console.log(reasonList);
+    noReason.value = false;
+  },
+  onError(error) {
+    console.log(error);
+    noReason.value = true;
+  },
 });
-if("code" in resData && resData.code === 200){
-  console.log("msg" in resData ? resData.msg : "no_msg");
-  reasonList.value = "data" in resData ? resData.data : "no_data";
-} else {
-  noReason.value = true;
-}
 
-// const reasonList = ref([{
-//   "id": 1,
-//   "reason": "haha",
-//   "advice": "菜就多练，输不起就别玩"
-// },{
-//   "id": 2,
-//   "reason": "666",
-//   "advice": "好好好"
-// }]);
-
-const reasonList_ = ref<any>([]);
-if(!noReason){
+const reasonList_ = ref();
+const updataReasonList = () => {
+  reasonList_.value = [];
   for(let i=0; i<reasonList.value.length; i++){
     reasonList_.value.push({
       id: reasonList.value[i].id,
-      reason: reasonList.value[i].reason,
-      advice: reasonList.value[i].advice,
+      reason_name: reasonList.value[i].reason_name,
+      reason_content: reasonList.value[i].reason_content,
       editReasonComponent: false,
       deleteReasonComponent: false
     })
   }
+  console.log(reasonList_);
 }
-
 
 const reasonEdit = (reasonId: number) => {
   for(let i=0; i<reasonList_.value.length; i++){
@@ -109,17 +105,20 @@ const denyDelete = (reasonId: number) => {
 };
 
 const confirmDelete = (reasonId: number) => {
-  const { data: confirmDeleteData } = useRequest({
+  useRequest({
     data: { reason_id: reasonId },
     url: "/api/user/reason",
     method: "DELETE",
-    headers: { Authorization: loginStore.token }
+    headers: { Authorization: loginStore.token },
+    onSuccess(){
+      ElNotification("成功删除理由");
+      updataReasonList();
+    },
+    onError(error) {
+      console.log(error);
+      ElNotification("删除失败");
+    },
   });
-  if("code" in confirmDeleteData && confirmDeleteData.code === 200){
-    alert("已经成功删除 请刷新页面");
-  } else {
-    alert("删除失败 请寻求管理员帮助");
-  }
 }
 
 </script>
