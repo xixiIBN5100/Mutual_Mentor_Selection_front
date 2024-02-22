@@ -1,6 +1,6 @@
 <template>
   <div class="edit-reason-div">
-    <input :class="['Input-yellow', 'reasonInput']" v-model="reason_name" />
+    <input :class="['Input-yellow', 'reasonInput']" v-model="reason_name" v-if="reasonId === -1"/>
     <textarea :class="['Textarea-yellow', 'adviceInput']" :cols="6" v-model="reason_content"></textarea>
     <dark-button v-if="reasonId !== -1" class="edit-reason-DarkButton" size="small" color="yellow" inner="确认编辑" @click="() => confirmEdit()" />
     <dark-button v-if="reasonId === -1" class="edit-reason-DarkButton" size="small" color="yellow" inner="新建理由" @click="() => newReason()" />
@@ -24,7 +24,26 @@ const loginStore = useMainStore().useLoginStore();
 const reason_name = ref();
 const reason_content = ref();
 
-const confirmEdit = () => {/* 待定 */}
+const confirmEdit = () => {
+  useRequest({
+    data: {
+      reason_id: props.reasonId,
+      reason: reason_content.value
+    },
+    url: "/api/user/reason",
+    method: "PUT",
+    headers: { Authorization: loginStore.token },
+    onSuccess(response) {
+      console.log(response);
+      ElNotification("成功修改理由");
+      emit("updateList", true);
+    },
+    onError(error) {
+      ElNotification("修改理由失败");
+      console.log(error);
+    },
+  });
+}
 
 const newReason = () => {
   useRequest({

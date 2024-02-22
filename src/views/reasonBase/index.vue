@@ -10,7 +10,7 @@
           <div>理由内容</div>
         </div>
         <hr>
-        <editReason :reason-id="-1" @update-list="updataReasonList"></editReason>
+        <editReason :reason-id="-1" @update-list="reload"></editReason>
       </card>
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut v-if="!noReason">
         <el-icon :class="styles['background-icon']" :size="200" color="#dfbf67"><Setting /></el-icon>
@@ -112,13 +112,17 @@ const confirmDelete = (reasonId: number) => {
     headers: { Authorization: loginStore.token },
     onSuccess(){
       ElNotification("成功删除理由");
-      updataReasonList();
+      reload();
     },
     onError(error) {
       console.log(error);
       ElNotification("删除失败");
     },
   });
+}
+
+const reload = () => {
+  location.reload();
 }
 
 </script>
