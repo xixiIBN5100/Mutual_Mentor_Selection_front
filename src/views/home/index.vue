@@ -91,6 +91,8 @@ import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
+console.log(userStore.userIdentity);
+console.log(userStore.userSession);
 const detailInfoDisplay = ref(false);
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;

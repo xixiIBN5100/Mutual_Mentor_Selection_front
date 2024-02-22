@@ -15,9 +15,11 @@ export interface userSessionType {
   interest?: string,
   teacher_name?: string,
   target_name?: string,
-  teacher_id?: number,
   target_agree?: number,
   admin_agree?: number,
+
+  teacher_id?: number,
+
   admin_id?: number,
 }
 
