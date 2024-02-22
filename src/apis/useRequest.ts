@@ -1,8 +1,9 @@
 import axios from "axios";
-import {ref , onMounted} from "vue";
+import { ref } from "vue";
 
 interface requestConfigType{
-  data: object;
+  data?: object;
+  params?: object;
   method:string;
   url:string;
   headers: {
@@ -19,7 +20,7 @@ interface requestConfigType{
   onBefore?:()=> void;
 
   /** 成功接收到响应 hook */
-  onSuccess?:(response:unknown) =>void;
+  onSuccess?:(response:any) =>void;
 
   /** 请求失败 hook */
   onError?:(error:Error | {errMsg:string}) => string | void;
@@ -32,7 +33,6 @@ const useRequest = (config:requestConfigType) => {
   const loading = ref(false);
   const data = ref<object>();
   const error = ref<Error | { errMsg:string }>();
-
 
   const request = () => {
     data.value = undefined;
@@ -67,11 +67,12 @@ const useRequest = (config:requestConfigType) => {
     });
   };
 
-  onMounted(() => {
-    if(!config?.manual){
-      request();
-    }
-  });
+  // onMounted(() => {
+  // console.log("debug1");
+  if(!config?.manual){
+    request();
+  }
+  // });
 
   return{
     loading,

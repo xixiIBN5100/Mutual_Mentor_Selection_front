@@ -26,6 +26,7 @@ import { Card, DarkButton, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import useRequest from "@/apis/useRequest";
+import { ElNotification } from 'element-plus'
 import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
@@ -53,7 +54,7 @@ const submitSuggestion = () => {
     )
   }
 
-  const { data: resData } = useRequest({
+  useRequest({
     data: {
       user_id: userStore.$id,
       content: suggestion.value,
@@ -63,13 +64,16 @@ const submitSuggestion = () => {
     method: "POST",
     url: "/api/student/suggest",
     headers: { Authorization: loginStore.token },
+    onSuccess(response) {
+      console.log(response);
+      ElNotification("意见反馈成功");
+      jumpPage("/home");
+    },
+    onError(error) {
+      console.log(error);
+      ElNotification("意见反馈失败");
+    },
   });
-  if("code" in resData && resData.code == 200){
-    alert("意见提交成功");
-    jumpPage("/home");
-  } else {
-    alert("意见提交失败");
-  }
 };
 
 </script>

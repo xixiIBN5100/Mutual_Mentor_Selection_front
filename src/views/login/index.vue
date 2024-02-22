@@ -28,6 +28,8 @@ import useRequest from "@/apis/useRequest";
 import { loginAPI } from "@/apis/index";
 import { ElNotification } from 'element-plus'
 import { useMainStore } from "@/stores";
+
+const userStore = useMainStore().useUserStore();
 const loginStore = useMainStore().useLoginStore();
 const type_ = ref("");
 const isFadingOut = ref(false);
@@ -63,6 +65,7 @@ const login = async () => {
       console.log(token)
       console.log(loginStore.token)
       ElNotification("登陆成功")
+      userStore.setUserIdentity(form.value.type === 1 ? "学生" : (form.value.type === 2 ? "教师" : "管理员"));
       jumpPage("/home")
     } else {
       throw new Error(res.data.msg);
@@ -73,7 +76,6 @@ const login = async () => {
     closeLoading();
   }
 };
-
 
 const setIdentity = (identity: string) => {
   if (identity === type_.value) {
@@ -91,7 +93,6 @@ const setIdentity = (identity: string) => {
   }
   console.log(type.value)
 };
-
 
 </script>
 
