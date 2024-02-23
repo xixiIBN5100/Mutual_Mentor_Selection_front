@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 import styles from "./index.module.scss";
-import {ref , onBeforeUnmount} from 'vue';
 const props = withDefaults(defineProps<{
   title?: string,
   boldTitle?: boolean
