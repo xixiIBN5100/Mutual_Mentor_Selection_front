@@ -7,7 +7,7 @@
     :class="styles['title-bar']"
     :is-fading-out=isFadingOut
     >
-      <div>欢迎 {{ userStore.userSession.name }} 使用德育导师双向选择系统</div>
+      <div>欢迎使用德育导师双向选择系统</div>
       <div :class="styles.logout" @click="logout"><el-icon><Upload /></el-icon><span>登出</span></div>
     </card>
     <div v-if="userStore.userIdentity === '学生'">
@@ -113,7 +113,7 @@ const logout = () => {
 }
 
 const jumpDocument = () => {
-  window.open("https://phlin.love/static/1.doc", "_blank");
+  window.open("http://47.115.209.120:8080/static/1.doc");
 };
 
 </script>

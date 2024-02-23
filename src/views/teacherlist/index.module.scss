@@ -32,6 +32,17 @@
             bottom: -50px;
             opacity: 30%;
         }
+
+        .teacher-info {
+            position: relative;
+
+            .chat-button {
+                position: absolute;
+
+                top: 15px;
+                left: 90px;
+            }
+        }
     }
 
     .detail-info {

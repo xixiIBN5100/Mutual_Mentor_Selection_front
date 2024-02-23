@@ -2,7 +2,7 @@
   <div :class="styles.background">
     <div :class="styles.contain">
       <card :class="styles['title-bar']" title="我的私信" :bold-title="true" :is-fading-out=isFadingOut>
-            <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
+            <el-icon :class="styles['back-button']" :size="30" @click="back"><Back /></el-icon>
       </card>
       <card :class="styles['chat-window']" :is-fading-out=isFadingOut>
         <div :class="styles['chat-bar']">
@@ -42,9 +42,9 @@ import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
 const loginStore = useMainStore().useLoginStore();
-const userStore = useMainStore().useUserStore();
+const temporaryStore = useMainStore().usetemporaryStore();
 const chatStore = useMainStore().useChatStore();
-const chaterList = chatStore.chatObjects;
+const chaterList = ref(chatStore.chatObjects);
 
 useRequest({
   params: {},
@@ -57,19 +57,18 @@ useRequest({
     for(let i=0; i<resData.length; i++){
       chatStore.addChatObjects(resData[i].user_id, resData[i].name);
     }
+    if(temporaryStore.isLaunchChat){
+      temporaryStore.setIsLaunchChat(false);
+      chatStore.addChatObjects(temporaryStore.launchedChatTeacherId, temporaryStore.launchedChatTeacherName);
+      curChaterId.value = temporaryStore.launchedChatTeacherId;
+    }
+    chaterList.value = chatStore.chatObjects;
     console.log(chatStore.chatObjects);
   },
   onError(error) {
     console.log(error);
   },
 });
-
-if(chaterList.length === 0) {
-  if(userStore.userIdentity === "学生")
-    ElNotification("暂无老师发送私信");
-  else
-    ElNotification("暂无学生发送私信");
-}
 
 const curChaterId = ref(-1);
 const message = ref("");
@@ -91,7 +90,7 @@ const sendMsg = () => {
     headers: { Authorization: loginStore.token },
     onSuccess(data) {
       console.log(data);
-      ElNotification("私信发送成功");
+      // ElNotification("私信发送成功");
       message.value = "";
     },
     onError(error) {
@@ -121,6 +120,14 @@ const receiveMsg = (id: number) => {
   });
 };
 
-window.setInterval(() => receiveMsg(curChaterId.value), 5000);
+const startReceive = setInterval(() => {
+  if(curChaterId.value !== -1)
+    setTimeout(() => receiveMsg(curChaterId.value), 0);
+}, 5000);
+
+const back = () => {
+  clearInterval(startReceive);
+  jumpPage("/home");
+}
 
 </script>
