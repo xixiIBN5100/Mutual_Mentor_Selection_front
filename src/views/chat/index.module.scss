@@ -1,0 +1,108 @@
+@use "../../style/index.scss";
+@use "../../style/input.scss";
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: index.$color-background;
+	width: 100vw;
+	height: 100vh;
+	color: index.$color-font;
+}
+
+.contain {
+	margin: 60px 100px;
+
+  .title-bar {
+    position: relative;
+		margin-bottom: 15px;
+
+    .back-button {
+      position: absolute;
+			top: 17px;
+			right: 20px;
+    }
+	}
+
+	.chat-window {
+    height: 70vh;
+    display: flex;
+
+    .horizon {
+      height: 100%;
+      border-left: solid 2px index.$pink-dark-600;
+      margin-right: 10px;
+    }
+
+    .chat-bar {
+      margin-left: -30px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      .chater {
+        height: 25px;
+        width: 100px;
+        margin: 3px;
+        border: solid 3px #ffffff00;
+        border-radius: 3px;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .chater:hover {
+        border: solid 3px index.$pink-dark-500;
+        border-radius: 3px;
+        background-color: index.$pink-dark-500;
+      }
+
+      .chosen-chater {
+        background-color: index.$dp-4;
+      }
+    }
+
+    .chat-body {
+      height: 100%;
+      width: calc(100% - 76px);
+      position: relative;
+
+      .chats {
+        height: calc(100% - 80px);
+        padding: 5px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        .msg-name {
+          font-size: smaller;
+          color: #d1d1d1;
+        }
+        .msg-message {
+          font-size: small;
+        }
+
+        .msg-div-me {
+          width: 100%;
+          text-align: right;
+        }
+        .msg-div-front {
+          width: 100%;
+          text-align: left;
+        }
+      }
+
+      .msg-bar {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+
+        .Textarea-pink {
+          resize: none;
+          height: 60px;
+          width: 70%;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+}

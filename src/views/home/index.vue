@@ -37,20 +37,19 @@
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
         <hyperlinks @click="() => jumpPage('/teacherList')" color="green">教师列表</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/password')" color="green">实施条例</hyperlinks>
+        <hyperlinks @click="jumpDocument" color="green">实施条例</hyperlinks>
       </card>
       <card :class="[styles.communication, styles['info-card']]" title="选择与沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <hyperlinks @click="() => jumpPage('/firstCho')" color="pink">第一轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/secondCho')" color="pink">第二轮选择</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/password')" color="pink">导师私聊</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/chat')" color="pink">导师私聊</hyperlinks>
         <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '教师'">
       <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
-        <div>审批设置</div>
         <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
         <div>我的学生</div>
         <hyperlinks @click="()=> jumpPage('/finalStu')">最终学生</hyperlinks>
@@ -63,7 +62,7 @@
       </card>
       <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
-        <div>学生私聊</div>
+        <hyperlinks @click='() => jumpPage("/chat")' color='pink'>学生私聊</hyperlinks>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '管理员'">
@@ -97,6 +96,7 @@ isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
 const loginStore = useMainStore().useLoginStore();
+const chatStore = useMainStore().useChatStore();
 const detailInfoDisplay = ref(false);
 
 const switchDetailInfoDisplay = () => {
@@ -109,6 +109,11 @@ const logout = () => {
   userStore.setUserInfo({});
   loginStore.setLogin(false);
   loginStore.setToken(undefined);
+  chatStore.resetChatObjects();
 }
+
+const jumpDocument = () => {
+  window.open("https://phlin.love/static/1.doc", "_blank");
+};
 
 </script>
