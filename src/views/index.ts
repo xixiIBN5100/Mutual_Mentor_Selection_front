@@ -13,6 +13,7 @@ import teacherSetTime from "./teacherSetTime/index.vue";
 import adminSetTime from "./adminSetTime/index.vue";
 import secondCho from "./secondCho/index.vue";
 import finalStu from "./finalStu/index.vue";
+import chat from "./chat/index.vue";
 
 export {
   Login,
@@ -30,4 +31,5 @@ export {
   adminSetTime,
   secondCho,
   finalStu,
+  chat
 };
