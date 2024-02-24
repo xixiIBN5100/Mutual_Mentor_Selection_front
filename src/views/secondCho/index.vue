@@ -122,7 +122,7 @@ const download = () => {
 
 const fileChange = (e) => {
   file = e.target.files[0];
-  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && file.type != "application/msword"){
     file = null;
     ElNotification({
       title: 'Error',
