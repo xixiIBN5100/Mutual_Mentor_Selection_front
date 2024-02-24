@@ -106,15 +106,14 @@ const switchDetailInfoDisplay = () => {
 };
 
 const logout = () => {
-  isFadingOut.value = true;
-  setTimeout(()=>{
-    routes.push("/login")
+  jumpPage("/login");
+  setTimeout(() => {
     userStore.setUserIdentity(undefined);
-    userStore.setUserInfo({});
-    loginStore.setLogin(false);
-    loginStore.setToken(undefined);
-    chatStore.resetChatObjects();
-  },1000);
+  userStore.setUserInfo({});
+  loginStore.setLogin(false);
+  loginStore.setToken(undefined);
+  chatStore.resetChatObjects();
+  },1000)
 }
 
 const jumpDocument = () => {
