@@ -86,6 +86,13 @@ const loginStore = useMainStore().useLoginStore()
     onSuccess(data) {
       console.log(data);
       finishApproval.value = data.data.data
+      finishApproval.value.forEach((item: { target_agree: number; name: string }) => {
+        if(item.target_agree === 2){
+          item.name += "(通过)"
+        }else{
+          item.name += "(驳回)"
+        }
+      });
     },
     onError(error) {
       console.log(error);
@@ -118,6 +125,13 @@ const loginStore = useMainStore().useLoginStore()
     onSuccess(data) {
       console.log(data);
       finishApproval.value = data.data.data
+      finishApproval.value.forEach((item: { target_agree: number; name: string }) => {
+        if(item.target_agree === 2){
+          item.name += "(通过)"
+        }else{
+          item.name += "(驳回)"
+        }
+      });
     },
     onError(error) {
       console.log(error);
