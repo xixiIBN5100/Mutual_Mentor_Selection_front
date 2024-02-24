@@ -92,6 +92,8 @@ import styles from "./index.module.scss";
 import { Card, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
+import routes from '@/router';
+
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
@@ -104,12 +106,15 @@ const switchDetailInfoDisplay = () => {
 };
 
 const logout = () => {
-  jumpPage("/login");
-  userStore.setUserIdentity(undefined);
-  userStore.setUserInfo({});
-  loginStore.setLogin(false);
-  loginStore.setToken(undefined);
-  chatStore.resetChatObjects();
+  isFadingOut.value = true;
+  setTimeout(()=>{
+    routes.push("/login")
+    userStore.setUserIdentity(undefined);
+    userStore.setUserInfo({});
+    loginStore.setLogin(false);
+    loginStore.setToken(undefined);
+    chatStore.resetChatObjects();
+  },1000);
 }
 
 const jumpDocument = () => {

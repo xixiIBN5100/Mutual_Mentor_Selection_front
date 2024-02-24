@@ -116,7 +116,7 @@ onBeforeMount(()=>{
 })
 
 const reCho = () => {
-  targetInfo.target_name = "";
+  targetInfo.target_name = "无";
 }
 
 const choice = ()=>{
@@ -187,7 +187,8 @@ const download = () => {
 
 const fileChange = (e) => {
   file = e.target.files[0];
-  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+  console.log(file);
+  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && file.type != "application/msword"){
     file = null;
     ElNotification({
       title: 'Error',
@@ -196,6 +197,7 @@ const fileChange = (e) => {
     });
   }
 }
+
 const submit = async () => {
   loading.value = true;
   if(file == null){
