@@ -33,6 +33,7 @@
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/avatar')" color="yellow">修改头像</hyperlinks>
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
