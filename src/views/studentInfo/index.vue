@@ -4,11 +4,11 @@
       <card :class="styles['title-bar']" title="个人信息" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/approval')"><Back /></el-icon>
       </card>
-      <card  v-if="form" :class="styles.container">
+      <card  v-if="form" :class="styles.container" :is-fading-out=isFadingOut>
         <div style="display: flex;">
         <div :class="styles.form">
         <span :class="styles.info">姓名: {{ form.name }}</span>
-        <span :class="styles.info">班级: {{ form.email }}</span>
+        <span :class="styles.info">班级: {{ form.class }}</span>
         <span :class="styles.info">学号: {{ form.student_id }}</span>
         <span :class="styles.info">地址: {{ form.address }}</span>
         </div>
