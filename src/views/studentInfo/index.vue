@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import styles from "./index.module.scss";
 import { Card, DarkButton } from "@/components/index";
-import { jumpPage, isFadingOut } from "@/tool";
+import { jumpPage, isFadingOut ,startLoading,closeLoading} from "@/tool";
 import { ref } from "vue";
 import { useMainStore } from "@/stores";
 import { ElNotification } from "element-plus";
@@ -70,6 +70,7 @@ useRequest({
   url: "/api/teacher/studentInfo",
   manual: false,
   headers: { Authorization: loginStore.token },
+  onBefore: () => startLoading(),
   onSuccess(response) {
     form.value = response.data.data; // 请求成功后更新form的值
     console.log(form.value);
@@ -77,5 +78,6 @@ useRequest({
   onError(error) {
     console.log(error);
   },
+  onFinally: () =>closeLoading()
 });
 </script>
