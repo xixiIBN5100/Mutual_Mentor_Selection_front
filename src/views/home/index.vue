@@ -105,11 +105,14 @@ const switchDetailInfoDisplay = () => {
 
 const logout = () => {
   jumpPage("/login");
-  userStore.setUserIdentity(undefined);
+  setTimeout(() => {
+    userStore.setUserIdentity(undefined);
   userStore.setUserInfo({});
   loginStore.setLogin(false);
   loginStore.setToken(undefined);
   chatStore.resetChatObjects();
+  },1000)
+
 }
 
 const jumpDocument = () => {
