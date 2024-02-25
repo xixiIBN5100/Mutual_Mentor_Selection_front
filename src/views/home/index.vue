@@ -45,6 +45,7 @@
         <hyperlinks @click="() => jumpPage('/secondCho')" color="pink">第二轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/chat')" color="pink">导师私聊</hyperlinks>
         <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/finishdeSuggestion')" color="pink">已反馈意见</hyperlinks>
       </card>
     </div>
     <div v-if="userStore.userIdentity === '教师'" style="display: flex; justify-content: space-between;">
