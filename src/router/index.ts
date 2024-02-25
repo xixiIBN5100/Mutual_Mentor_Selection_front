@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat} from "@/views";
+import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion} from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +86,11 @@ const routes = createRouter({
       path: "/chat",
       name: "chat",
       component: chat
+    },
+    {
+      path: "/finishedSuggestion",
+      name: "finishedSuggestion",
+      component: finishedSuggestion,
     }
   ]
 });
