@@ -50,7 +50,7 @@ const useRequest = (config:requestConfigType) => {
     /** 添加token */
     const token = localStorage.getItem("token");
     if(token){
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers["Authorization"] = token;
     }
 
     instance(config).then((response)=>{

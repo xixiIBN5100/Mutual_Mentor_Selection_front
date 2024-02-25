@@ -24,7 +24,7 @@ export default class teacherSetTime{
     return request({
       headers:{"Content-Type":"application/json",'Authorization': `Bearer ${token}`},
       method:"get",
-      url:"/api/user/teacher/time",
+      url:"/api/teacher/ddl",
     })
   }
 }
