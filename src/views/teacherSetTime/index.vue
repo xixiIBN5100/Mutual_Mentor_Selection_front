@@ -56,6 +56,11 @@ onMounted(()=>{
       type: 'error',
     })
   })
+
+  teacherSetTime.getBeforeTime(token).then((res)=>{
+    if(res.data.code === 200){
+    }
+  })
 })
 
 const value1 = ref('')
