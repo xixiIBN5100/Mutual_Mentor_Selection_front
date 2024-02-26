@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import styles from './index.module.scss'
 import { Card, DarkButton } from '@/components/index'
-import { jumpPage, isFadingOut } from '@/tool'
+import { jumpPage, isFadingOut, closeLoading,startLoading } from '@/tool'
 import { onMounted, ref } from 'vue'
 import { getStudentListAPI } from "@/apis/index"
 import { useMainStore } from '@/stores'
@@ -67,6 +67,7 @@ const loginStore = useMainStore().useLoginStore()
     url: "/api/teacher/student",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       waitApproval.value = data.data.data;
@@ -75,6 +76,7 @@ const loginStore = useMainStore().useLoginStore()
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   });
 
   useRequest({
@@ -83,13 +85,22 @@ const loginStore = useMainStore().useLoginStore()
     url: "/api/teacher/student",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       finishApproval.value = data.data.data
+      finishApproval.value.forEach((item: { target_agree: number; name: string }) => {
+        if(item.target_agree === 2){
+          item.name += "(通过)"
+        }else{
+          item.name += "(驳回)"
+        }
+      });
     },
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   });
   const updataList = () => {
     setTimeout(() => {
@@ -99,6 +110,7 @@ const loginStore = useMainStore().useLoginStore()
     url: "/api/teacher/student",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       waitApproval.value = data.data.data;
@@ -107,6 +119,7 @@ const loginStore = useMainStore().useLoginStore()
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   });
 
   useRequest({
@@ -115,13 +128,22 @@ const loginStore = useMainStore().useLoginStore()
     url: "/api/teacher/student",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       finishApproval.value = data.data.data
+      finishApproval.value.forEach((item: { target_agree: number; name: string }) => {
+        if(item.target_agree === 2){
+          item.name += "(通过)"
+        }else{
+          item.name += "(驳回)"
+        }
+      });
     },
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
  });
 }, 500);
 
@@ -137,6 +159,7 @@ const Undo = (item:any) => {
     url: "/api/teacher/student/post",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       ElNotification("撤销成功")
@@ -144,6 +167,7 @@ const Undo = (item:any) => {
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   })
   updataList();
 }
@@ -158,6 +182,7 @@ const approval  = (item: { student_id: any }) => {
     url: "/api/teacher/student/post",
     headers: { Authorization: loginStore.token },
     manual: false,
+    onBefore: () => startLoading(),
     onSuccess(data) {
       console.log(data);
       ElNotification("审批成功")
@@ -165,6 +190,7 @@ const approval  = (item: { student_id: any }) => {
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   })
   updataList();
 }
@@ -175,6 +201,7 @@ const reject  = (item: { student_id: any }) => {
       students_id: [item.student_id],
       check:2
     },
+    onBefore: () => startLoading(),
     method: "POST",
     url: "/api/teacher/student/post",
     headers: { Authorization: loginStore.token },
@@ -186,6 +213,7 @@ const reject  = (item: { student_id: any }) => {
     onError(error) {
       console.log(error);
     },
+    onFinally: () => closeLoading()
   })
   updataList();
 }

@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import "./index.scss";
+import router from "@/router";
 import { ref , computed , watch} from "vue";
 import { startLoading, closeLoading, jumpPage } from "@/tool/index";
 import useRequest from "@/apis/useRequest";
@@ -76,7 +77,7 @@ const login = async () => {
           params: {},
           method: "GET",
           url: "/api/student/info",
-          headers: { Authorization: token},
+          headers: { 'Authorization' : token},
           onSuccess(response) {
             userStore.setUserInfo(response.data.data);
           },
@@ -86,7 +87,7 @@ const login = async () => {
           },
         })
       }
-      jumpPage("/home")
+      router.push("/home")
     } else {
       throw new Error(res.data.msg);
     }

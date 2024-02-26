@@ -11,34 +11,19 @@
 }
 
 .contain {
-	margin: 60px 100px;
+	margin: 50px 100px;
 
 	.title-bar {
 		margin-bottom: 15px;
-		position: relative;
-
-		.logout {
-			position: absolute;
-			bottom: 10px;
-			right: 30px;
-			cursor: pointer;
-
-			span {
-				padding: 0 8px 6px 8px;
-			}
-		}
 	}
 
 	.info-card {
 		position: relative;
 		overflow: hidden;
+		margin: 15px 30px 15px 0;
 		display: inline-flex;
 		flex-direction: column;
 		width: 300px;
-		height: 60vh;
-		margin-top: 5vh;
-		margin-left: 10px;
-		margin-right: 10px;
 
 		.background-icon {
 			position: absolute;
@@ -49,6 +34,8 @@
 	}
 
 	.detail-info {
+		 margin-left: 0;
+
 		.edit-button {
 			position: absolute;
 			top: 20px;
@@ -64,21 +51,5 @@
 		div span {
 			float: right;
 		}
-	}
-
-	.detail-info:hover {
-		background-color: index.$blue-dark-500;
-	}
-
-	.setting:hover {
-		background-color: index.$yellow-dark-500;
-	}
-
-	.related-info:hover {
-		background-color: index.$green-dark-500;
-	}
-
-	.communication:hover {
-		background-color: index.$pink-dark-500;
 	}
 }

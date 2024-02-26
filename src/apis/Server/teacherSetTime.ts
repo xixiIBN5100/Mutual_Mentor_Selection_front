@@ -20,11 +20,11 @@ export default class teacherSetTime{
     })
   }
 
-  static async getBeforeTime(){
+  static async getBeforeTime(token:string){
     return request({
-      headers:{"Content-Type":"application/json"},
+      headers:{"Content-Type":"application/json",'Authorization': `Bearer ${token}`},
       method:"get",
-      url:"/api/user/teacher/time",
+      url:"/api/teacher/ddl",
     })
   }
 }

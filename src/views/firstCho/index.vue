@@ -9,6 +9,7 @@
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
         <span>总截止时间：{{adminTime}}</span>
       </Card>
+      <div style="display: flex; justify-content:space-around;">
       <div v-if='targetInfo.teacher_name!=="无"'>
         <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
           <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
@@ -48,6 +49,7 @@
           <input type='file' name='file' @change='fileChange' />
           <el-button type="info" class='button' @click='submit'>提交</el-button>
         </Card>
+      </div>
       </div>
     </div>
   </div>
@@ -116,7 +118,7 @@ onBeforeMount(()=>{
 })
 
 const reCho = () => {
-  targetInfo.target_name = "";
+  targetInfo.target_name = "无";
 }
 
 const choice = ()=>{
@@ -187,7 +189,8 @@ const download = () => {
 
 const fileChange = (e) => {
   file = e.target.files[0];
-  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+  console.log(file);
+  if(file.type != "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && file.type != "application/msword"){
     file = null;
     ElNotification({
       title: 'Error',
@@ -196,6 +199,7 @@ const fileChange = (e) => {
     });
   }
 }
+
 const submit = async () => {
   loading.value = true;
   if(file == null){

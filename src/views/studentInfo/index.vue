@@ -4,11 +4,11 @@
       <card :class="styles['title-bar']" title="个人信息" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/approval')"><Back /></el-icon>
       </card>
-      <card  v-if="form" :class="styles.container">
+      <card  v-if="form" :class="styles.container" :is-fading-out=isFadingOut>
         <div style="display: flex;">
         <div :class="styles.form">
         <span :class="styles.info">姓名: {{ form.name }}</span>
-        <span :class="styles.info">班级: {{ form.email }}</span>
+        <span :class="styles.info">班级: {{ form.class }}</span>
         <span :class="styles.info">学号: {{ form.student_id }}</span>
         <span :class="styles.info">地址: {{ form.address }}</span>
         </div>
@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import styles from "./index.module.scss";
 import { Card, DarkButton } from "@/components/index";
-import { jumpPage, isFadingOut } from "@/tool";
+import { jumpPage, isFadingOut ,startLoading,closeLoading} from "@/tool";
 import { ref } from "vue";
 import { useMainStore } from "@/stores";
 import { ElNotification } from "element-plus";
@@ -70,6 +70,7 @@ useRequest({
   url: "/api/teacher/studentInfo",
   manual: false,
   headers: { Authorization: loginStore.token },
+  onBefore: () => startLoading(),
   onSuccess(response) {
     form.value = response.data.data; // 请求成功后更新form的值
     console.log(form.value);
@@ -77,5 +78,6 @@ useRequest({
   onError(error) {
     console.log(error);
   },
+  onFinally: () =>closeLoading()
 });
 </script>

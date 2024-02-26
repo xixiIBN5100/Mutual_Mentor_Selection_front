@@ -8,9 +8,9 @@
     :is-fading-out=isFadingOut
     >
       <div>欢迎使用德育导师双向选择系统</div>
-      <div :class="styles.logout" @click="logout"><el-icon><Upload /></el-icon><span>登出</span></div>
+      <div :class="styles.logout" @click="logout" ><el-icon><Upload /></el-icon><span>登出</span></div>
     </card>
-    <div v-if="userStore.userIdentity === '学生'">
+    <div v-if="userStore.userIdentity === '学生'" style="display: flex; justify-content:space-between;">
       <card :class="[styles['detail-info'], styles['info-card']]" title="详细个人信息" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Document /></el-icon>
           <div :class="styles['edit-button']" @click="() => jumpPage('/editInfo')">
@@ -46,9 +46,10 @@
         <hyperlinks @click="() => jumpPage('/secondCho')" color="pink">第二轮选择</hyperlinks>
         <hyperlinks @click="() => jumpPage('/chat')" color="pink">导师私聊</hyperlinks>
         <hyperlinks @click="() => jumpPage('/suggestion')" color="pink">意见提交</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/finishedSuggestion')" color="pink">已反馈意见</hyperlinks>
       </card>
     </div>
-    <div v-if="userStore.userIdentity === '教师'">
+    <div v-if="userStore.userIdentity === '教师'" style="display: flex; justify-content: space-between;">
       <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
@@ -66,7 +67,7 @@
         <hyperlinks @click='() => jumpPage("/chat")' color='pink'>学生私聊</hyperlinks>
       </card>
     </div>
-    <div v-if="userStore.userIdentity === '管理员'">
+    <div v-if="userStore.userIdentity === '管理员'" style="display: flex; justify-content: space-between;">
       <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <div>请求审批</div>
@@ -93,6 +94,8 @@ import styles from "./index.module.scss";
 import { Card, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
+import routes from '@/router';
+
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
@@ -106,11 +109,13 @@ const switchDetailInfoDisplay = () => {
 
 const logout = () => {
   jumpPage("/login");
-  userStore.setUserIdentity(undefined);
+  setTimeout(() => {
+    userStore.setUserIdentity(undefined);
   userStore.setUserInfo({});
   loginStore.setLogin(false);
   loginStore.setToken(undefined);
   chatStore.resetChatObjects();
+  },1000)
 }
 
 const jumpDocument = () => {

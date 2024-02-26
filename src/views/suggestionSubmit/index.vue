@@ -1,10 +1,10 @@
 <template>
   <div :class="styles.background">
     <div :class="styles.contain">
-      <card :class="styles['title-bar']" title="学生个人信息编辑" :bold-title="true" :is-fading-out=isFadingOut>
+      <card :class="styles['title-bar']" title="意见反馈" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
-      <card :class="styles['info-editer']" title="填写你的信息意见"  :is-fading-out=isFadingOut>
+      <card :class="styles['info-editer']" title="填写意见"  :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200" color="#d89dac"><ChatLineRound /></el-icon>
         <textarea :class="styles['Textarea-pink']" v-model="suggestion"></textarea>
         <div :class="styles['save-button']">
@@ -56,18 +56,20 @@ const submitSuggestion = () => {
 
   useRequest({
     data: {
-      user_id: userStore.$id,
-      content: suggestion.value,
-      create_time: nowDate(time),
+      advice: suggestion.value,
       anonymity: anony.value
     },
     method: "POST",
     url: "/api/student/suggest",
     headers: { Authorization: loginStore.token },
     onSuccess(response) {
+      if(response.data.code === 200){
       console.log(response);
-      ElNotification("意见反馈成功");
+      ElNotification.success("意见反馈成功");
       jumpPage("/home");
+      }else{
+        ElNotification.error(response.data.msg);
+      }
     },
     onError(error) {
       console.log(error);
