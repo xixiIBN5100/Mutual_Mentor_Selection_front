@@ -15,6 +15,7 @@ import secondCho from "./secondCho/index.vue";
 import finalStu from "./finalStu/index.vue";
 import chat from "./chat/index.vue";
 import finishedSuggestion from "./finishedSuggestion/index.vue";
+import checkFinishedApproval from "./checkFinishedApproval/index.vue";
 
 export {
   Login,
@@ -34,4 +35,5 @@ export {
   finalStu,
   chat,
   finishedSuggestion,
+  checkFinishedApproval,
 };
