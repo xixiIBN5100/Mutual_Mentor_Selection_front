@@ -2,7 +2,7 @@
     <div :class="styles.background">
     <div :class="styles.contain">
         <card
-        :title="'已通过审批学生'"
+        :title="'未通过审批学生'"
         :bold-title="true"
         :class="styles.titleBar"
         :is-fading-out="isFadingOut"
@@ -44,7 +44,7 @@ const loginStore = useMainStore().useLoginStore()
 const studentForm = ref();
 isFadingOut.value = false
 useRequest({
-    params: {check:2},
+    params: {check:1},
     method: "GET",
     url: "/api/admin/check",
     headers: { Authorization: loginStore.token },

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion,checkFinishedApproval} from "@/views";
+import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion,checkFinishedApproval,checkWaitApproval} from "@/views";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -96,7 +96,12 @@ const routes = createRouter({
       path: "/checkFinishedApproval",
       name: "checkFinishedApproval",
       component: checkFinishedApproval,
-    }
+    },
+    {
+      path: "/checkWaitApproval",
+      name: "checkWaitApproval",
+      component: checkWaitApproval,
+    },
   ]
 });
 
