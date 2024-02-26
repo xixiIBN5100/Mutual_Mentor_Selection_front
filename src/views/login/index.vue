@@ -77,7 +77,7 @@ const login = async () => {
           params: {},
           method: "GET",
           url: "/api/student/info",
-          headers: { Authorization: token},
+          headers: { 'Authorization' : token},
           onSuccess(response) {
             userStore.setUserInfo(response.data.data);
           },

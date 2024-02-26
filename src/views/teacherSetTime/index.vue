@@ -56,6 +56,25 @@ onMounted(()=>{
       type: 'error',
     })
   })
+
+  teacherSetTime.getBeforeTime(token).then((res)=>{
+    if(res.data.code === 200){
+      beforeSet.value = res.data.data;
+      beforeSet.value = beforeSet.value.substring(0,4)+"年"+beforeSet.value.substring(5,7)+"月"+beforeSet.value.substring(8,10)+"日"+beforeSet.value.substring(11,19);
+    }else{
+      ElNotification({
+        title: 'Warning',
+        message: res.data.msg,
+        type: 'warning',
+      })
+    }
+  }).catch((e:Error)=>{
+    ElNotification({
+      title: 'Error',
+      message: e,
+      type: 'error',
+    })
+  })
 })
 
 const value1 = ref('')
