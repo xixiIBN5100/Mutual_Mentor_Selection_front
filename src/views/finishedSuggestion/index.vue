@@ -12,7 +12,7 @@
             <el-table-column prop="anonymity" label="是否匿名" />
             <el-table-column align="right">
               <template #header>
-                <el-input v-model="search" size="large" placeholder="搜索关键字" />
+                <el-input v-model="search" size="large" placeholder="搜索内容" />
               </template>
             </el-table-column>
           </el-table>
@@ -94,7 +94,8 @@ const back = () => {
   top: 17px;
 }
 .suggestionContain{
-  margin-top: 15px;
+  margin-top: 10vh;
   height: 500px;
+  background-color: transparent;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div :class="styles.background">
     <div :class="styles.contain">
-      <card :class="styles['title-bar']" title="头像修改" :bold-title="true" :is-fading-out=isFadingOut>
+      <card :class="styles['title-bar']" title="上传寸照" :bold-title="true" :is-fading-out=isFadingOut>
             <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut>
@@ -12,7 +12,7 @@
       </card>
     </div>
   </div>
-</template>
+</template>   
 
 <script setup lang="ts">
 import styles from "./index.module.scss";

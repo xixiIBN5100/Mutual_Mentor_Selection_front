@@ -5,6 +5,8 @@
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/approval')"><Back /></el-icon>
       </card>
       <card  v-if="form" :class="styles.container" :is-fading-out=isFadingOut>
+        <div style="font-size:  1.3rem;margin-left: 4vw;">寸照:</div>
+        <img :src="form.avartar" style="width: 100px; height: auto;margin-left: 4vw;margin-top: 1vh;">
         <div style="display: flex;">
         <div :class="styles.form">
         <span :class="styles.info">姓名: {{ form.name }}</span>
@@ -21,9 +23,9 @@
       </div>
 
       <div :class="styles.form2">
-      <span :class="styles.info">项目实践经历:<br> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp; &ensp;&ensp;&ensp;{{ form.experience }}</span>
-        <span :class="styles.info">个人荣誉: <br> &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ form.honor }}</span>
-        <span :class="styles.info">个人专业研究兴趣方向: <br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;{{ form.interest }}</span>
+      <span :class="styles.info">项目实践经历:<br> &ensp;&ensp;&ensp;&ensp;{{ form.experience }}</span>
+        <span :class="styles.info">个人荣誉: <br> &ensp;&ensp;&ensp;&ensp;{{ form.honor }}</span>
+        <span :class="styles.info">个人专业研究兴趣方向: <br>&ensp;&ensp;&ensp;&ensp;{{ form.interest }}</span>
       </div>
       </card>
     </div>
@@ -49,7 +51,7 @@ const loginStore = useMainStore().useLoginStore();
 
 type StudentForm = {
   address: string;
-  avatar: string;
+  avartar: string;
   class: string;
   email: string;
   experience: string;

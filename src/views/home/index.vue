@@ -8,7 +8,7 @@
     :is-fading-out=isFadingOut
     :avatar-url="rentAvatarUrl"
     >
-      <div>欢迎使用德育导师双向选择系统</div>
+      <div style="font-size: 0.8rem;">&ensp;&ensp;欢迎使用德育导师双向选择系统</div>
       <div :class="styles.logout" @click="logout" ><el-icon><Upload /></el-icon><span>登出</span></div>
     </card>
     <div v-if="userStore.userIdentity === '学生'" style="display: flex; justify-content:space-between;">
@@ -34,7 +34,7 @@
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/avatar')" color="yellow">修改头像</hyperlinks>
+        <hyperlinks @click="() => jumpPage('/avatar')" color="yellow">上传一寸照片</hyperlinks>
       </card>
       <card :class="[styles['related-info'], styles['info-card']]" title="相关资讯" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Pointer /></el-icon>
