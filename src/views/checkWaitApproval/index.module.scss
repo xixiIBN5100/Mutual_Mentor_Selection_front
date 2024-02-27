@@ -1,0 +1,41 @@
+@use "../../style/index.scss";
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: index.$color-background;
+	width: 100vw;
+	height: 100vh;
+	color: index.$color-font;
+}
+
+.contain {
+	margin: 60px 100px;
+
+	.backgroundIcon {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		opacity: 30%;
+	}
+
+  .titleBar {
+    position: relative;
+		margin-bottom: 15px;
+
+    .backButton {
+      position: absolute;
+			top: 17px;
+			right: 20px;
+    }
+	}
+
+	.studentForm {
+		margin-top: 10vh;
+		overflow: hidden;
+		padding: 30px;
+		height: 60vh;
+		background-color: transparent;
+	}
+}

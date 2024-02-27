@@ -6,9 +6,9 @@
       </Card>
       <Card class='suggestionContain' :isFadingOut='isFadingOut'>
         <div>
-          <el-table :data="filterTableData" style="width: 100%; height: 480px">
+          <el-table :data="filterTableData" style="width: 100%; height: 480px;">
             <el-table-column prop="content" label="内容" width="400" />
-            <el-table-column prop="create_time" label="创建时间" width="400" />
+            <el-table-column prop="create_time" label="提交时间" width="400" />
             <el-table-column prop="anonymity" label="是否匿名" />
             <el-table-column align="right">
               <template #header>
