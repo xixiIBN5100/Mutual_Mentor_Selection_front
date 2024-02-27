@@ -8,6 +8,7 @@ interface requestConfigType{
   url:string;
   headers: {
     Authorization: string | undefined
+    "Content-Type"?: string
   };
 
   /** 是否手动发起请求 */

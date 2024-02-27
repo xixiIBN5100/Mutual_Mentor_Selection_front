@@ -6,6 +6,7 @@
     :bold-title="true"
     :class="styles['title-bar']"
     :is-fading-out=isFadingOut
+    :avatar-url="rentAvatarUrl"
     >
       <div>欢迎使用德育导师双向选择系统</div>
       <div :class="styles.logout" @click="logout" ><el-icon><Upload /></el-icon><span>登出</span></div>
@@ -94,14 +95,14 @@ import styles from "./index.module.scss";
 import { Card, Hyperlinks } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { useMainStore } from "@/stores";
-import routes from '@/router';
-
+import useRequest from "@/apis/useRequest";
 isFadingOut.value = false;
 
 const userStore = useMainStore().useUserStore();
 const loginStore = useMainStore().useLoginStore();
 const chatStore = useMainStore().useChatStore();
 const detailInfoDisplay = ref(false);
+const rentAvatarUrl = ref();
 
 const switchDetailInfoDisplay = () => {
   detailInfoDisplay.value = !detailInfoDisplay.value;
@@ -121,5 +122,22 @@ const logout = () => {
 const jumpDocument = () => {
   window.open("http://47.115.209.120:8080/static/1.doc");
 };
+
+useRequest({
+  params: {},
+  method: "GET",
+  url: "/api/student/info",
+  headers: { Authorization: loginStore.token },
+  onSuccess(data) {
+    console.log(data);
+    if(data.data.code === 200){
+      rentAvatarUrl.value = data.data.data.avartar;
+      console.log(rentAvatarUrl.value);
+    }
+  },
+  onError(error) {
+    console.log(error);
+  },
+});
 
 </script>
