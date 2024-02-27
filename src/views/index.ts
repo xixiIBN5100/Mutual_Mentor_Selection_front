@@ -14,6 +14,7 @@ import adminSetTime from "./adminSetTime/index.vue";
 import secondCho from "./secondCho/index.vue";
 import finalStu from "./finalStu/index.vue";
 import chat from "./chat/index.vue";
+import avatar from "./avatar/index.vue";
 import finishedSuggestion from "./finishedSuggestion/index.vue";
 import checkFinishedApproval from "./checkFinishedApproval/index.vue";
 import checkWaitApproval from "./checkWaitApproval/index.vue";
@@ -35,6 +36,7 @@ export {
   secondCho,
   finalStu,
   chat,
+  avatar,
   finishedSuggestion,
   checkFinishedApproval,
   checkWaitApproval

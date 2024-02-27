@@ -68,6 +68,7 @@ const login = async () => {
         userStore.setUserIdentity(res.data.data.msg);
       }
       const token = res.data.data.token; // 令牌存储在响应数据的 token 字段中
+      console.log(token);
       loginStore.setToken(token);
       ElNotification("登陆成功");
       loginStore.setLogin(true);
