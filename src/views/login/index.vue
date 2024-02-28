@@ -72,6 +72,7 @@ const login = async () => {
       loginStore.setToken(token);
       ElNotification("登陆成功");
       loginStore.setLogin(true);
+      console.log(loginStore.loginSession);
       userStore.setUserIdentity(form.value.type === 1 ? "学生" : (form.value.type === 2 ? "教师" : "管理员"));
       if(form.value.type === 1) {
         useRequest({
