@@ -23,11 +23,9 @@
           </div>
         </Card>
         <Card v-show='targetInfo.target_name !=="无"' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
-          <span>你选择的老师：{{targetInfo.target_name}}</span>
-          <span>老师的状态：</span>
-          <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
-          <div v-else-if='targetInfo.target_agree === 2'>
-            <span class='choInfo'>老师同意了</span><br />
+          <span style="margin-top: 30px;margin-left: 10px">你选择的老师：&ensp;{{targetInfo.target_name}}</span>
+          <span style="margin-top: 20px;margin-left: 10px">老师的状态：&ensp;{{ check }}</span>
+          <div v-if='targetInfo.target_agree === 2'>
             <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
             <div v-else>
               <span>管理员状态：</span><br />
@@ -36,18 +34,21 @@
               <span v-else class='choInfo'>批驳了</span>
             </div>
           </div>
-          <div v-else class='choInfo'>
-            <span>老师拒绝了您的选择</span>
+          <div v-if="targetInfo.target_agree === 3" class='choInfo'>
             <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
           </div>
         </Card>
         <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
-          <span>请先下载附件，填写完表格后上传</span>
-          <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
+          <span style="margin-top: 30px;margin-left: 10px">请先下载附件，填写完表格后上传</span>
+          <div style="display: flex;justify-content: center">
+          <el-button style="margin-top: 30px" type="info" class='button' @click='download'>点击下载附件</el-button>
+          </div>
         </Card>
         <Card title='提交文件' :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
-          <input type='file' name='file' @change='fileChange' />
+          <input style="margin-top: 30px;margin-left: 10px" type='file' name='file' @change='fileChange' />
+          <div style="display: flex;justify-content: center;margin-top: 10px">
           <el-button type="info" class='button' @click='submit'>提交</el-button>
+          </div>
         </Card>
       </div>
       </div>
@@ -61,7 +62,7 @@ import styles from "./index.module.scss";
 import { useMainStore } from "@/stores";
 import { ElNotification, ElMessageBox } from 'element-plus';
 import firstCho from '@/apis/Server/firstCho';
-import { ref, h, reactive, onMounted, onBeforeMount} from "vue";
+import {ref, h, reactive, onMounted, onBeforeMount, computed} from "vue";
 import axios from 'axios';
 import routes from '@/router';
 
@@ -79,6 +80,15 @@ const targetInfo = reactive({
 const loginStore = useMainStore().useLoginStore();
 const token = loginStore.token;
 const adminTime = ref<string>("");
+const check = computed(() => {
+  if(targetInfo.target_agree === 1){
+    return "待处理"
+  }else if(targetInfo.target_agree === 2) {
+    return "已同意"
+  }else{
+    return "未同意"
+  }
+})
 // console.log(is_cho.value);
 //http://47.115.209.120:8080/static/selection_table.docx
 

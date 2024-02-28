@@ -4,6 +4,7 @@
     <card title='老师信息列表' :boldTitle = "true" :isFadingOut=isFadingOut>
       <el-icon :size="30" class='back' @click="() => jumpPage('/home')"><Back /></el-icon>
     </card>
+    <div style="display: flex;justify-content: space-evenly;margin-top: 5vh;">
     <div class='flex'>
       <div v-for='data in datas' :class='[styles["info-card"],styles["detail-info"]]'>
         <card :isFadingOut='isFadingOut' :class="styles['teacher-info']">
@@ -32,6 +33,7 @@
           />
         </div>
       </card>
+    </div>
     </div>
   </div>
 </div>

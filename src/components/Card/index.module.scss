@@ -44,6 +44,12 @@
         font-weight: bold;
     }
   }
+
+.dark-button-disabled {
+    pointer-events: none; /* 禁用点击事件 */
+    opacity: 0.5; /* 降低按钮不透明度，使其看起来被禁用 */
+    /* 可以根据需要添加其他样式，例如改变按钮的颜色或者添加禁用图标等 */
+}
 @keyframes in{
     0%{
         transform: translateY(8px); opacity:0;

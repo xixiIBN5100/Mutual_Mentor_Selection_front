@@ -3,20 +3,19 @@
   <div :class='styles.contain'>
     <Card title='第二轮选择' :boldTitle='true' :isFadingOut='isFadingOut'>
       <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
-      <span>截止时间：{{adminTime}}</span>
+      <span style="margin-left: 12px">截止时间：{{adminTime}}</span>
     </Card>
+    <div style="display: flex;justify-content: space-evenly;margin-top: 10vh;">
     <div v-if='targetInfo.teacher_name !== "无"'>
       <Card title='最终导师：' :class='["finalTeacher",styles["detail-info"]]' :isFadingOut='isFadingOut'>
         <span style='position:relative; right: -60px'>{{targetInfo.teacher_name}}</span>
       </Card>
     </div>
     <div v-else>
-      <Card title='学校为您分配的老师：' :class='[styles["info-card"]]' :isFadingOut='isFadingOut'>
-        <span class='teacherName'>{{userStore.userSession.target_name}}</span>
-        <span>老师的状态：</span>
-        <span v-if='targetInfo.target_agree === 1' class='choInfo'>待处理</span>
-        <div v-else-if='targetInfo.target_agree === 2'>
-          <span class='choInfo'>老师同意了</span><br />
+      <Card title='选择信息' :class='[styles["info-card"]]' :isFadingOut='isFadingOut'>
+        <span style="margin-left: 10px;margin-top: 30px">为您分配的导师是:&ensp;{{userStore.userSession.target_name}}</span>
+        <span style="margin-left: 10px;margin-top: 10px">老师的状态：{{ check }}</span>
+        <div v-if='targetInfo.target_agree === 2'>
           <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
           <div v-else>
             <span>管理员状态：</span><br />
@@ -31,14 +30,21 @@
           <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
         </div>
       </Card>
-      <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
-        <span>请联系分配到的老师，完成表格后上传</span>
+      <Card :class='styles["info-card"]' title='提示' :isFadingOut='isFadingOut'>
+        <span style="margin-left: 10px;margin-top: 30px">请联系分配到的老师，完成表格后上传</span>
+        <div style="display: flex;justify-content: center;margin-top: 20px">
         <el-button type="info" class='button' @click='download'>点击下载附件</el-button>
+        </div>
       </Card>
       <Card title='提交文件' :class='[styles["info-card"],styles["detail-info"]]' :isFadingOut='isFadingOut'>
-        <input type='file' name='file' @change='fileChange' />
-        <el-button type="info" class='button' @click='submit'>提交</el-button>
+
+        <input style="margin-left: 10px;margin-top: 30px" type='file' name='file' @change='fileChange'  />
+      <div style="display: flex;justify-content: center">
+        <el-button style="margin-top: 30px" type="info" class='button' @click='submit'>提交</el-button>
+      </div>
+
       </Card>
+    </div>
     </div>
   </div>
 </div>
@@ -47,7 +53,7 @@
 <script setup lang='ts'>
 import styles from "./index.module.scss";
 import { Card } from "@/components/index";
-import { reactive, ref, onBeforeMount,} from 'vue'
+import {reactive, ref, onBeforeMount, computed,} from 'vue'
 import routes from '@/router';
 import { useMainStore } from "@/stores";
 import { ElNotification } from 'element-plus'
@@ -67,7 +73,13 @@ const targetInfo = reactive({
   admin_agree: userStore.userSession.admin_agree,
 });
 const adminTime = ref<string>("");
-
+const check = computed(() => {
+  if(targetInfo.target_agree === 1){
+    return "待处理"
+  }else if(targetInfo.target_agree === 2) {
+    return "已同意"
+  }
+})
 onBeforeMount(()=>{
   loading.value = true;
   firstCho.getAdminTime(token).then((res)=>{
@@ -178,10 +190,7 @@ const submit = async () => {
   top: 17px;
   right: 20px;
 }
-.teacherName{
-  position: relative;
-  right: -120px;
-}
+
 .button{
   margin: 10px;
   width: 100px;

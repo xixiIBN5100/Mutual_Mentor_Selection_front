@@ -1,5 +1,5 @@
 <template>
-  <div :class="['dark-button-'+color, 'dark-button-'+size]" style="cursor: pointer;">
+  <div :class="['dark-button-'+color, 'dark-button-'+size , 'dark-button-disabled']" style="cursor: pointer;">
     {{ inner }}
   </div>
 </template>
@@ -9,13 +9,14 @@ import "./index.scss";
 import { defineProps } from 'vue';
 
 const props = withDefaults(defineProps<{
-  inner?: string,
   color?: string,
-  size?: string
+  inner?: string,
+  size?: string,
+
 }>(), {
   inner: "按钮",
   color: "primary",
-  size: "middle"
+  size: "middle",
 });
 
 /*

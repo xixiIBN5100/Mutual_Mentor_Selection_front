@@ -4,12 +4,16 @@
       <card :class="styles['title-bar']" title="上传寸照" :bold-title="true" :is-fading-out=isFadingOut>
             <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
+      <div style="display: flex;justify-content: center">
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200" color="#dfbf67"><Setting /></el-icon>
-        <el-avatar shape="square" size="large" :src="rentAvatarUrl"/>
+        <div style="display: flex;justify-content: center;flex-direction: column;align-items: center;margin-top: 45px">
+          <el-avatar shape="square" size="large" :src="rentAvatarUrl"/>
         <input :class="styles['input-file']" type="file" name="file" @change="fileChange"/>
-        <DarkButton inner="确认上传" color="yellow" size="small" @click="uploadAvatar"/>
+        <DarkButton style="margin-top: 10px" inner="确认上传" color="yellow" size="small" @click="uploadAvatar"/>
+        </div>
       </card>
+      </div>
     </div>
   </div>
 </template>   

@@ -35,14 +35,17 @@
 	.info-editer {
 		overflow: hidden;
 		padding: 30px;
-
+		margin-top: 10vh;
+		width: 70%;
+		height: 40vh;
 		.input-div {
-			position: relative;
+			width: 30vw;
 			margin: 12px;
+			input{
+				margin-left: 2vw;
+				height: 30px;
+				width: 250px;
 
-			input {
-				position: absolute;
-				left: 120px;
 			}
 		}
 	}
@@ -51,4 +54,10 @@
 		display: flex;
 		justify-content: center;
 	}
+	.dark-button-disabled {
+		pointer-events: none; /* 禁用点击事件 */
+		opacity: 0.5; /* 降低按钮不透明度，使其看起来被禁用 */
+		/* 可以根据需要添加其他样式，例如改变按钮的颜色或者添加禁用图标等 */
+	}
+
 }

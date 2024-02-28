@@ -24,7 +24,7 @@
 import "./index.scss";
 import router from "@/router";
 import { ref , computed , watch} from "vue";
-import { startLoading, closeLoading, jumpPage } from "@/tool/index";
+import { startLoading, closeLoading, jumpPage } from "@/tool";
 import useRequest from "@/apis/useRequest";
 import { loginAPI } from "@/apis/index";
 import { ElNotification } from 'element-plus'

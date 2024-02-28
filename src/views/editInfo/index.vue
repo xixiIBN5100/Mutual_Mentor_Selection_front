@@ -4,6 +4,7 @@
       <card :class="styles['title-bar']" title="学生个人信息编辑" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
+      <div style="display: flex;justify-content: center;margin-top: 10vh">
       <card :class="styles['info-editer']" title="信息编辑" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200" color="#a0cddf"><EditPen /></el-icon>
         <div :class="styles['info-editer-contain']">
@@ -26,6 +27,7 @@
           <dark-button  inner="保存编辑" size="small" color="blue" @click="saveData"/>
         </div>
       </card>
+      </div>
     </div>
   </div>
 </template>
