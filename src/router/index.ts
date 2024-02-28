@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion, avatar, checkFinishedApproval, checkWaitApproval} from "@/views";
+import pinia from "@/stores/creatPinia";
+import useLoginStore from "@/stores/service/loginStore";
+import useUserStore from "@/stores/service/userStore";
 
 const routes = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -108,6 +111,29 @@ const routes = createRouter({
       component: checkWaitApproval,
     },
   ]
+});
+
+routes.beforeEach((to, _, next) => {
+  const loginStore = useLoginStore(pinia);
+  const userStore = useUserStore(pinia);
+  if(loginStore.loginSession === false && to.path !== "/login"){
+    next("/login");
+  } else {
+    next();
+    if(userStore.userIdentity === "学生"){
+      if(to.path === "/reasonBase" || to.path === "/suggestionFeedback" || to.path === "/teacherSetTime" || to.path === "/finalStu") {
+        next("/home");
+      } else {
+        next();
+      }
+    } else if(userStore.userIdentity === "教师" || userStore.userIdentity === "管理员"){
+      if(to.path === "/editInfo" || to.path === "/suggestion") {
+        next("/home");
+      } else {
+        next();
+      }
+    }
+  }
 });
 
 export default routes;
