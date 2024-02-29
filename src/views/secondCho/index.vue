@@ -123,7 +123,7 @@ const back = ()=>{
 const download = () => {
   const link = document.createElement('a');
   link.download = "selection_table.docx";
-  link.href = "http://47.115.209.120:8080/static/selection_table.docx";
+  link.href = "https://phlin.love/static/selection_table.docx";
   link.target = "_blank";
   link.style.display = "none";
 

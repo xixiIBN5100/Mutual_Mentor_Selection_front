@@ -4,21 +4,22 @@
     <Card title='设置两轮的截止时间' :boldTitle='true' :isFadingOut='isFadingOut'>
       <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
     </Card>
-    <Card title='设置一轮审批的提交时间' :isFadingOut='isFadingOut' :class='[styles["info-card"],styles["detail-info"]]'>
-      <div style='margin:10px'>
+    <div style="display: flex;justify-content: space-evenly;margin-top: 10vh">
+    <Card title='设置一轮审批的提交时间' :isFadingOut='isFadingOut' bold-title :class='[styles["info-card"],styles["detail-info"]]'style="padding: 30px;">
+      <div style='margin-top: 40px;margin-left: 10px'>
         <el-date-picker
           v-model="value1"
           type="datetime"
           placeholder="Select date and time"
         />
-        <div class='button'>
+        <span >
           <el-button type="info" @click='submit(1)'>设置</el-button>
-        </div>
+        </span>
       </div>
-      <span style='margin: 10px'>目前设置的日期：{{before_date.first}}</span>
+      <span style='margin-top: 20px;margin-left: 10px'>目前设置的日期：{{before_date.first}}</span>
     </Card>
-    <Card title='设置二轮审批的提交时间' :isFadingOut='isFadingOut' style='margin-top: 50px' :class='[styles["info-card"],styles["detail-info"]]'>
-      <div style='margin:10px'>
+    <Card title='设置二轮审批的提交时间' :isFadingOut='isFadingOut' bold-title :class='[styles["info-card"],styles["detail-info"]]' style="padding: 30px">
+      <div style='margin-top: 40px;margin-left: 10px'>
         <el-date-picker
           v-model="value2"
           type="datetime"
@@ -28,8 +29,9 @@
           <el-button type="info" @click='submit(2)'>设置</el-button>
         </div>
       </div>
-      <span style='margin: 10px'>目前设置的日期：{{before_date.second}}</span>
+      <span style='margin-left: 10px;margin-top: 20px'>目前设置的日期：{{before_date.second}}</span>
     </Card>
+    </div>
   </div>
 </div>
 </template>

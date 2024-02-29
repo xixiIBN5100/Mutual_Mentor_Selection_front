@@ -4,11 +4,16 @@
       <Card title='最终的学生' :boldTitle='true' :isFadingOut='isFadingOut'>
         <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
       </Card>
-      <Card title='姓名学号' :boldTitle='true' :class='[styles["info-card"],"info"]' :isFadingOut='isFadingOut'>
-        <div v-for='person in stuInfo'>{{person.name}}<span>{{person.student_id}}</span></div>
-        <span v-if='stuNum'>一共{{stuNum}}个学生</span>
-        <span v-else>目前还没有成功双向选择的学生</span>
+      <div style="display:flex;justify-content: center">
+      <Card title='您最终的学生是:' :boldTitle='true' :class='styles["info-card"]' :isFadingOut='isFadingOut'>
+
+        <div v-for='person in stuInfo' style="margin-left: 10px;font-size: 1.4rem;margin-top: 30px">姓名:&ensp;{{person.name}}<span >学号:&ensp;{{person.student_id}}</span></div>
+        <div v-if='stuNum' style="display: flex;justify-content: center">
+        <span  style="margin-left: 10px;margin-top: 30px;font-size: 1.2rem">一共{{stuNum}}个学生</span>
+        </div>
+        <span  style="margin-left: 10px" v-else>目前还没有成功双向选择的学生</span>
       </Card>
+      </div>
     </div>
   </div>
 </template>

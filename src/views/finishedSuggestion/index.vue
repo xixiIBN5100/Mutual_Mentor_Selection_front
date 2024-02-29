@@ -4,7 +4,7 @@
       <Card title='已提过的建议' :boldTitle='true' :isFadingOut='isFadingOut'>
         <el-icon :size='30' class='back' @click='back'><Back /></el-icon>
       </Card>
-      <Card class='suggestionContain' :isFadingOut='isFadingOut'>
+      <Card v-if="filterTableData" class='suggestionContain' :is-fading-out="isFadingOut">
         <div>
           <el-table :data="filterTableData" style="width: 100%; height: 480px;">
             <el-table-column prop="content" label="内容" width="400" />
@@ -30,8 +30,9 @@ import routes from '@/router';
 import finishedSuggestion from '@/apis/Server/finishedSuggestion';
 import { useMainStore } from '@/stores';
 import { ElNotification } from 'element-plus';
+import {isFadingOut, jumpPage} from "@/tool";
 
-const isFadingOut = ref<boolean>(false);
+isFadingOut.value = false;
 const loading = ref<boolean>(false);
 const loginStore = useMainStore().useLoginStore();
 const infos = ref<any>();
@@ -80,10 +81,7 @@ onBeforeMount(()=>{
 })
 
 const back = () => {
-  isFadingOut.value = true;
-  setTimeout(()=>{
-    routes.push("/home")
-  },1000)
+  jumpPage('/home')
 }
 </script>
 

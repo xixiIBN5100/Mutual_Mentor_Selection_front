@@ -20,11 +20,10 @@
 	.info-card {
 		position: relative;
 		overflow: hidden;
-		margin: 15px 30px 15px 0;
 		display: inline-flex;
 		flex-direction: column;
-		width: 300px;
-
+		width: 80%;
+		margin-top: 10vh;
 		.background-icon {
 			position: absolute;
 			right: -50px;

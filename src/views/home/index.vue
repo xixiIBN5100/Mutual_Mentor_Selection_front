@@ -51,10 +51,9 @@
       </card>
     </div>
     <div v-if="userStore.userIdentity === '教师'" style="display: flex; justify-content: space-between;">
-      <card :class="styles['info-card']" title="审核与管理" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.teacherApproval]" title="审核与管理" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <hyperlinks @click="() => jumpPage('/approval')" color="blue">请求审批</hyperlinks>
-        <div>我的学生</div>
         <hyperlinks @click="()=> jumpPage('/finalStu')">最终学生</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
@@ -63,7 +62,7 @@
         <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
         <hyperlinks @click='() => jumpPage("/teacherSetTime")' color='yellow'>设置一轮截止时间</hyperlinks>
       </card>
-      <card :class="styles['info-card']" title="沟通" :is-fading-out=isFadingOut>
+      <card :class="[styles['info-card'], styles.teacherCommunicat]" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
         <hyperlinks @click='() => jumpPage("/chat")' color='pink'>学生私聊</hyperlinks>
       </card>
@@ -120,7 +119,7 @@ const logout = () => {
 }
 
 const jumpDocument = () => {
-  window.open("http://47.115.209.120:8080/static/1.doc");
+  window.open("https://phlin.love/static/1.doc");
 };
 
 useRequest({

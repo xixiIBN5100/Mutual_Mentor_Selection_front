@@ -6,7 +6,7 @@
     box-shadow: 2px 2px 15px rgba(0,0,0,0.7),
                 inset 1px 1px 6px rgba(255,255,255,0.3);
     animation: in ease-out 1s 0.2s backwards;
-    
+
     .card-title {
         margin: 6px 12px;
     }
@@ -45,11 +45,7 @@
     }
   }
 
-.dark-button-disabled {
-    pointer-events: none; /* 禁用点击事件 */
-    opacity: 0.5; /* 降低按钮不透明度，使其看起来被禁用 */
-    /* 可以根据需要添加其他样式，例如改变按钮的颜色或者添加禁用图标等 */
-}
+
 @keyframes in{
     0%{
         transform: translateY(8px); opacity:0;

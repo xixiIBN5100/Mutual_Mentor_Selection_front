@@ -4,20 +4,22 @@
     <Card title='设置学生提交审批时间' :boldTitle='true' :isFadingOut=isFadingOut>
       <el-icon class='back' :size='30' @click='back'><Back /></el-icon>
     </Card>
-    <Card :class='styles["set-info"]' :isFadingOut='isFadingOut'>
+    <div style="display: flex;justify-content: center">
+    <Card :class='styles["set-info"]' :isFadingOut='isFadingOut' style="margin-top: 10vh">
       <span>管理员设置的一轮截至时间为：{{adminTime}}</span>
-      <span>设置的时间需早于管理员设置的时间</span>
+      <span style='margin-top: 20px'>目前已设置的时间：{{beforeSet}}</span>
+      <span style='margin-top: 20px'>设置的时间需早于管理员设置的时间</span>
       <span style='margin-top: 20px'>截止时间</span>&nbsp;&nbsp;
       <el-date-picker
         v-model="value1"
         type="datetime"
         placeholder="选择一轮的截止时间"
       />
-      <div class='button'>
+      <spac style="margin-left: 20px">
         <el-button type="info" @click='submit'>提交</el-button>
-      </div>
-      <span>目前已设置的时间：{{beforeSet}}</span>
+      </spac>
     </Card>
+    </div>
   </div>
 </div>
 </template>
