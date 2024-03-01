@@ -24,18 +24,18 @@
         </Card>
         <Card v-show='targetInfo.target_name !=="无"' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
           <span style="margin-top: 30px;margin-left: 10px">你选择的老师：&ensp;{{targetInfo.target_name}}</span>
-          <span style="margin-top: 20px;margin-left: 10px">老师的状态：&ensp;{{ check }}</span>
-          <div v-if='targetInfo.target_agree === 2'>
+          <span style="margin-top: 10px;margin-left: 10px">老师的状态：&ensp;{{ check }}</span>
+          <div v-if='targetInfo.target_agree === 2' style='margin-left: 10px;margin-top: 10px'>
             <span v-if='targetInfo.admin_agree === 0' class='choInfo'>请填写表格，然后提交</span>
-            <div v-else>
+            <div v-else style='position:relative'>
               <span>管理员状态：</span><br />
-              <span v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
+              <span  v-if='targetInfo.admin_agree === 1' class='choInfo'>待处理</span>
               <span v-else-if='targetInfo.admin_agree === 2' class='choInfo'>同意了</span>
               <span v-else class='choInfo'>批驳了</span>
             </div>
           </div>
-          <div v-if="targetInfo.target_agree === 3" class='choInfo'>
-            <el-button type="info" style='display: block;margin: 10px' @click='reCho'>重新选择</el-button>
+          <div v-if="targetInfo.target_agree === 3 || targetInfo.target_agree===1" class='choInfo'>
+            <el-button type="info" style='display: block;margin-top: 12px;' @click='reCho'>重新选择</el-button>
           </div>
         </Card>
         <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
@@ -274,8 +274,9 @@ body {
   top: 17px;
 }
 .choInfo{
-  position: relative;
-  right: -80px;
+  position: absolute;
+  right: 190px;
+  top: 0px;
 }
 .finalTeacher{
   margin: 10px;

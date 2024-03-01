@@ -191,8 +191,9 @@ const Undo = (item:any) => {
 const approval  = (item: { student_id: any }) => {
    useRequest({
     data:{
-      students_id: [item.student_id],
-      check:1
+      students_id: item.student_id,
+      check:1,
+      reason_id: 0,
     },
     method: "POST",
     url: "/api/teacher/student/post",
@@ -214,7 +215,6 @@ const approval  = (item: { student_id: any }) => {
 const reject  = (item: { student_id: any }) => {
     showReason.value = true;
   rejectStudent_id.value = item.student_id
-
 }
 const  confirmReject = () => {
   useRequest({
