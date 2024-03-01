@@ -6,21 +6,12 @@
       </card>
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200" color="#d89dac"><ChatLineRound /></el-icon>
-        <div :class="styles['sug-body']">
-          <div>学生姓名</div>
-          <div>反馈内容</div>
-          <div>反馈时间</div>
-        </div>
-        <hr>
-        <div :key="sug.name" v-for="sug in sugData">
-          <div :class="styles['sug-body']">
-            <div>{{ sug.name === undefined ? "佚名" : sug.name }}</div>
-            <div>{{ sug.advice }}</div>
-            <div>{{ sug.created_time }}</div>
-          </div>
-          <hr>
-        </div>
-        <div v-if="sugData.length === 0">暂无数据</div>
+        <el-table v-model:data="sugData" :class="styles['sug-table']">
+          <el-table-column prop="name" label="name" width="180"/>
+          <el-table-column prop="created_time" label="created_time" />
+          <el-table-column prop="advice" label="advice" />
+        </el-table>
+        <el-pagination layout="prev, pager, next" :page-count="total_page_num" v-model:current-page="page_num" :class="styles['pagination']"/>
       </card>
     </div>
   </div>
@@ -33,29 +24,40 @@ import { jumpPage, isFadingOut } from "@/tool";
 import useRequest from "@/apis/useRequest";
 import { ElNotification } from "element-plus";
 import { useMainStore } from "@/stores";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 isFadingOut.value = false;
 
 const loginStore = useMainStore().useLoginStore();
 const sugData = ref();
+const page_num = ref(1);
+const total_page_num = ref();
 sugData.value = [];
 
-useRequest({
-  params: {
-    page_num: 1,
-    page_size: 30,
-  },
-  method: "GET",
-  url: "/api/admin/advice",
-  headers: { Authorization: loginStore.token },
-  onSuccess(response) {
-    console.log(response);
-    sugData.value = ("data" in response && "data" in response.data) ? response.data.data : [];
-  },
-  onError(error) {
-    console.log(error);
-    ElNotification("暂无数据 或 信息获取失败");
-  },
+const updateSugData = () => {
+  useRequest({
+    params: {
+      page_num: page_num.value,
+      page_size: 10,
+    },
+    method: "GET",
+    url: "/api/admin/advice",
+    headers: { Authorization: loginStore.token },
+    onSuccess(response) {
+      sugData.value = response.data.data.data;
+      total_page_num.value = response.data.data.total_page_num;
+      console.log(sugData.value);
+    },
+    onError(error) {
+      console.log(error);
+      ElNotification("暂无数据 或 信息获取失败");
+    },
+  });
+}
+
+updateSugData();
+
+watch(page_num, () => {
+  updateSugData();
 });
 
 </script>
