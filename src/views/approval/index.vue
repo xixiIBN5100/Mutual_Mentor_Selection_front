@@ -24,13 +24,12 @@
               <div style="display: flex;width: 20vw;justify-content: space-between;"> <dark-button @click="information(item)" inner="查看" size="small" color="blue" ></dark-button>
                 <dark-button @click="() => approval(item)" inner="同意" size="small" color="green" ></dark-button>
                 <dark-button @click="() => reject(item)" inner="驳回" size="small" color="red" ></dark-button>
-                
               </div>
             </p>
           </el-scrollbar>
         </card>
         <card
-          :title="'已审批学生'"
+          title="已审批学生"
           :bold-title="true"
           :class="styles.finishApproval"
           :is-fading-out="isFadingOut"
@@ -41,6 +40,21 @@
             </p>
           </el-scrollbar>
         </card>
+        <el-dialog
+            v-model="showReason"
+            title="请给出驳回理由"
+            width="500"
+        >
+          <el-input v-model="reason" placeholder="Please input" />
+          <template #footer>
+            <div class="dialog-footer">
+              <el-button @click="showReason = false">取消</el-button>
+              <el-button type="primary" @click="showReason = false">
+                确认
+              </el-button>
+            </div>
+          </template>
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -57,9 +71,11 @@ import useRequest from '@/apis/useRequest'
 import { ElNotification } from 'element-plus'
 
 isFadingOut.value = false
-
+const reason = ref();
 const waitApproval = ref();
 const finishApproval = ref();
+const showReason = ref(false);
+const rejectStudent_id = ref();
 const loginStore = useMainStore().useLoginStore()
   useRequest({
     params: {check:1},
@@ -196,9 +212,14 @@ const approval  = (item: { student_id: any }) => {
 }
 
 const reject  = (item: { student_id: any }) => {
-   useRequest({
+    showReason.value = true;
+  rejectStudent_id.value = item.student_id
+
+}
+const  confirmReject = () => {
+  useRequest({
     data:{
-      students_id: [item.student_id],
+      students_id: [rejectStudent_id.value],
       check:2
     },
     onBefore: () => startLoading(),
