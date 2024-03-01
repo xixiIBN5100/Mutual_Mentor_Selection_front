@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
+<<<<<<< HEAD
 import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion, avatar, checkFinishedApproval, checkWaitApproval, resetUserPass,} from "@/views";
+=======
+import { Login, Home, Approval, EditInfo, passwordChange, suggestionSubmit,studentInfo, TeacherList, FirstCho, reasonBase, suggestionFeedback, teacherSetTime, adminSetTime, secondCho, finalStu, chat, finishedSuggestion, avatar, checkFinishedApproval, checkWaitApproval,adminDeleteChoice} from "@/views";
+>>>>>>> 0795afa23bf27b99e8bc25e32e783e6ad8e98db2
 import pinia from "@/stores/creatPinia";
 import useLoginStore from "@/stores/service/loginStore";
 import useUserStore from "@/stores/service/userStore";
@@ -114,7 +118,12 @@ const routes = createRouter({
       path: "/resetUserPass",
       name: "resetUserPass",
       component: resetUserPass,
-    }
+    },
+    {
+      path: "/adminDeleteChoice",
+      name: "adminDeleteChoice",
+      component: adminDeleteChoice,
+    },
   ]
 });
 

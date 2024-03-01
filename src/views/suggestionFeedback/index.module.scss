@@ -35,13 +35,9 @@
 		overflow: hidden;
 		padding: 30px;
 
-		.sug-body {
-			display: flex;
-			flex-direction: row;
-			
-			div {
-				margin: 10px 30px;
-			}
+		.sug-table {
+			border-radius: 3px;
+			opacity: 80%;
 		}
 	}
 }
