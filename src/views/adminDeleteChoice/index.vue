@@ -38,6 +38,7 @@ import useRequest from "@/apis/useRequest";
 import {useMainStore} from "@/stores";
 const loginStore = useMainStore().useLoginStore()
 const student_id = ref<string>('');
+isFadingOut.value = false;
 const deleteChoice = () => {
   useRequest({
     data: {student_id: student_id.value},

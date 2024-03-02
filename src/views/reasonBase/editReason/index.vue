@@ -56,9 +56,12 @@ const newReason = () => {
     method: "POST",
     headers: { Authorization: loginStore.token },
     onSuccess(response) {
-      console.log(response);
-      ElNotification("成功添加理由");
-      emit("updateList", true);
+      if(response.data.code ===200) {
+        ElNotification("成功添加理由");
+        emit("updateList", true);
+      }else{
+        ElNotification.error(response.data.msg);
+      }
     },
     onError(error) {
       ElNotification("添加理由失败");
