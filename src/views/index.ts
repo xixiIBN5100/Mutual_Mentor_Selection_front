@@ -19,7 +19,7 @@ import finishedSuggestion from "./finishedSuggestion/index.vue";
 import checkFinishedApproval from "./checkFinishedApproval/index.vue";
 import checkWaitApproval from "./checkWaitApproval/index.vue";
 import adminDeleteChoice from "./adminDeleteChoice/index.vue";
-
+import resetUserPass from "./resetUserPass/index.vue"
 export {
   Login,
   Home,
@@ -41,5 +41,6 @@ export {
   finishedSuggestion,
   checkFinishedApproval,
   checkWaitApproval,
-  adminDeleteChoice
+  adminDeleteChoice,
+  resetUserPass,
 };
