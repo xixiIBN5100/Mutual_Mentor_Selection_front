@@ -112,15 +112,15 @@ const routes = createRouter({
       component: checkWaitApproval,
     },
     {
-      path: "/resetUserPass",
-      name: "resetUserPass",
-      component: resetUserPass,
-    },
-    {
       path: "/adminDeleteChoice",
       name: "adminDeleteChoice",
       component: adminDeleteChoice,
     },
+    {
+      path:"/resetUserPass",
+      name: "resetUserPass",
+      component: resetUserPass,
+    }
   ]
 });
 

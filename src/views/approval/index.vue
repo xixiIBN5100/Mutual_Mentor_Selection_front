@@ -2,10 +2,10 @@
   <div :class="styles.background">
     <div :class="styles.contain">
       <card
-        :title="'学生审批'"
-        :bold-title="true"
-        :class="styles.title"
-        :is-fading-out="isFadingOut"
+          :title="'学生审批'"
+          :bold-title="true"
+          :class="styles.title"
+          :is-fading-out="isFadingOut"
       >
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"
         ><Back
@@ -13,10 +13,10 @@
       </card>
       <div :class="styles.approvalContain">
         <card
-          :title="'待审批学生'"
-          :bold-title="true"
-          :class="styles.waitApproval"
-          :is-fading-out="isFadingOut"
+            :title="'待审批学生'"
+            :bold-title="true"
+            :class="styles.waitApproval"
+            :is-fading-out="isFadingOut"
         >
           <div style="display: flex;justify-content: space-evenly;width: 50%;margin-left: 17vw;margin-top: -40px;position: relative;top: 10px">
             <span>
@@ -29,19 +29,19 @@
           <el-scrollbar height="50vh" :class="styles.waitStudentBox">
             <p v-for="item in waitApproval" :key="item.student_id" :class="styles.student">
               <el-checkbox  size="large" @change="toggleSelectedStudent(item.student_id)"></el-checkbox>{{ item.name }}
-            <div style="display: flex;width: 20vw;justify-content: space-between;">
-              <dark-button @click="() => viewStudentInfo(item)" inner="查看" size="small" color="blue"></dark-button>
-              <dark-button @click="() => approve(item)" inner="同意" size="small" color="green"></dark-button>
-              <dark-button @click="() => reject(item)" inner="驳回" size="small" color="red"></dark-button>
-            </div>
+              <div style="display: flex;width: 20vw;justify-content: space-between;">
+                <dark-button @click="() => viewStudentInfo(item)" inner="查看" size="small" color="blue"></dark-button>
+                <dark-button @click="() => approve(item)" inner="同意" size="small" color="green"></dark-button>
+                <dark-button @click="() => reject(item)" inner="驳回" size="small" color="red"></dark-button>
+              </div>
             </p>
           </el-scrollbar>
         </card>
         <card
-          title="已审批学生"
-          :bold-title="true"
-          :class="styles.finishApproval"
-          :is-fading-out="isFadingOut"
+            title="已审批学生"
+            :bold-title="true"
+            :class="styles.finishApproval"
+            :is-fading-out="isFadingOut"
         >
           <el-scrollbar height="50vh" :class="styles.waitStudentBox">
             <p v-for="item in finishApproval" :key="item.student_id" :class="styles.student">
@@ -252,10 +252,10 @@ const confirmReject = () => {
   }
   if (content.value !== '') {
     const selectedItem = reason.value?.find((item) =>{
-        if(item.reason_content === content.value) {
-          return item.id;
-        }
-      })
+          if(item.reason_content === content.value) {
+            return item.id;
+          }
+        })
     ;
     if (selectedItem) {
       rejectReasonid.value = selectedItem.id;
@@ -333,10 +333,10 @@ const batchApprove = () => {
 const batchReject = () => {
   if (content.value !== '') {
     const selectedItem = reason.value?.find((item) =>{
-        if(item.reason_content === content.value) {
-          return item.id;
-        }
-      })
+          if(item.reason_content === content.value) {
+            return item.id;
+          }
+        })
     ;
     if (selectedItem) {
       rejectReasonid.value = selectedItem.id;
@@ -383,3 +383,4 @@ const viewStudentInfo = (item: any) => {
   jumpPage('/studentInfo');
 }
 </script>
+
