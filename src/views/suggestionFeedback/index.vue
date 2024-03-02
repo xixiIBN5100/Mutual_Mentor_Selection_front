@@ -44,8 +44,12 @@ const updateSugData = () => {
     headers: { Authorization: loginStore.token },
     onSuccess(response) {
       sugData.value = response.data.data.data;
+      for(let i in sugData.value){
+        // console.log(sugData.value[i].created_time);
+        sugData.value[i].created_time = sugData.value[i].created_time.substring(0,4)+"年"+sugData.value[i].created_time.substring(5,7)+"月"+sugData.value[i].created_time.substring(8,10)+"日"+sugData.value[i].created_time.substring(11,19);
+      }
       total_page_num.value = response.data.data.total_page_num;
-      console.log(sugData.value);
+      // console.log(sugData.value);
     },
     onError(error) {
       console.log(error);
