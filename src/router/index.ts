@@ -120,7 +120,7 @@ const routes = createRouter({
       path:"/resetUserPass",
       name: "resetUserPass",
       component: resetUserPass,
-    }
+    },
   ]
 });
 
