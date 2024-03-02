@@ -79,7 +79,6 @@
         <hyperlinks @click="() => jumpPage('/password')" color="yellow">修改密码</hyperlinks>
         <hyperlinks @click="() => jumpPage('/reasonBase')" color="yellow">管理理由库</hyperlinks>
         <hyperlinks @click="() => jumpPage('/adminSetTime')" color='yellow'>设置两轮选择的截止时间</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/resetUserPass')" color='yellow'>重置用户密码</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.communication]" title="沟通" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><ChatLineRound /></el-icon>
