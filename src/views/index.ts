@@ -18,7 +18,7 @@ import avatar from "./avatar/index.vue";
 import finishedSuggestion from "./finishedSuggestion/index.vue";
 import checkFinishedApproval from "./checkFinishedApproval/index.vue";
 import checkWaitApproval from "./checkWaitApproval/index.vue";
-import resetUserPass from "./resetUserPass/index.vue";
+import adminDeleteChoice from "./adminDeleteChoice/index.vue";
 
 export {
   Login,
@@ -41,5 +41,5 @@ export {
   finishedSuggestion,
   checkFinishedApproval,
   checkWaitApproval,
-  resetUserPass,
+  adminDeleteChoice
 };

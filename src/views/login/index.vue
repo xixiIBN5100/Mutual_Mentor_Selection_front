@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import "./index.scss";
 import router from "@/router";
-import { ref , computed , watch} from "vue";
+import {ref, computed, watch, onMounted} from "vue";
 import { startLoading, closeLoading, jumpPage } from "@/tool";
 import useRequest from "@/apis/useRequest";
 import { loginAPI } from "@/apis/index";
@@ -45,7 +45,12 @@ const type = computed(() => {
       return 1;
   }
 });
-
+onMounted(() =>{
+  ElNotification({
+    title: '有关开发者',
+    message: ('本项目由\n🔥0\n,\nRosyr\n,\nPenryn\n,\n孤雁凉梦\n,\n浅浅＆勿念\n联合开发'),
+  })
+})
 const form = ref({
   username: "",
   password: "",
@@ -55,6 +60,7 @@ const form = ref({
 watch(type, (newValue) => {
   form.value.type = newValue;
 });
+
 
 const login = async () => {
   startLoading();

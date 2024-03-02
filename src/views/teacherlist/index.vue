@@ -96,7 +96,7 @@ const handleCurrentChange = async (val: number) => {
 
 const goChat = (teacherId: number, teacherName: string) => {
   temporaryStore.setIsLaunchChat(true);
-  temporaryStore.setLaunchedChatTeacherId(teacherId);
+  temporaryStore.setLaunchedChatTeacherId(teacherId+1);
   temporaryStore.setLaunchedChatTeacherName(teacherName);
   jumpPage("/chat");
 };
