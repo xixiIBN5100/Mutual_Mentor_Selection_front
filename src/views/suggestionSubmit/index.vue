@@ -4,18 +4,22 @@
       <card :class="styles['title-bar']" title="意见反馈" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
       </card>
-      <card :class="styles['info-editer']" title="填写意见"  :is-fading-out=isFadingOut>
+      <div style="display: flex;justify-content: center">
+      <card :class="styles['info-editer']" title="填写意见:"  :is-fading-out=isFadingOut style="margin-top: 5vh;height: 70vh;width: 80%;">
         <el-icon :class="styles['background-icon']" :size="200" color="#d89dac"><ChatLineRound /></el-icon>
+        <div style="display: flex;justify-content: center">
         <textarea :class="styles['Textarea-pink']" v-model="suggestion"></textarea>
+        </div>
         <div :class="styles['save-button']">
           <dark-button size="small" inner="提交意见" color="pink" @click="submitSuggestion"/>
           <Hyperlinks color="pink" @click="switchAnony">
-            匿名: 
+            匿名:
             <el-icon v-if="anony" :size="20"><Check /></el-icon>
             <el-icon v-else :size="20"><Close /></el-icon>
           </Hyperlinks>
         </div>
       </card>
+        </div>
     </div>
   </div>
 </template>
