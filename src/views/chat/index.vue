@@ -22,7 +22,7 @@
             </div>
           </div>
           <div :class="styles['msg-bar']">
-            <textarea :class="styles['Textarea-pink']" v-model="message"></textarea>
+            <textarea :class="styles['Textarea-pink']" v-model="message" @keyup.enter="sendMsg"></textarea>
             <DarkButton inner="发送消息" color="pink" @click="sendMsg"/>
           </div>
         </div>
@@ -87,12 +87,17 @@ const scrollDownChats = () => {
 const chooseChater = (id: number) => {
   curChaterId.value = id;
   receiveMsg(id);
-  scrollDownChats();
+  setTimeout(() => scrollDownChats(), 500);
+}
+
+const isEmpty = (text: string): boolean => {
+  return text == null || text.match(/^\s*$/) !== null;
 }
 
 const sendMsg = () => {
-  if(message.value === '' || message.value === undefined) {
+  if(isEmpty(message.value) || message.value === undefined) {
     ElNotification("发送内容不得为空");
+    message.value = "";
     return;
   }
   useRequest({
