@@ -32,10 +32,14 @@
 	}
 
 	.studentForm {
-		margin-top: 10vh;
+		margin-top: 20px;
 		overflow: hidden;
 		padding: 30px;
-		height: 60vh;
+		height: calc(100vh - 215px);
 		background-color: transparent;
+
+		.batch-button {
+			padding: 3px;
+		}
 	}
 }
