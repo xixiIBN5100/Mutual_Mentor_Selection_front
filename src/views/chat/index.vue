@@ -4,7 +4,7 @@
       <card :class="styles['title-bar']" title="我的私信" :bold-title="true" :is-fading-out=isFadingOut>
             <el-icon :class="styles['back-button']" :size="30" @click="back"><Back /></el-icon>
       </card>
-      <card :class="styles['chat-window']" :is-fading-out=isFadingOut>
+      <card :class="styles['chat-window']" :is-fading-out=isFadingOut v-if="chaterList.length > 0">
         <div :class="styles['chat-bar']">
           <div
           :class="[styles['chater'], ch[0] === curChaterId ? styles['chosen-chater'] : undefined]"
@@ -15,10 +15,10 @@
         </div>
         <div :class="styles['horizon']"></div>
         <div :class="styles['chat-body']" v-if="curChaterId != -1">
-          <div :class="styles['chats']">
+          <div :class="styles['chats']" id="chat-chats">
             <div v-for="msg in chatMsgList" :key="msg.index" :class="styles[msg.user_a_name === '' ? 'msg-div-front' : 'msg-div-me']">
-              <div :class="styles['msg-name']">{{ msg.user_a_name === "" ? msg.user_b_name : msg.user_a_name }}</div>
-              <div :class="styles['msg-message']">{{ msg.message }}</div>
+              <div :class="styles['msg-name']" v-if="msg.showName">{{ msg.user_a_name === "" ? msg.user_b_name : msg.user_a_name }}</div>
+              <div :class="[styles['msg-message'],styles[msg.showName ? '' : 'no-name']]">{{ msg.message }}</div>
             </div>
           </div>
           <div :class="styles['msg-bar']">
@@ -26,6 +26,10 @@
             <DarkButton inner="发送消息" color="pink" @click="sendMsg"/>
           </div>
         </div>
+      </card>
+      <card v-else :class="styles.warning" :is-fading-out=isFadingOut>
+        <div>暂无私信记录</div>
+        <div v-if="userStore.userIdentity === '学生'">请前往教师列表私聊教师</div>
       </card>
     </div>
   </div>
@@ -42,6 +46,7 @@ import { useMainStore } from "@/stores";
 isFadingOut.value = false;
 
 const loginStore = useMainStore().useLoginStore();
+const userStore = useMainStore().useUserStore();
 const temporaryStore = useMainStore().usetemporaryStore();
 const chatStore = useMainStore().useChatStore();
 const chaterList = ref(chatStore.chatObjects);
@@ -74,12 +79,22 @@ const curChaterId = ref(-1);
 const message = ref("");
 const chatMsgList = ref();
 
+const scrollDownChats = () => {
+  let divEle = document.getElementById("chat-chats") as any;
+  divEle.scrollTop = divEle.scrollHeight;
+}
+
 const chooseChater = (id: number) => {
   curChaterId.value = id;
   receiveMsg(id);
+  scrollDownChats();
 }
 
 const sendMsg = () => {
+  if(message.value === '' || message.value === undefined) {
+    ElNotification("发送内容不得为空");
+    return;
+  }
   useRequest({
     data: {
       user_b_id: curChaterId.value,
@@ -90,7 +105,6 @@ const sendMsg = () => {
     headers: { Authorization: loginStore.token },
     onSuccess(data) {
       console.log(data);
-      // ElNotification("私信发送成功");
       message.value = "";
     },
     onError(error) {
@@ -98,7 +112,7 @@ const sendMsg = () => {
       ElNotification("私信发送失败");
     },
   });
-  setTimeout(() => receiveMsg(curChaterId.value), 500);
+  setTimeout(() => {receiveMsg(curChaterId.value);scrollDownChats();}, 500);
   //给服务器喘息的时间
 }
 
@@ -113,6 +127,15 @@ const receiveMsg = (id: number) => {
     onSuccess(response) {
       const resData = response.data.data;
       chatMsgList.value = resData;
+      if(resData.length>0){
+        chatMsgList.value[0].showName = true;
+        for(let i=1; i<resData.length; i++)
+        if(resData[i-1].user_a_name === resData[i].user_b_name || resData[i].user_a_name === resData[i-1].user_b_name){
+          chatMsgList.value[i].showName = true;
+        } else {
+          chatMsgList.value[i].showName = false;
+        }
+      }
     },
     onError(error) {
       console.log(error);
