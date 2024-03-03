@@ -31,7 +31,7 @@
             v-model:page-size="pageSize"
             :disabled="false"
             layout="total, prev, pager, next, jumper"
-            :total="total ? total*6 : 0"
+            :total="total ? total : 0"
             :size='6'
             @current-change="handleCurrentChange"
           />
@@ -60,7 +60,7 @@ const token = loginStore.token;
 const currentPage = ref<number>(1);
 const pageSize = ref<number>(6);
 const datas = ref();
-const total = ref<number>();
+const total = ref<number>(0);
 const loading = ref<boolean>(false);
 const name = ref<string>("");
 const Search = ref<string>("in");
@@ -75,7 +75,8 @@ const handleCurrentChange = async (val: number) => {
   useRequest({
     params: {
       page_num:currentPage.value,
-      page_size:pageSize.value
+      page_size:pageSize.value,
+      name: name.value,
     },
     method: "GET",
     url: "/api/student/teacher",
@@ -83,10 +84,10 @@ const handleCurrentChange = async (val: number) => {
     onSuccess(res) {
       if(res.data.code === 200){
         datas.value = res.data.data.data;
-        total.value = res.data.data.total_page_num;
         for(let i in datas.value){
           datas.value[i].teacher_ddl = datas.value[i].teacher_ddl.substring(0,4)+"年"+datas.value[i].teacher_ddl.substring(5,7)+"月"+datas.value[i].teacher_ddl.substring(8,10)+"日"+datas.value[i].teacher_ddl.substring(11,19);
         }
+        total.value = res.data.data.teacher_num;
         loading.value = false;
       }else{
         ElNotification({
@@ -110,6 +111,7 @@ const goChat = (teacherId: number, teacherName: string) => {
 };
 
 const search =async () =>{
+  currentPage.value = 1;
   let search_params = ref({
     page_num:currentPage.value,
     page_size:pageSize.value,
@@ -118,7 +120,7 @@ const search =async () =>{
   await getTeacherInfo.getInfo(search_params.value,token).then((res)=>{
     if(res.data.code === 200){
       datas.value = res.data.data.data;
-      total.value = res.data.data.total_page_num;
+      total.value = res.data.data.teacher_num;
       for(let i in datas.value){
         datas.value[i].teacher_ddl = datas.value[i].teacher_ddl.substring(0,4)+"年"+datas.value[i].teacher_ddl.substring(5,7)+"月"+datas.value[i].teacher_ddl.substring(8,10)+"日"+datas.value[i].teacher_ddl.substring(11,19);
       }
