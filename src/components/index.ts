@@ -5,5 +5,5 @@ import Hyperlinks from "./Hyperlinks/index.vue";
 export {
   Card,
   DarkButton,
-  Hyperlinks
+  Hyperlinks,
 };

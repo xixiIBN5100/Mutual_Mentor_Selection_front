@@ -7,7 +7,7 @@
         :isFadingOut = "isFadingOut"
       >
         <el-icon :size="30" class='back' @click='back'><Back /></el-icon>
-        <span>总截止时间：{{adminTime}}</span>
+        <span style="margin-left: 12px">总截止时间：{{adminTime}}</span>
       </Card>
       <div style="display: flex; justify-content:space-around;">
       <div v-if='targetInfo.teacher_name!=="无"'>
@@ -17,8 +17,10 @@
       </div>
       <div v-else>
         <Card v-show='targetInfo.target_name==="无"' :class='styles["info-card"]' title='选择老师' :isFadingOut='isFadingOut'>
-          <el-input v-model="input" placeholder="请输入想选择的教师的ID" />
-          <div style='margin: 10px'>
+          <div style="display:flex;justify-content: center">
+          <el-input style="margin-top: 25px;width: 20vw" v-model="input"  placeholder="请输入想选择的教师的ID" />
+          </div>
+          <div style='margin-top: 28px;display: flex;justify-content: center'>
             <el-button type="info" @click='choice'>选择</el-button>
           </div>
         </Card>
@@ -35,7 +37,9 @@
             </div>
           </div>
           <div v-if="targetInfo.target_agree === 3 || targetInfo.target_agree===1 " class='choInfo'>
+            <div style="display: flex;justify-content: center;margin-top: 12px;">
             <el-button type="info" style='display: block;margin-top: 12px;' @click='reCho'>重新选择</el-button>
+            </div>
           </div>
         </Card>
         <Card :class='styles["info-card"]' title='提示：' :isFadingOut='isFadingOut'>
