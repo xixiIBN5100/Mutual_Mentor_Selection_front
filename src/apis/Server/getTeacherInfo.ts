@@ -4,6 +4,7 @@ export default class getTeacherInfo {
   static async getInfo(params: {
     page_num: number,
     page_size: number,
+    name?: string,
   },token:string){
     return request({
       headers:{
