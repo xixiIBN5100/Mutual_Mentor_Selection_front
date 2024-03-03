@@ -94,7 +94,8 @@ const manageStudentId = ref();
 const isBatch = ref(false);
 const multipleSelection = ref([]);
 
-useRequest({
+const updateCheck = () => {
+  useRequest({
     params: {check:1},
     method: "GET",
     url: "/api/admin/check",
@@ -109,8 +110,10 @@ useRequest({
       console.log(error);
     },
     onFinally: () => closeLoading()
-});
-const search = ref("")
+  });
+}
+updateCheck();
+const search = ref("");
 const filterTableData = computed(() =>
   studentForm.value.filter(
     (data: { student_id: string | string[]; }) =>
@@ -167,7 +170,7 @@ const cancelManage = () => {
 
 const singleManage = (check: number) => {
   let stuIdList = [];
-  if(isBatch){
+  if(isBatch.value){
     stuIdList = multipleSelection.value;
   } else {
     stuIdList.push(manageStudentId.value);
@@ -188,7 +191,7 @@ const singleManage = (check: number) => {
       if(res.data.code === 200) {
         ElNotification("审批成功");
       } else {
-        ElNotification("审批失败 / 系统错误");
+        ElNotification(res.data.msg);
       }
     },
     onError(error) {
@@ -200,6 +203,7 @@ const singleManage = (check: number) => {
   showRefuseModal.value = false;
   isBatch.value = false;
   multipleSelection.value = [];
+  setTimeout(updateCheck(), 2000);
 }
 
 const handleSelectionChange = (val: user[]) => {
