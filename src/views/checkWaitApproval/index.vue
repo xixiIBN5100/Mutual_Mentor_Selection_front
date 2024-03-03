@@ -9,7 +9,7 @@
       >
         <el-icon :class="styles.backButton" :size="30" @click="() => jumpPage('/home')"><Back/></el-icon>
       </card>
-      <card :is-fading-out="isFadingOut" :class="styles.studentForm" v-if="studentForm">
+      <card :is-fading-out="isFadingOut" :class="styles.studentForm" v-if="studentForm" style="margin-top: 8vh;height: 60vh">
         <div :class="styles['batch-button']">
             <el-button size="small" @click="isBatch = true" v-if="!isBatch">批量审核</el-button>
             <el-button size="small" @click="isBatch = false" v-if="isBatch">取消批量审核</el-button>
@@ -18,8 +18,9 @@
         <el-table
         :data="filterTableData"
         @selection-change="handleSelectionChange"
-        style="width: 100%;border-radius: 10px;"
+        style="width: 100%;border-radius: 10px;margin-top: 20px"
         table-layout="auto"
+
         >
           <el-table-column type="selection" width="55" v-if="isBatch"/>
           <el-table-column label="姓名" prop="name" />
@@ -40,15 +41,19 @@
   <el-dialog
   v-model="showModal"
   title="审核"
+  width="500px"
+  style="padding: 30px"
   >
     <template #footer>
+      <div style="display: flex;justify-content: space-evenly">
       <el-button @click="() => singleManage(1)">审核通过</el-button>
       <el-button @click="showRefuseModal = true">审核拒绝</el-button>
       <el-button @click="cancelManage">取消</el-button>
+      </div>
     </template>
-    <el-dialog v-model="showRefuseModal" title="审核拒绝">
-      <div>理由:</div>
-      <el-select placeholder="选择理由库中的理由" v-model="chosenReasonId">
+    <el-dialog v-model="showRefuseModal" title="审核拒绝" style="padding: 30px">
+      <div style="display: flex;justify-content: center">
+      <el-select placeholder="选择理由库中的理由" v-model="chosenReasonId" style="margin-top: 20px;width: 60%">
         <el-option
         v-for="reason in reasonData"
         :key="reason.id"
@@ -60,9 +65,12 @@
           </el-tooltip>
         </el-option>
       </el-select>
+      </div>
       <template #footer>
+        <div style="display: flex;justify-content: space-evenly;margin-top: 20px">
         <el-button @click="() => singleManage(2)" :disabled="!chosenReasonId">确认</el-button>
         <el-button @click="showRefuseModal = false">取消</el-button>
+        </div>
       </template>
     </el-dialog>
   </el-dialog>
@@ -156,6 +164,7 @@ const check = (rowData: { student_id: any; }) => {
     },
     onFinally: () => closeLoading()
   });
+  updateCheck();
 }
 
 const manage = (rowData: { student_id: any; }) => {
@@ -203,7 +212,7 @@ const singleManage = (check: number) => {
   showRefuseModal.value = false;
   isBatch.value = false;
   multipleSelection.value = [];
-  setTimeout(updateCheck(), 2000);
+  setTimeout(() =>updateCheck(), 800);
 }
 
 const handleSelectionChange = (val: user[]) => {

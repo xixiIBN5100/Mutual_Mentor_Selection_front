@@ -4,8 +4,9 @@
       <Card :class="styles['title-bar']" title='重置用户密码' :boldTitle='true' :isFadingOut='isFadingOut'>
         <el-icon @click='back' class='back' size='30'><Back /></el-icon>
       </Card>
-      <Card :class='styles["info-card"]' :isFadingOut='isFadingOut'>
-        <el-table :data="filterTableData" style="width: 100%">
+      <div style="display: flex;justify-content: center">
+      <Card :class='styles["info-card"]' :isFadingOut='isFadingOut' style="background: transparent;padding: 30px;height: 65vh;margin-top: 8vh">
+        <el-table :data="filterTableData" style="border-radius: 10px">
           <el-table-column label="用户名" prop="username" />
           <el-table-column label="用户类型" prop="type" />
           <el-table-column align="right">
@@ -18,7 +19,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class='pagin'>
+        <div style="display:flex;justify-content: center;margin-top: 20px">
           <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
@@ -29,6 +30,7 @@
           />
         </div>
       </Card>
+      </div>
     </div>
   </div>
 </template>
@@ -147,9 +149,5 @@ const back = () => {
   top: 17px;
   right: 20px;
 }
-.pagin{
-  position: absolute;
-  bottom: 2px;
-  right: 450px;
-}
+
 </style>

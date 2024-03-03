@@ -11,7 +11,7 @@
       <div class="text">Login</div>
       <input type="text" class="username" placeholder="username" v-model='form.username' />
       <input type="password" class="password" placeholder="password" v-model='form.password'/>
-      <button class="loginButton" v-on:click='login'>Go</button>
+      <button class="loginButton" v-on:click='login' >Go</button>
       <div class="switchBox">
         <div class="switch1" @click="setIdentity('teacher')">我是{{ type_ === 'teacher' ? '学生' : '老师' }}</div>
         <div class="switch2" @click="setIdentity('administrator')">我是{{ type_ === 'administrator' ? '学生' : '管理员' }}</div>
@@ -48,7 +48,7 @@ const type = computed(() => {
 onMounted(() =>{
   ElNotification({
     title: '有关开发者',
-    message: ('本项目由\n🔥0\n,\nRosyr\n,\nPenryn\n,\n孤雁凉梦\n,\n浅浅＆勿念\n联合开发'),
+    message: ('本项目由\n早C晚A组员\n联合开发'),
   })
 })
 const form = ref({
