@@ -7,9 +7,14 @@
         :class="styles.titleBar"
         :is-fading-out="isFadingOut"
       >
+          <el-button style="position: absolute;
+			top: 14px;
+			left: 125px;
+    " @click="pushPage">查看未审批学生</el-button>
         <el-icon :class="styles.backButton" :size="30" @click="() => jumpPage('/home')"
           ><Back
         /></el-icon>
+
       </card>
       <card :is-fading-out="isFadingOut" :class="styles.studentForm" v-if="studentForm">
         <el-table :data="filterTableData" style="width: 100%;border-radius: 10px;" >
@@ -121,5 +126,8 @@ const check = (rowData: { student_id: any; }) => {
     onFinally: () => closeLoading()
   });
 
+}
+const pushPage = () => {
+  jumpPage("/checkWaitApproval")
 }
 </script>

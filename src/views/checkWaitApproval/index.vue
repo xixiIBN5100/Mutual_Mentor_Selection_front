@@ -2,11 +2,14 @@
   <div :class="styles.background">
     <div :class="styles.contain">
       <card
-      :title="'未通过审批学生'"
+      :title="'未审批学生'"
       :bold-title="true"
       :class="styles.titleBar"
       :is-fading-out="isFadingOut"
-      >
+      ><el-button style="position: absolute;
+			top: 14px;
+			left: 125px;
+    " @click="pushPage">查看已审批学生</el-button>
         <el-icon :class="styles.backButton" :size="30" @click="() => jumpPage('/home')"><Back/></el-icon>
       </card>
       <card :is-fading-out="isFadingOut" :class="styles.studentForm" v-if="studentForm" style="margin-top: 8vh;height: 60vh">
@@ -231,5 +234,8 @@ const batchManage = () => {
     showModal.value = true;
   }
 };
+const pushPage = () => {
+  jumpPage("/checkFinishedApproval")
+}
 
 </script>

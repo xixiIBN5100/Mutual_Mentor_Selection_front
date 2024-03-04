@@ -7,9 +7,9 @@
       <card :class="styles['info-editer']" :is-fading-out=isFadingOut style="margin-top: 10vh;background: transparent;">
         <el-icon :class="styles['background-icon']" :size="200" color="#d89dac"><ChatLineRound /></el-icon>
         <el-table style="border-radius: 20px;height: 45vh" v-model:data="sugData" :class="styles['sug-table']" >
-          <el-table-column prop="name" label="name" width="180"/>
-          <el-table-column prop="created_time" label="created_time" />
-          <el-table-column prop="advice" label="advice" />
+          <el-table-column prop="name" label="姓名" width="180"/>
+          <el-table-column prop="created_time" label="反馈时间" />
+          <el-table-column prop="advice" label="意见" />
         </el-table>
         <el-pagination style="margin-top: 20px" layout="prev, pager, next" :page-count="total_page_num" v-model:current-page="page_num" :class="styles['pagination']"/>
       </card>
