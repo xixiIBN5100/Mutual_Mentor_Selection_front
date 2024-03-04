@@ -25,7 +25,7 @@
             v-model:page-size="pageSize"
             :disabled="false"
             layout="total, prev, pager, next, jumper"
-            :total="total ? total*10 : 0"
+            :total="total ? total : 0"
             @current-change="handleCurrentChange"
           />
         </div>
@@ -44,6 +44,7 @@ import resetUserPass from '@/apis/Server/resetUserPass';
 import { useMainStore } from '@/stores'
 import useLoginStore from '@/stores/service/loginStore'
 import { ElNotification } from 'element-plus';
+
 const pageSize = ref<number>(10);
 const loginStore = useMainStore().useLoginStore();
 const token = loginStore.token;
@@ -52,18 +53,22 @@ const isFadingOut = ref<boolean>(false);
 const loading = ref<boolean>(false);
 const currentPage = ref<number>(1);
 const total = ref(0);
+
 const params = ref({
   page_num:String(currentPage.value),
   page_size:String(pageSize.value),
+  user_name:String(user_name.value),
 })
 const filterTableData = ref<any>();
+
 const getInfo = async (params) =>{
+  params.value.user_name = user_name.value;
   loading.value = true;
   await resetUserPass.getUserInfo(params.value,token).then((res)=>{
     // console.log(res.data.code);
     if(res.data.code === 200){
       filterTableData.value = res.data.data.data;
-      total.value = res.data.data.total_page_num;
+      total.value = res.data.data.user_num;
       // console.log(info.value);
       for(let i in filterTableData.value){
         if(filterTableData.value[i].type === 3){
@@ -94,20 +99,18 @@ const getInfo = async (params) =>{
 onBeforeMount(async ()=>{
   getInfo(params);
 })
+
 const search = () => {
-  const search_param = ref({
-    page_num: params.value.page_num,
-    page_size: params.value.page_size,
-    user_name: user_name.value,
-  })
-  getInfo(search_param);
+  getInfo(params);
 }
+
 const handleCurrentChange = (pa) => {
   currentPage.value = pa;
   // console.log(currentPage.value);
   params.value.page_num = String(pa);
   getInfo(params);
 }
+
 const reset =async (index:number,row) => {
   // console.log(index,row);
   // console.log(filterTableData.value[index].id)
