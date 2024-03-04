@@ -4,7 +4,7 @@ export default class resetUserPass{
   static async getUserInfo(params:{
     page_num:string,
     page_size:string,
-    user_name:string,
+    user_name?:string,
   },token:string){
     return request({
       headers: {
