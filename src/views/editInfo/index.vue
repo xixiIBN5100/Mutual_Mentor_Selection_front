@@ -2,7 +2,7 @@
   <div :class="styles.background">
     <div :class="styles.contain">
       <card :class="styles['title-bar']" title="学生个人信息编辑" :bold-title="true" :is-fading-out=isFadingOut>
-        <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/home')"><Back /></el-icon>
+        <el-icon :class="styles['back-button']" :size="30" @click="back"><Back /></el-icon>
       </card>
       <div style="display: flex;justify-content: center;margin-top: 10vh">
       <card :class="styles['info-editer']" title="信息编辑" :is-fading-out=isFadingOut>
@@ -38,7 +38,7 @@ import { Card, DarkButton } from "@/components/index";
 import { jumpPage, isFadingOut } from "@/tool";
 import { ref } from "vue";
 import { useMainStore } from "@/stores";
-import { ElNotification } from "element-plus";
+import { ElNotification, ElMessage, ElMessageBox } from "element-plus";
 import useRequest from "@/apis/useRequest";
 isFadingOut.value = false;
 
@@ -89,15 +89,34 @@ const saveData = () => {
     method: "PUT",
     url: "/api/student/info",
     headers: { Authorization: loginStore.token },
-    onSuccess() {
-      ElNotification("信息更改成功");
-      jumpPage("/home");
+    onSuccess(res) {
+      console.log(res);
+      if(res.data.code === 200) {
+        ElNotification("信息更改成功");
+        jumpPage("/home");
+      } else {
+        ElNotification(res.data.msg);
+      }
     },
     onError(error) {
         console.log(error);
         ElNotification("信息更改失败");
     },
   });
+}
+
+const back = () => {
+  ElMessageBox.confirm(
+    '确认要退出？ 更改将不会被保存',
+    'Warning',
+    {
+      confirmButtonText: '确认退出',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  ).then(() => {
+    jumpPage("/home");
+  }).catch(()=>{});
 }
 
 </script>
