@@ -10,7 +10,7 @@
     <div :class="{ 'glass': true, 'fadeOutAndIn': isFadingOut }">
       <div class="text">Login</div>
       <input type="text" class="username" placeholder="username" v-model='form.username' />
-      <input type="password" class="password" placeholder="password" v-model='form.password'/>
+      <input type="password" class="password" placeholder="password" v-model='form.password' @keyup.enter="login"/>
       <button class="loginButton" v-on:click='login' >Go</button>
       <div class="switchBox">
         <div class="switch1" @click="setIdentity('teacher')">我是{{ type_ === 'teacher' ? '学生' : '老师' }}</div>

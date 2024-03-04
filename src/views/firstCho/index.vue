@@ -21,7 +21,7 @@
           <el-input style="margin-top: 25px;width: 20vw" v-model="input"  placeholder="请输入想选择的教师的ID" />
           </div>
           <div style='margin-top: 28px;display: flex;justify-content: center'>
-            <el-button type="info" @click='choice'>选择</el-button>
+            <el-button type="info" @click='confirmChoice'>选择</el-button>
           </div>
         </Card>
         <Card v-show='targetInfo.target_name !=="无"' :class='styles["info-card"]' title='选择信息' :isFadingOut='isFadingOut'>
@@ -56,6 +56,21 @@
         </Card>
       </div>
       </div>
+      <el-dialog
+          v-model="showModleChoice"
+          title="确认选择"
+          width="500"
+      >
+        <span>确认你所选择的导师</span>
+        <template #footer>
+          <div class="dialog-footer">
+            <el-button @click="showModleChoice = false">Cancel</el-button>
+            <el-button type="primary" @click="choice">
+              Confirm
+            </el-button>
+          </div>
+        </template>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -84,6 +99,7 @@ const targetInfo = reactive({
 const loginStore = useMainStore().useLoginStore();
 const token = loginStore.token;
 const adminTime = ref<string>("");
+const showModleChoice = ref(false);
 const check = computed(() => {
   if(targetInfo.target_agree === 1){
     return "待处理"
@@ -135,6 +151,9 @@ const reCho = () => {
   targetInfo.target_name = "无";
 }
 
+const confirmChoice = () => {
+  showModleChoice.value = true
+}
 const choice = ()=>{
   if(input.value == undefined){
     ElNotification({
@@ -187,7 +206,8 @@ const choice = ()=>{
       })
     }
   }
-}
+  showModleChoice.value = false
+ }
 
 const download = () => {
   let link = document.createElement('a')

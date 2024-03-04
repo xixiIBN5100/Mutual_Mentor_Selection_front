@@ -72,7 +72,6 @@
         <el-icon :class="styles['background-icon']" :size="200"><User /></el-icon>
         <hyperlinks @click="() => jumpPage('/checkFinishedApproval')" color="green">查看已审批学生</hyperlinks>
         <hyperlinks @click="() => jumpPage('/checkWaitApproval')" color="green">查看未审批学生</hyperlinks>
-        <hyperlinks @click="() => jumpPage('/adminDeleteChoice')" color="green">取消学生双向申请</hyperlinks>
       </card>
       <card :class="[styles['info-card'], styles.setting]" title="设置" :is-fading-out=isFadingOut>
         <el-icon :class="styles['background-icon']" :size="200"><Setting /></el-icon>

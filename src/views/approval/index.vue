@@ -208,7 +208,15 @@ const Undo = (item: any) => {
     manual: false,
     onBefore: () => startLoading(),
     onSuccess(data) {
-      ElNotification("撤销成功");
+      if(data.data.code === 200&&data.data.msg ===" OK") {
+        ElNotification.success("撤销成功");
+      }else{
+        ElNotification({
+          type:"error",
+          title: '撤回失败',
+          message: data.data.msg,
+        })
+      }
       updataList();
     },
     onError(error) {
