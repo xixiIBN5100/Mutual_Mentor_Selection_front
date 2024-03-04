@@ -4,30 +4,29 @@
       <card :class="styles['title-bar']" title="个人信息" :bold-title="true" :is-fading-out=isFadingOut>
         <el-icon :class="styles['back-button']" :size="30" @click="() => jumpPage('/approval')"><Back /></el-icon>
       </card>
-      <card  v-if="form" :class="styles.container" :is-fading-out=isFadingOut>
-        <div style="font-size:  1.3rem;margin-left: 4vw;">寸照:</div>
-        <img :src="form.avartar" style="width: 100px; height: auto;margin-left: 4vw;margin-top: 1vh;">
+      <div style="display: flex;justify-content: center">
+      <card  v-if="form" :class="styles.container" :is-fading-out=isFadingOut style="height: 60vh;width: 65%">
+        <img :src="form.avartar" style="width: 100px; height: auto;margin-left: 4vw;margin-top: 5vh;">
         <div style="display: flex;">
         <div :class="styles.form">
         <span :class="styles.info">姓名: {{ form.name }}</span>
         <span :class="styles.info">班级: {{ form.class }}</span>
         <span :class="styles.info">学号: {{ form.student_id }}</span>
         <span :class="styles.info">地址: {{ form.address }}</span>
+          <span :class="styles.info">项目实践经历: {{ form.experience }}</span>
+          <span :class="styles.info">个人专业研究兴趣方向: {{ form.interest }}</span>
+
         </div>
         <div :class="styles.form">
         <span :class="styles.info">邮箱: {{ form.email }}</span>
         <span :class="styles.info">电话: {{ form.phone }}</span>
         <span :class="styles.info">政治面貌: {{ form.political_status}}</span>
         <span :class="styles.info">职业方向: {{ form.plan }}</span>
+          <span :class="styles.info">个人荣誉: {{ form.honor }}</span>
         </div>
       </div>
-
-      <div :class="styles.form2">
-      <span :class="styles.info">项目实践经历:<br> &ensp;&ensp;&ensp;&ensp;{{ form.experience }}</span>
-        <span :class="styles.info">个人荣誉: <br> &ensp;&ensp;&ensp;&ensp;{{ form.honor }}</span>
-        <span :class="styles.info">个人专业研究兴趣方向: <br>&ensp;&ensp;&ensp;&ensp;{{ form.interest }}</span>
-      </div>
       </card>
+      </div>
     </div>
   </div>
 </template>

@@ -54,3 +54,17 @@
     display: flex;
     justify-content: center;
 }
+
+.info{
+    font-size: 1.3rem;
+    margin-left: 4vw;
+    margin-top: 20px;
+}
+
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /* 纵向排列 */
+    justify-content: flex-start; /* 沿主轴向左对齐 */
+
+}
