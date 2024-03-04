@@ -2,7 +2,7 @@
 <div :class="styles.background">
   <div :class="styles.contain">
     <card
-    :title="userStore.userIdentity + ' - 个人主页'"
+    :title="loginStore.homeTitle + ' - 个人主页'"
     :bold-title="true"
     :class="styles['title-bar']"
     :is-fading-out=isFadingOut
